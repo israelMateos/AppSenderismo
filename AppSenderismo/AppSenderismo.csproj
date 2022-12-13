@@ -7,4 +7,10 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Resource Include="Imagenes\icon_cross.png" />
+    <Resource Include="Imagenes\icon_globe.png" />
+    <Resource Include="Imagenes\icon_question_mark.png" />
+  </ItemGroup>
+
 </Project>
