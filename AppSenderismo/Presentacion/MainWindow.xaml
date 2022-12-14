@@ -25,17 +25,17 @@
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20,20,0,0">
                             <Image Source="\Imagenes\user_avatar.png" Width="103" Height="103"/>
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Última hora de acceso" Margin="0,54.5,0,0"/>
-                            <TextBox x:Name="txtFechaAcceso" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0"/>
+                            <TextBox x:Name="txtFechaAcceso" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" IsEnabled="False"/>
                         </StackPanel>
                         <StackPanel Margin="40,0,20,0" HorizontalAlignment="Left">
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Nombre y apellidos" Margin="0,20,0,0"/>
-                            <TextBox x:Name="txtNombreUsuario" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="200"/>
+                            <TextBox x:Name="txtNombreUsuario" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="200" IsEnabled="False"/>
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Correo electrónico" Margin="0,10,0,0"/>
-                            <TextBox x:Name="txtEmailUsuario" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0"/>
+                            <TextBox x:Name="txtEmailUsuario" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" IsEnabled="False"/>
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Número de teléfono" Margin="0,10,0,0"/>
-                            <TextBox x:Name="txtTlfnUsuario" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="100" HorizontalAlignment="Left"/>
+                            <TextBox x:Name="txtTlfnUsuario" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="100" HorizontalAlignment="Left" IsEnabled="False"/>
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="DNI" Margin="0,10,0,0"/>
-                            <TextBox x:Name="txtDniUsuario" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" HorizontalAlignment="Left" Width="100"/>
+                            <TextBox x:Name="txtDniUsuario" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" HorizontalAlignment="Left" Width="100" IsEnabled="False"/>
                         </StackPanel>
                     </DockPanel>
                 </Viewbox>
