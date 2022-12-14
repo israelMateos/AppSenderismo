@@ -13,4 +13,10 @@
     <Resource Include="Imagenes\icon_question_mark.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Page Update="Presentacion\MainWindow.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+  </ItemGroup>
+
 </Project>
