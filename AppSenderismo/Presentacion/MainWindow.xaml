@@ -6,53 +6,55 @@
         xmlns:local="clr-namespace:AppSenderismo"
         mc:Ignorable="d"
         Title="AppSenderismo" Height="450" Width="800">
-    <Grid Background="#FF2E2B2B">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="37*"/>
-            <RowDefinition Height="50*"/>
-            <RowDefinition Height="260*"/>
-            <RowDefinition Height="87*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="2*"/>
-        </Grid.ColumnDefinitions>
-        <Viewbox Grid.Row="2" Grid.Column="1"  Stretch="Uniform" Margin="0,2,0,0" >
-            <Border BorderThickness="1" BorderBrush="Black" Grid.Column="1" Grid.Row="1" Background="White">
-                <StackPanel Grid.Column="1" Grid.Row="1" Margin="20,20,20,20">
-                    <TextBox Text="AppSenderismo" FontFamily="Microsoft JhengHei UI Light" FontSize="20" HorizontalAlignment="Center" BorderThickness="0,0,0,0" IsHitTestVisible="False" IsTabStop="False"/>
-                    <TextBox Text="Usuario" FontFamily="Microsoft JhengHei UI Light" FontSize="14" Margin="0,20,0,0" BorderThickness="0,0,0,0" IsHitTestVisible="False" IsTabStop="False"/>
-                    <TextBox x:Name="TxtUsuario" FontFamily="Microsoft JhengHei UI Light" FontSize="14" CaretBrush="#FF1D1B1B" BorderThickness="0,0,0,1" Margin="0,5,0,0"/>
-                    <TextBox Text="Contraseña" FontFamily="Microsoft JhengHei UI Light" FontSize="14" BorderThickness="0,0,0,0" Margin="0,15,0,0" IsHitTestVisible="False" IsTabStop="False"/>
-                    <PasswordBox x:Name="TxtPass" FontFamily="Microsoft JhengHei UI Light" FontSize="14" CaretBrush="#FF1D1B1B" BorderThickness="0,0,0,1" Margin="0,5,0,0" PasswordChar="*"/>
-                    <TextBox x:Name="TxtIncorrecto" Text="Combinación usuario/contraseña incorrecta" FontFamily="Microsoft JhengHei UI Light" FontSize="12" BorderThickness="0,0,0,0" HorizontalContentAlignment="Center" Margin="0,5,0,0" Foreground="Red" Visibility="Hidden" IsTabStop="False"/>
-                    <Button x:Name="BtnLogin" Content="Iniciar sesión" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8,0,0" FontFamily="Microsoft JhengHei UI Light" FontSize="16" BorderThickness="0,0,0,0" Padding="12,12,12,12" UseLayoutRounding="False">
-                        <Button.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="5"/>
-                            </Style>
-                        </Button.Resources>
+    <TabControl>
+        <TabItem>
+            <Grid Background="#FF2E2B2B">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="36*"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="325*"/>
+                    <RowDefinition Height="56*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <DockPanel Grid.Column="1" LastChildFill="False" Grid.Row="2" Margin="20,20,20,20">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20.2,0,0">
+                        <Image Source="\Imagenes\user_avatar.png" Width="103" Height="103"/>
+                        <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Última hora de acceso" Margin="0,22,0,0"/>
+                        <TextBox x:Name="txtFechaAcceso" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0"/>
+                    </StackPanel>
+                    <StackPanel Margin="40,0,0,0">
+                        <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Nombre y apellidos" Margin="0,20,0,0"/>
+                        <TextBox x:Name="txtNombreUsuario" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="213"/>
+                        <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Correo electrónico" Margin="0,20,0,0"/>
+                        <TextBox x:Name="txtEmailUsuario" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0"/>
+                        <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Número de teléfono" Margin="0,20,0,0"/>
+                        <TextBox x:Name="txtTlfnUsuario" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0"/>
+                        <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="DNI" Margin="0,20,0,0"/>
+                        <TextBox x:Name="txtDniUsuario" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0"/>
+                    </StackPanel>
+                </DockPanel>
+                <DockPanel Grid.Column="2" HorizontalAlignment="Right" Margin="0,5,5,0" VerticalAlignment="Top" Height="20" Width="70">
+                    <Button x:Name="BtnIdioma" Margin="0,0,5,0">
+                        <StackPanel Width="16" Height="16">
+                            <Image Source="\Imagenes\icon_globe.png"/>
+                        </StackPanel>
                     </Button>
-                </StackPanel>
-            </Border>
-        </Viewbox>
-        <DockPanel Grid.Column="2" HorizontalAlignment="Right" Margin="0,5,5,5" VerticalAlignment="Top">
-            <Button x:Name="BtnIdioma" Margin="0,0,5,0">
-                <StackPanel Width="16" Height="16">
-                    <Image Source="\Imagenes\icon_globe.png"/>
-                </StackPanel>
-            </Button>
-            <Button x:Name="BtnAyuda" Margin="0,0,5,0">
-                <StackPanel Width="16" Height="16">
-                    <Image Source="\Imagenes\icon_question_mark.png"/>
-                </StackPanel>
-            </Button>
-            <Button x:Name="BtnSalir">
-                <StackPanel Width="16" Height="16">
-                    <Image Source="\Imagenes\icon_cross.png"/>
-                </StackPanel>
-            </Button>
-        </DockPanel>
-    </Grid>
+                    <Button x:Name="BtnAyuda" Margin="0,0,5,0">
+                        <StackPanel Width="16" Height="16">
+                            <Image Source="\Imagenes\icon_question_mark.png"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="BtnSalir">
+                        <StackPanel Width="16" Height="16">
+                            <Image Source="\Imagenes\icon_cross.png"/>
+                        </StackPanel>
+                    </Button>
+                </DockPanel>
+            </Grid>
+        </TabItem>
+    </TabControl>
 </Window>
