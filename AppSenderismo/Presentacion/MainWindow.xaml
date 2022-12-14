@@ -20,23 +20,25 @@
                     <ColumnDefinition Width="5*"/>
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
-                <DockPanel Grid.Column="1" LastChildFill="False" Grid.Row="2" Margin="20,20,20,20">
-                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20.2,0,0">
-                        <Image Source="\Imagenes\user_avatar.png" Width="103" Height="103"/>
-                        <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Última hora de acceso" Margin="0,22,0,0"/>
-                        <TextBox x:Name="txtFechaAcceso" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0"/>
-                    </StackPanel>
-                    <StackPanel Margin="40,0,0,0">
-                        <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Nombre y apellidos" Margin="0,20,0,0"/>
-                        <TextBox x:Name="txtNombreUsuario" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="213"/>
-                        <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Correo electrónico" Margin="0,20,0,0"/>
-                        <TextBox x:Name="txtEmailUsuario" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0"/>
-                        <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Número de teléfono" Margin="0,20,0,0"/>
-                        <TextBox x:Name="txtTlfnUsuario" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0"/>
-                        <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="DNI" Margin="0,20,0,0"/>
-                        <TextBox x:Name="txtDniUsuario" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0"/>
-                    </StackPanel>
-                </DockPanel>
+                <Viewbox Grid.Column="1" Grid.Row="2" Stretch="Uniform">
+                    <DockPanel Grid.Column="1" LastChildFill="False" Grid.Row="2" Background="White" Margin="-1,0,0,0" Height="241">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20,20,0,0">
+                            <Image Source="\Imagenes\user_avatar.png" Width="103" Height="103"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Última hora de acceso" Margin="0,54.5,0,0"/>
+                            <TextBox x:Name="txtFechaAcceso" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0"/>
+                        </StackPanel>
+                        <StackPanel Margin="40,0,20,0" HorizontalAlignment="Left">
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Nombre y apellidos" Margin="0,20,0,0"/>
+                            <TextBox x:Name="txtNombreUsuario" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="200"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Correo electrónico" Margin="0,10,0,0"/>
+                            <TextBox x:Name="txtEmailUsuario" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Número de teléfono" Margin="0,10,0,0"/>
+                            <TextBox x:Name="txtTlfnUsuario" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="100" HorizontalAlignment="Left"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="DNI" Margin="0,10,0,0"/>
+                            <TextBox x:Name="txtDniUsuario" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" HorizontalAlignment="Left" Width="100"/>
+                        </StackPanel>
+                    </DockPanel>
+                </Viewbox>
                 <DockPanel Grid.Column="2" HorizontalAlignment="Right" Margin="0,5,5,0" VerticalAlignment="Top" Height="20" Width="70">
                     <Button x:Name="BtnIdioma" Margin="0,0,5,0">
                         <StackPanel Width="16" Height="16">
