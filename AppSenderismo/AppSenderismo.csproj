@@ -11,6 +11,7 @@
     <Resource Include="Imagenes\icon_cross.png" />
     <Resource Include="Imagenes\icon_globe.png" />
     <Resource Include="Imagenes\icon_question_mark.png" />
+    <Resource Include="Imagenes\user_avatar.png" />
   </ItemGroup>
 
   <ItemGroup>
