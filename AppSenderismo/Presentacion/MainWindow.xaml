@@ -64,14 +64,17 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
-                <StackPanel Grid.Row="1" Background="White" Margin="15,15,15,15">
-                    <TextBox x:Name="txtBuscarRutas" Margin="5,5,5,5" FontFamily="Microsoft JhengHei UI Light" Padding="15,0,0,0">
-                        <TextBox.Background>
-                            <ImageBrush ImageSource="\Imagenes\icon_magnifying_glass.png" Stretch="Uniform" AlignmentX="Left"/>
-                        </TextBox.Background>
-                    </TextBox>
-                    <ListBox Height="277" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="5,0,5,5" FontFamily="Microsoft JhengHei UI Light"/>
-                </StackPanel>
+
+                <Viewbox Grid.Row="1" Grid.Column="0" Stretch="Uniform">
+                    <StackPanel Grid.Row="1" Background="White" Margin="10,10,10,10">
+                        <TextBox x:Name="txtBuscarRutas" Margin="5,5,5,5" FontFamily="Microsoft JhengHei UI Light" Padding="15,0,0,0" Width="165">
+                            <TextBox.Background>
+                                <ImageBrush ImageSource="\Imagenes\icon_magnifying_glass.png" Stretch="Uniform" AlignmentX="Left"/>
+                            </TextBox.Background>
+                        </TextBox>
+                        <ListBox Height="277" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="5,0,5,5" FontFamily="Microsoft JhengHei UI Light"/>
+                    </StackPanel>
+                </Viewbox>
 
                 <DockPanel Grid.Column="1" HorizontalAlignment="Right" Margin="0,5,5,0" VerticalAlignment="Top" Height="20" LastChildFill="False">
                     <Button x:Name="BtnAyudaRutas" Margin="0,0,5,0">
