@@ -25,32 +25,139 @@
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20,20,0,0">
                             <Image Source="\Imagenes\user_avatar.png" Width="103" Height="103"/>
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Última hora de acceso" Margin="0,54.5,0,0"/>
-                            <TextBox x:Name="txtFechaAcceso" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" IsEnabled="False"/>
+                            <TextBox x:Name="TxtFechaAcceso" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" IsEnabled="False"/>
                         </StackPanel>
                         <StackPanel Margin="40,0,20,0" HorizontalAlignment="Left">
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Nombre y apellidos" Margin="0,20,0,0"/>
-                            <TextBox x:Name="txtNombreUsuario" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="200" IsEnabled="False"/>
+                            <TextBox x:Name="TxtNombreUsuario" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="200" IsEnabled="False"/>
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Correo electrónico" Margin="0,10,0,0"/>
-                            <TextBox x:Name="txtEmailUsuario" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" IsEnabled="False"/>
+                            <TextBox x:Name="TxtEmailUsuario" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" IsEnabled="False"/>
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Número de teléfono" Margin="0,10,0,0"/>
-                            <TextBox x:Name="txtTlfnUsuario" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="100" HorizontalAlignment="Left" IsEnabled="False"/>
+                            <TextBox x:Name="TxtTlfnUsuario" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="100" HorizontalAlignment="Left" IsEnabled="False"/>
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="DNI" Margin="0,10,0,0"/>
-                            <TextBox x:Name="txtDniUsuario" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" HorizontalAlignment="Left" Width="100" IsEnabled="False"/>
+                            <TextBox x:Name="TxtDniUsuario" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" HorizontalAlignment="Left" Width="100" IsEnabled="False"/>
                         </StackPanel>
                     </DockPanel>
                 </Viewbox>
-                <DockPanel Grid.Column="2" HorizontalAlignment="Right" Margin="0,5,5,0" VerticalAlignment="Top" Height="20" Width="70">
-                    <Button x:Name="BtnIdioma" Margin="0,0,5,0">
-                        <StackPanel Width="16" Height="16">
-                            <Image Source="\Imagenes\icon_globe.png"/>
-                        </StackPanel>
-                    </Button>
-                    <Button x:Name="BtnAyuda" Margin="0,0,5,0">
+                <DockPanel Grid.Column="2" Margin="0,5,5,0" HorizontalAlignment="Right" VerticalAlignment="Top" LastChildFill="False">
+                    <Button x:Name="BtnAyudaDatosUsuario" Margin="0,0,5,0">
                         <StackPanel Width="16" Height="16">
                             <Image Source="\Imagenes\icon_question_mark.png"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="BtnSalir">
+                    <Button x:Name="BtnSalirDatosUsuario">
+                        <StackPanel Width="16" Height="16">
+                            <Image Source="\Imagenes\icon_cross.png"/>
+                        </StackPanel>
+                    </Button>
+                </DockPanel>
+            </Grid>
+        </TabItem>
+        <TabItem x:Name="tabRutas" Header="Rutas">
+            <Grid Background="#FF2E2B2B">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="36*"/>
+                    <RowDefinition Height="365*"/>
+                    <RowDefinition Height="36*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+
+                <Viewbox Grid.Row="1" Grid.Column="0" Stretch="Uniform">
+                    <StackPanel Grid.Row="1" Background="White" Margin="10,10,10,10">
+                        <TextBox x:Name="TxtBuscarRutas" Margin="5,5,5,5" FontFamily="Microsoft JhengHei UI Light" Padding="15,0,0,0" Width="165">
+                            <TextBox.Background>
+                                <ImageBrush ImageSource="\Imagenes\icon_magnifying_glass.png" Stretch="Uniform" AlignmentX="Left"/>
+                            </TextBox.Background>
+                        </TextBox>
+                        <ListBox x:Name="LstBoxRutas" Height="277" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="5,0,5,5" FontFamily="Microsoft JhengHei UI Light"/>
+                    </StackPanel>
+                </Viewbox>
+
+                <Viewbox Grid.Row="1" Grid.Column="1" Stretch="Uniform">
+                    <DockPanel Grid.Column="1" LastChildFill="False" Grid.Row="1" Background="White" Margin="10,10,10,10">
+                        <StackPanel Margin="10,10,10,10">
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Nombre" Margin="0,14,0,0"/>
+                            <TextBox x:Name="TxtNombreRuta" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Provincia/s" Margin="0,15,0,0"/>
+                            <ListBox x:Name="LstBoxProvincias" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,10,0,0" FontFamily="Microsoft JhengHei UI Light" SelectionMode="Multiple" Height="135"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Fecha y hora" Margin="0,15,0,0"/>
+                            <DatePicker x:Name="DateRuta" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" FirstDayOfWeek="Monday"/>
+                        </StackPanel>
+                        <StackPanel Margin="10,10,10,10">
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Origen" Margin="0,15,0,0"/>
+                            <TextBox x:Name="TxtOrigenRuta" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="130"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Destino" Margin="0,15,0,0"/>
+                            <TextBox x:Name="TxtDestinoRuta" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Nivel de dificultad" Margin="0,15,0,0"/>
+                            <ComboBox x:Name="ComboDificultadRutas" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Guía asignado" Margin="0,15,0,0"/>
+                            <ComboBox x:Name="ComboGuiaRutas" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Duración estimada" Margin="0,15,0,0"/>
+                            <TextBox x:Name="TxtDuracionRuta" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0"/>
+                        </StackPanel>
+                        <StackPanel Margin="10,10,10,10">
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Forma de acceso" Margin="0,15,0,0"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="hasta el punto de" Margin="0,0,0,0"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="origen" Margin="0,0,0,0"/>
+                            <TextBox x:Name="TxtAccesoRuta" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Height="92"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Material necesario" Margin="0,15,0,0"/>
+                            <TextBox x:Name="TxtMaterialRuta" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Height="92"/>
+                        </StackPanel>
+                        <StackPanel Margin="10,10,10,10">
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Forma de vuelta" Margin="0,15,0,0"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="desde el punto de" Margin="0,0,0,0"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="llegada" Margin="0,0,0,0"/>
+                            <TextBox x:Name="TxtVueltaRuta" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Height="92"/>
+                            <CheckBox x:Name="CheckComerRuta" Content="¿Se come en ruta?" Margin="0,15,0,0" FontFamily="Microsoft JhengHei UI Light"/>
+
+                            <DockPanel LastChildFill="False" Margin="0,10,0,0" Height="93">
+                                <StackPanel Margin="0,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                                    <Button x:Name="BtnAnadirRuta" Content="Dar de alta" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0" FontFamily="Microsoft JhengHei UI Light" BorderThickness="0,0,0,0" Padding="3,5,5,5">
+                                        <Button.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="CornerRadius" Value="5"/>
+                                            </Style>
+                                        </Button.Resources>
+                                    </Button>
+                                    <Button x:Name="BtnModificarRuta" Content="Modificar" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8,0,0" FontFamily="Microsoft JhengHei UI Light" BorderThickness="0,0,0,0" Padding="8,5,8,5" IsEnabled="False">
+                                        <Button.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="CornerRadius" Value="5"/>
+                                            </Style>
+                                        </Button.Resources>
+                                    </Button>
+                                </StackPanel>
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                                    <Button x:Name="BtnEliminarRuta" Content="Eliminar" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8,0,0" FontFamily="Microsoft JhengHei UI Light" BorderThickness="0,0,0,0" Padding="12,5,12,5" IsEnabled="False">
+                                        <Button.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="CornerRadius" Value="5"/>
+                                            </Style>
+                                        </Button.Resources>
+                                    </Button>
+                                    <Button x:Name="BtnLimpiarRuta" Content="Limpiar" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8,0,0" FontFamily="Microsoft JhengHei UI Light" BorderThickness="0,0,0,0" Padding="13,5,13,5">
+                                        <Button.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="CornerRadius" Value="5"/>
+                                            </Style>
+                                        </Button.Resources>
+                                    </Button>
+                                </StackPanel>
+                            </DockPanel>
+                        </StackPanel>
+                    </DockPanel>
+                </Viewbox>
+
+                <DockPanel Grid.Column="1" HorizontalAlignment="Right" Margin="0,5,5,0" VerticalAlignment="Top" Height="20" LastChildFill="False">
+                    <Button x:Name="BtnAyudaRutas" Margin="0,0,5,0">
+                        <StackPanel Width="16" Height="16">
+                            <Image Source="\Imagenes\icon_question_mark.png"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="BtnSalirRutas">
                         <StackPanel Width="16" Height="16">
                             <Image Source="\Imagenes\icon_cross.png"/>
                         </StackPanel>
