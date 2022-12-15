@@ -27,7 +27,7 @@
                     <TextBox Text="Contraseña" FontFamily="Microsoft JhengHei UI Light" FontSize="14" BorderThickness="0,0,0,0" Margin="0,15,0,0" IsHitTestVisible="False" IsTabStop="False"/>
                     <PasswordBox x:Name="TxtPass" FontFamily="Microsoft JhengHei UI Light" FontSize="14" CaretBrush="#FF1D1B1B" BorderThickness="0,0,0,1" Margin="0,5,0,0" PasswordChar="*"/>
                     <TextBox x:Name="TxtIncorrecto" Text="Combinación usuario/contraseña incorrecta" FontFamily="Microsoft JhengHei UI Light" FontSize="12" BorderThickness="0,0,0,0" HorizontalContentAlignment="Center" Margin="0,5,0,0" Foreground="Red" Visibility="Hidden" IsTabStop="False"/>
-                    <Button x:Name="TtnLogin" Content="Iniciar sesión" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8,0,0" FontFamily="Microsoft JhengHei UI Light" FontSize="16" BorderThickness="0,0,0,0" Padding="12,12,12,12" UseLayoutRounding="False" Click="BtnLogin_Click">
+                    <Button x:Name="BtnLogin" Content="Iniciar sesión" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8,0,0" FontFamily="Microsoft JhengHei UI Light" FontSize="16" BorderThickness="0,0,0,0" Padding="12,12,12,12" UseLayoutRounding="False" Click="BtnLogin_Click">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="5"/>
