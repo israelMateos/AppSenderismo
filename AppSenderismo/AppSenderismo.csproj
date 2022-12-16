@@ -13,6 +13,7 @@
     <Resource Include="Imagenes\icon_question_mark.png" />
     <Resource Include="Imagenes\user_avatar.png" />
     <Resource Include="Imagenes\icon_magnifying_glass.png" />
+    <Resource Include="Imagenes\icon_ok.png" />
   </ItemGroup>
 
   <ItemGroup>
