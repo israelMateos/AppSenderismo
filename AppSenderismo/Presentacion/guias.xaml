@@ -119,7 +119,7 @@
                                     </Button>
                                 </StackPanel>
                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                                    <Button x:Name="BtnEliminarRuta" Content="Eliminar" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8,0,0" FontFamily="Microsoft JhengHei UI Light" BorderThickness="0,0,0,0" Padding="12,5,12,5" IsEnabled="False">
+                                    <Button x:Name="BtnEliminarGuia" Content="Eliminar" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8,0,0" FontFamily="Microsoft JhengHei UI Light" BorderThickness="0,0,0,0" Padding="12,5,12,5" IsEnabled="False">
                                         <Button.Resources>
                                             <Style TargetType="Border">
                                                 <Setter Property="CornerRadius" Value="5"/>
