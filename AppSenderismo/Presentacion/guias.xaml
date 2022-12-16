@@ -95,11 +95,12 @@
                         </StackPanel>
                         <StackPanel Margin="10,10,10,10">
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Restricciones de disponibilidad" Margin="0,15,0,0"/>
-                            <TextBox x:Name="TxtRestriccionesDisponibilidadGuia" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Height="62"/>
-                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Mate" Margin="0,15,0,0"/>
-                            <TextBox x:Name="TxtMaterialRuta" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Height="92"/>
-                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Idiomas" Margin="0,15,0,0"/>
-                            <ListBox x:Name="LstBoxRutasRealizadasPlaneadas" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,10,0,0" FontFamily="Microsoft JhengHei UI Light" SelectionMode="Multiple" Height="135"/>
+                            <TextBox x:Name="TxtRestriccionesGuia" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Height="62"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Rustas realizadas/planeadas" Margin="0,15,0,0"/>
+                            <ListBox x:Name="LstBoxRutasGuia" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,10,0,0" FontFamily="Microsoft JhengHei UI Light" SelectionMode="Multiple" Height="135"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Puntuación" Margin="0,15,0,0"/>
+                            <TextBox x:Name="TxtPuntuacionGuia" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0"/>
+
                         </StackPanel>
                         <StackPanel Margin="10,10,10,10">
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Forma de vuelta" Margin="0,15,0,0"/>
