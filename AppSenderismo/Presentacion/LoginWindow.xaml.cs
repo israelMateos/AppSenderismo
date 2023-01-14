@@ -10,13 +10,12 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace AppSenderismo
+namespace AppSenderismo.Presentacion
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Lógica de interacción para LoginWindow.xaml
     /// </summary>
     public partial class LoginWindow : Window
     {
@@ -46,14 +45,7 @@ namespace AppSenderismo
 
         private void TxtPass_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(TxtPass.Password))
-            {
-                BtnLogin.IsEnabled = true;
-            }
-            else
-            {
-                BtnLogin.IsEnabled = false;
-            }
+            BtnLogin.IsEnabled = !string.IsNullOrEmpty(TxtPass.Password);
         }
 
         private void TxtPass_KeyDown(object sender, KeyEventArgs e)
@@ -68,9 +60,9 @@ namespace AppSenderismo
         {
             if (TxtUsuario.Text.Equals(_usuario) && TxtPass.Password.Equals(_pass))
             {
-                MainWindow mainWindow = new();
+                MainWindow mainWindow = new MainWindow();
                 mainWindow.Show();
-                this.Close();
+                Close();
             }
             else
             {
