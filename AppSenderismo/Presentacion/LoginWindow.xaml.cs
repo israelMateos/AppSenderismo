@@ -56,6 +56,14 @@ namespace AppSenderismo
             }
         }
 
+        private void TxtPass_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                BtnLogin_Click(sender, e);
+            }
+        }
+
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
             if (TxtUsuario.Text.Equals(_usuario) && TxtPass.Password.Equals(_pass))
