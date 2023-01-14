@@ -10,20 +10,22 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using AppSenderismo.Dominio;
 
-namespace AppSenderismo
+namespace AppSenderismo.Presentacion
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Lógica de interacción para MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly Usuario _usuario;
 
-        public MainWindow()
+        public MainWindow(Usuario usuario)
         {
             InitializeComponent();
+            _usuario = usuario;
         }
     }
 }
