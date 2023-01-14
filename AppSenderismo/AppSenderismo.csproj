@@ -67,7 +67,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Dominio\Usuario.cs" />
     <Compile Include="Persistencia\Agente.cs" />
+    <Compile Include="Persistencia\UsuarioDAO.cs" />
     <Compile Include="Presentacion\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
