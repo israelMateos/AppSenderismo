@@ -26,6 +26,34 @@ namespace AppSenderismo
         public LoginWindow()
         {
             InitializeComponent();
+            TxtPass.IsEnabled = false;
+            BtnLogin.IsEnabled = false;
+            TxtIncorrecto.Visibility = Visibility.Hidden;
+        }
+
+        private void TxtUsuario_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(TxtUsuario.Text))
+            {
+                TxtPass.IsEnabled = true;
+            }
+            else
+            {
+                TxtPass.IsEnabled = false;
+                BtnLogin.IsEnabled = false;
+            }
+        }
+
+        private void TxtPass_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(TxtPass.Password))
+            {
+                BtnLogin.IsEnabled = true;
+            }
+            else
+            {
+                BtnLogin.IsEnabled = false;
+            }
         }
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
