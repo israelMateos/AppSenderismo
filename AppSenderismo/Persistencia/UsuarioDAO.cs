@@ -4,7 +4,7 @@ using AppSenderismo.Dominio;
 
 namespace AppSenderismo.Persistencia
 {
-    class UsuarioDAO
+    public class UsuarioDAO
     {
         public readonly List<Usuario> usuarios;
 
@@ -29,7 +29,7 @@ namespace AppSenderismo.Persistencia
         public void Leer(Usuario usuario)
         {
             List<List<string>> usuariosLeidos =
-                Agente.Instancia.Leer("SELECT * FROM `user` WHERE email = " + usuario.Email);
+                Agente.Instancia.Leer("SELECT * FROM `user` WHERE email = '" + usuario.Email + "'");
             foreach (List<string> usuarioLeido in usuariosLeidos)
             {
                 usuario.Email = usuarioLeido[0].ToString();
@@ -38,7 +38,7 @@ namespace AppSenderismo.Persistencia
                 usuario.Apellidos = usuarioLeido[3].ToString();
                 usuario.Telefono = usuarioLeido[4].ToString();
                 usuario.Dni = usuarioLeido[5].ToString();
-                usuario.UltimoAcceso = DateTime.Parse(usuarioLeido[7]);
+                usuario.UltimoAcceso = DateTime.Parse(usuarioLeido[6]);
             }
         }
 

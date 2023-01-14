@@ -3,15 +3,23 @@ using MySql.Data.MySqlClient;
 
 namespace AppSenderismo.Persistencia
 {
-    class Agente
+    public class Agente
     {
         private static Agente _instancia;
         private readonly MySqlConnection _conexion;
 
         private Agente()
         {
-            string cadenaConexion = $"Server=localhost;Port=3306;Database=rutas;Uid=root;Pwd=root;";
-            _conexion = new MySqlConnection(cadenaConexion);
+            MySqlConnectionStringBuilder constructor = new MySqlConnectionStringBuilder
+            {
+                Server = "localhost",
+                Port = 3306,
+                UserID = "root",
+                Password = "root",
+                Database = "routes_management",
+                SslMode = MySqlSslMode.None
+            };
+            _conexion = new MySqlConnection(constructor.ToString());
         }
 
         public static Agente Instancia
@@ -26,9 +34,25 @@ namespace AppSenderismo.Persistencia
             }
         }
 
+        public void Conectar()
+        {
+            if (_instancia._conexion.State == System.Data.ConnectionState.Closed)
+            {
+                _conexion.Open();
+            }
+        }
+
+        public void Desconectar()
+        {
+            if (_instancia._conexion.State == System.Data.ConnectionState.Open)
+            {
+                _conexion.Close();
+            }
+        }
+
         public List<List<string>> Leer(string sql)
         {
-            _conexion.Open();
+            Conectar();
             MySqlCommand comando = new MySqlCommand(sql, _conexion);
             MySqlDataReader lector = comando.ExecuteReader();
 
@@ -36,23 +60,23 @@ namespace AppSenderismo.Persistencia
             while (lector.Read())
             {
                 List<string> fila = new List<string>();
-                for (int i = 0; i < lector.FieldCount - 1; i++)
+                for (int i = 0; i < lector.FieldCount; i++)
                 {
                     fila.Add(lector[i].ToString());
                 }
                 resultado.Add(fila);
             }
 
-            _conexion.Close();
+            Desconectar();
             return resultado;
         }
 
         public int Modificar(string sql)
         {
-            _conexion.Open();
+            Conectar();
             MySqlCommand comando = new MySqlCommand(sql, _conexion);
             int resultado = comando.ExecuteNonQuery();
-            _conexion.Close();
+            Desconectar();
             return resultado;
         }
     }

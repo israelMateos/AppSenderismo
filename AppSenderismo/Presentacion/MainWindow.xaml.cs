@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using AppSenderismo.Dominio;
 
 namespace AppSenderismo.Presentacion
 {
@@ -19,9 +20,12 @@ namespace AppSenderismo.Presentacion
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private readonly Usuario _usuario;
+
+        public MainWindow(Usuario usuario)
         {
             InitializeComponent();
+            _usuario = usuario;
         }
     }
 }

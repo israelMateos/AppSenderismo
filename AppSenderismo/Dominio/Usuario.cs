@@ -3,7 +3,7 @@ using AppSenderismo.Persistencia;
 
 namespace AppSenderismo.Dominio
 {
-    class Usuario
+    public class Usuario
     {
         public string Email { get; set; }
         public string Pass { get; set; }
@@ -19,6 +19,13 @@ namespace AppSenderismo.Dominio
             Dao = new UsuarioDAO();
         }
 
+        public Usuario(string email, string pass)
+        {
+            Email = email;
+            Pass = pass;
+            Dao = new UsuarioDAO();
+        }
+
         public Usuario(string email, string pass, string nombre,
             string apellidos, string telefono, string dni, DateTime ultimoAcceso)
         {
@@ -29,6 +36,7 @@ namespace AppSenderismo.Dominio
             Telefono = telefono;
             Dni = dni;
             UltimoAcceso = ultimoAcceso;
+            Dao = new UsuarioDAO();
         }
 
         public void LeerTodos()
