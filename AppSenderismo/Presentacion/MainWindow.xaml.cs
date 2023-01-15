@@ -27,5 +27,16 @@ namespace AppSenderismo.Presentacion
             InitializeComponent();
             _usuario = usuario;
         }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            _usuario.UltimoAcceso = DateTime.Now;
+            _usuario.Modificar();
+            TxtNombreUsuario.Text = _usuario.Nombre + " " + _usuario.Apellidos;
+            TxtEmailUsuario.Text = _usuario.Email;
+            TxtTlfnUsuario.Text = _usuario.Telefono;
+            TxtDniUsuario.Text = _usuario.Dni;
+            TxtFechaAcceso.Text = _usuario.UltimoAcceso.ToString();
+        }
     }
 }
