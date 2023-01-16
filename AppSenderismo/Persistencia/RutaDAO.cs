@@ -18,11 +18,13 @@ namespace AppSenderismo.Persistencia
             List<List<string>> rutasLeidas = Agente.Instancia.Leer("SELECT * FROM `route`");
             foreach (List<string> rutaLeida in rutasLeidas)
             {
+                Guia guia = new Guia(int.Parse(rutaLeida[12]));
+                guia.Leer();
                 Ruta ruta = new Ruta(int.Parse(rutaLeida[0]),
                     rutaLeida[1], rutaLeida[2], DateTime.Parse(rutaLeida[3]),
                     rutaLeida[4], rutaLeida[5], rutaLeida[6],
                     int.Parse(rutaLeida[7]), rutaLeida[8], rutaLeida[9],
-                    rutaLeida[10], bool.Parse(rutaLeida[11]));
+                    rutaLeida[10], bool.Parse(rutaLeida[11]), guia);
                 rutas.Add(ruta);
             }
         }
@@ -45,6 +47,9 @@ namespace AppSenderismo.Persistencia
                 ruta.FormaSalida = rutaLeida[9];
                 ruta.MaterialNecesario = rutaLeida[10];
                 ruta.ComidaEnRuta = bool.Parse(rutaLeida[11]);
+                Guia guia = new Guia(int.Parse(rutaLeida[12]));
+                guia.Leer();
+                ruta.Guia = guia;
             }
         }
 
@@ -52,13 +57,13 @@ namespace AppSenderismo.Persistencia
         {
             return Agente.Instancia.Modificar("INSERT INTO route(name, provinces,"
                 + " date_time, origin, destination, difficulty, estimated_duration,"
-                + " access_way, exit_way, needed_material, eat_in_route) VALUES('"
-                + ruta.Nombre + "', '" + ruta.Provincias + "', '"
+                + " access_way, exit_way, needed_material, eat_in_route, guide_id)"
+                + " VALUES('" + ruta.Nombre + "', '" + ruta.Provincias + "', '"
                 + ruta.Fecha.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + ruta.Origen
                 + "', '" + ruta.Destino + "', '" + ruta.Dificultad + "', '"
                 + ruta.DuracionEstimada + "', '" + ruta.FormaAcceso + "', '"
                 + ruta.FormaSalida + "', '" + ruta.MaterialNecesario + "', '"
-                + (ruta.ComidaEnRuta ? 1 : 0) + "')");
+                + (ruta.ComidaEnRuta ? 1 : 0) + "', '" + ruta.Guia.Id + "')");
         }
 
         public int Modificar(Ruta ruta)
@@ -70,8 +75,8 @@ namespace AppSenderismo.Persistencia
                 + ruta.Dificultad + ", estimated_duration = " + ruta.DuracionEstimada
                 + ", access_way = " + ruta.FormaAcceso + ", exit_way = "
                 + ruta.FormaSalida + ", needed_material = " + ruta.MaterialNecesario
-                + ", eat_in_route = " + (ruta.ComidaEnRuta ? 1 : 0)
-                + " WHERE name = " + ruta.Nombre);
+                + ", eat_in_route = " + (ruta.ComidaEnRuta ? 1 : 0) + ", guide_id = "
+                + ruta.Guia.Id + " WHERE name = " + ruta.Nombre);
         }
 
         public int Eliminar(Ruta ruta)

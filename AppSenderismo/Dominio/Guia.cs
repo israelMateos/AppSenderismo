@@ -25,6 +25,11 @@ namespace AppSenderismo.Dominio
             Dao = new GuiaDAO();
         }
 
+        public Guia(int id)
+        {
+            Id = id;
+        }
+
         public Guia(string email)
         {
             Email = email;

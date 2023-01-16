@@ -17,6 +17,7 @@ namespace AppSenderismo.Dominio
         public string FormaSalida { get; set; }
         public string MaterialNecesario { get; set; }
         public bool ComidaEnRuta { get; set; }
+        public Guia Guia { get; set; }
         public readonly RutaDAO Dao;
 
         public Ruta()
@@ -33,7 +34,7 @@ namespace AppSenderismo.Dominio
         public Ruta(int id, string nombre, string provincias, DateTime fecha,
             string origen, string destino, string dificultad, int duracionEstimada,
             string formaAcceso, string formaSalida, string materialNecesario,
-            bool comidaEnRuta)
+            bool comidaEnRuta, Guia guia)
         {
             Id = id;
             Nombre = nombre;
@@ -47,6 +48,7 @@ namespace AppSenderismo.Dominio
             FormaSalida = formaSalida;
             MaterialNecesario = materialNecesario;
             ComidaEnRuta = comidaEnRuta;
+            Guia = guia;
             Dao = new RutaDAO();
         }
 
