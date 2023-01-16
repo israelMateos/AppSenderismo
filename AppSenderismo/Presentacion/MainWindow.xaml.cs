@@ -38,5 +38,55 @@ namespace AppSenderismo.Presentacion
             TxtDniUsuario.Text = _usuario.Dni;
             TxtFechaAcceso.Text = _usuario.UltimoAcceso.ToString();
         }
+
+        private List<String> ObtenerNombresRutas()
+        {
+            Ruta ruta = new Ruta();
+            ruta.LeerTodas();
+            List<string> nombresRutas = new List<string>();
+            foreach (Ruta r in ruta.Dao.rutas)
+            {
+                nombresRutas.Add(r.Nombre);
+            }
+            return nombresRutas;
+        }
+
+        private void RellenarLstBoxRutas()
+        {
+            Ruta ruta = new Ruta();
+            ruta.LeerTodas();
+            foreach (Ruta r in ruta.Dao.rutas)
+            {
+                LstBoxRutas.Items.Add(r.Nombre);
+            }
+        }
+
+        private void TabCtrlSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (tabRutas.IsSelected)
+            {
+                RellenarLstBoxRutas();
+            }
+        }
+
+        private void TxtBuscarRutas_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string busqueda = TxtBuscarRutas.Text;
+            LstBoxRutas.Items.Clear();
+
+            if (string.IsNullOrEmpty(busqueda))
+            {
+                RellenarLstBoxRutas();
+            }
+            else
+            {
+                IEnumerable<string> rutasFiltradas = ObtenerNombresRutas()
+                    .Where(ruta => ruta.ToLower().Contains(busqueda.ToLower()));
+                foreach (string ruta in rutasFiltradas)
+                {
+                    LstBoxRutas.Items.Add(ruta);
+                }
+            }
+        }
     }
 }

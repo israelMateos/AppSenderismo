@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AppSenderismo.Presentacion"
         mc:Ignorable="d"
         Title="AppSenderismo" Height="450" Width="800" WindowStartupLocation="CenterScreen" Loaded="MainWindow_Loaded">
-    <TabControl>
+    <TabControl x:Name="TabCtrl" SelectionChanged="TabCtrlSelectionChanged">
         <TabItem x:Name="tabDatosUsuario" Header="Datos de usuario">
             <Grid Background="#FF2E2B2B">
                 <Grid.RowDefinitions>
@@ -67,7 +67,7 @@
 
                 <Viewbox Grid.Row="1" Grid.Column="0" Stretch="Uniform">
                     <StackPanel Grid.Row="1" Background="White" Margin="10,10,10,10">
-                        <TextBox x:Name="TxtBuscarRutas" Margin="5,5,5,5" FontFamily="Microsoft JhengHei UI Light" Padding="15,0,0,0" Width="165">
+                        <TextBox x:Name="TxtBuscarRutas" Margin="5,5,5,5" FontFamily="Microsoft JhengHei UI Light" Padding="15,0,0,0" Width="165" TextChanged="TxtBuscarRutas_TextChanged">
                             <TextBox.Background>
                                 <ImageBrush ImageSource="/Imagenes/icon_magnifying_glass.png" Stretch="Uniform" AlignmentX="Left"/>
                             </TextBox.Background>
