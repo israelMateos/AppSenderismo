@@ -60,6 +60,40 @@ namespace AppSenderismo.Presentacion
             }
         }
 
+        private void RellenarLstBoxProvincias()
+        {
+            string[] provincias = {"Álava", "Albacete", "Alicante", "Almería",
+                "Asturias", "Ávila", "Badajoz", "Barcelona", "Burgos", "Cáceres",
+                "Cádiz", "Cantabria", "Castellón", "Ciudad Real", "Córdoba",
+                "La Coruña", "Cuenca", "Gerona", "Granada", "Guadalajara",
+                "Guipúzcoa", "Huelva", "Huesca", "Islas Baleares", "Jaén", "León",
+                "Lérida", "Lugo", "Madrid", "Málaga", "Murcia", "Navarra",
+                "Orense", "Palencia", "Las Palmas", "Pontevedra", "La Rioja",
+                "Salamanca", "Segovia", "Sevilla", "Soria", "Tarragona",
+                "Santa Cruz de Tenerife", "Teruel", "Toledo", "Valencia",
+                "Valladolid", "Vizcaya", "Zamora", "Zaragoza"};
+            foreach (string provincia in provincias)
+            {
+                CheckBox elemento = new CheckBox() {
+                    Content = provincia, IsChecked = false};
+                LstBoxProvincias.Items.Add(elemento);
+            }
+        }
+
+        private void MarcarCasillasLstBoxProvincias(string[] provincias)
+        {
+            foreach (string provincia in provincias)
+            {
+                foreach (CheckBox elemento in LstBoxProvincias.Items)
+                {
+                    if (elemento.Content.ToString() == provincia)
+                    {
+                        elemento.IsChecked = true;
+                    }
+                }
+            }
+        }
+
         private void TabCtrlSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.Source is TabControl)
@@ -68,7 +102,9 @@ namespace AppSenderismo.Presentacion
                 {
                     BtnLimpiarRuta_Click(sender, e);
                     LstBoxRutas.Items.Clear();
+                    LstBoxProvincias.Items.Clear();
                     RellenarLstBoxRutas();
+                    RellenarLstBoxProvincias();
                 }
             }
         }
@@ -127,10 +163,8 @@ namespace AppSenderismo.Presentacion
 
                 TxtNombreRuta.Text = ruta.Nombre;
                 LstBoxProvincias.Items.Clear();
-                foreach (string provincia in Regex.Split(ruta.Provincias, ",\\s*"))
-                {
-                    LstBoxProvincias.Items.Add(provincia);
-                }
+                RellenarLstBoxProvincias();
+                MarcarCasillasLstBoxProvincias(Regex.Split(ruta.Provincias, ",\\s*"));
                 DateRuta.SelectedDate = ruta.Fecha;
                 TxtOrigenRuta.Text = ruta.Origen;
                 TxtDestinoRuta.Text = ruta.Destino;
