@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -61,9 +62,14 @@ namespace AppSenderismo.Presentacion
 
         private void TabCtrlSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (tabRutas.IsSelected)
+            if (e.Source is TabControl)
             {
-                RellenarLstBoxRutas();
+                if (tabRutas.IsSelected)
+                {
+                    BtnLimpiarRuta_Click(sender, e);
+                    LstBoxRutas.Items.Clear();
+                    RellenarLstBoxRutas();
+                }
             }
         }
 
@@ -84,6 +90,59 @@ namespace AppSenderismo.Presentacion
                 {
                     LstBoxRutas.Items.Add(ruta);
                 }
+            }
+        }
+
+        private void BtnLimpiarRuta_Click(object sender, RoutedEventArgs e)
+        {
+            LstBoxRutas.UnselectAll();
+            TxtNombreRuta.Clear();
+            LstBoxProvincias.Items.Clear();
+            DateRuta.SelectedDate = null;
+            TxtOrigenRuta.Clear();
+            TxtDestinoRuta.Clear();
+            ComboDificultadRutas.SelectedItem = null;
+            ComboGuiaRutas.SelectedItem = null;
+            TxtDuracionRuta.Clear();
+            TxtAccesoRuta.Clear();
+            TxtVueltaRuta.Clear();
+            TxtMaterialRuta.Clear();
+            CheckComerRuta.IsChecked = false;
+            LstBoxProvincias.Items.Clear();
+            BtnAnadirRuta.IsEnabled = true;
+            BtnModificarRuta.IsEnabled = false;
+            BtnEliminarRuta.IsEnabled = false;
+        }
+
+        private void LstBoxRutas_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            BtnAnadirRuta.IsEnabled = false;
+            BtnModificarRuta.IsEnabled = true;
+            BtnEliminarRuta.IsEnabled = true;
+
+            if (LstBoxRutas.SelectedItem != null)
+            {
+                Ruta ruta = new Ruta(LstBoxRutas.SelectedItem.ToString());
+                ruta.Leer();
+
+                TxtNombreRuta.Text = ruta.Nombre;
+                LstBoxProvincias.Items.Clear();
+                foreach (string provincia in Regex.Split(ruta.Provincias, ",\\s*"))
+                {
+                    LstBoxProvincias.Items.Add(provincia);
+                }
+                DateRuta.SelectedDate = ruta.Fecha;
+                TxtOrigenRuta.Text = ruta.Origen;
+                TxtDestinoRuta.Text = ruta.Destino;
+                ComboDificultadRutas.SelectedItem = ComboDificultadRutas.Items
+                    .Cast<ComboBoxItem>().FirstOrDefault(i =>
+                    i.Content.ToString() == ruta.Dificultad);
+                ComboGuiaRutas.SelectedItem = null;
+                TxtDuracionRuta.Text = ruta.DuracionEstimada.ToString();
+                TxtAccesoRuta.Text = ruta.FormaAcceso;
+                TxtVueltaRuta.Text = ruta.FormaSalida;
+                TxtMaterialRuta.Text = ruta.MaterialNecesario;
+                CheckComerRuta.IsChecked = ruta.ComidaEnRuta;
             }
         }
     }
