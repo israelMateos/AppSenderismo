@@ -53,11 +53,9 @@ namespace AppSenderismo.Presentacion
 
         private void RellenarLstBoxRutas()
         {
-            Ruta ruta = new Ruta();
-            ruta.LeerTodas();
-            foreach (Ruta r in ruta.Dao.rutas)
+            foreach (string nombreRuta in ObtenerNombresRutas())
             {
-                LstBoxRutas.Items.Add(r.Nombre);
+                LstBoxRutas.Items.Add(nombreRuta);
             }
         }
 
