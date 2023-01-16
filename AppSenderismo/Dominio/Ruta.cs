@@ -49,5 +49,30 @@ namespace AppSenderismo.Dominio
             ComidaEnRuta = comidaEnRuta;
             Dao = new RutaDAO();
         }
+
+        public void LeerTodas()
+        {
+            Dao.LeerTodas();
+        }
+
+        public void Leer()
+        {
+            Dao.Leer(this);
+        }
+
+        public int Insertar()
+        {
+            return Dao.Insertar(this);
+        }
+
+        public int Modificar()
+        {
+            return Dao.Modificar(this);
+        }
+
+        public int Eliminar()
+        {
+            return Dao.Eliminar(this);
+        }
     }
 }
