@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AppSenderismo.Presentacion"
         mc:Ignorable="d"
         Title="AppSenderismo" Height="450" Width="800" WindowStartupLocation="CenterScreen" Loaded="MainWindow_Loaded">
-    <TabControl>
+    <TabControl x:Name="TabCtrl" SelectionChanged="TabCtrlSelectionChanged">
         <TabItem x:Name="tabDatosUsuario" Header="Datos de usuario">
             <Grid Background="#FF2E2B2B">
                 <Grid.RowDefinitions>
@@ -67,86 +67,93 @@
 
                 <Viewbox Grid.Row="1" Grid.Column="0" Stretch="Uniform">
                     <StackPanel Grid.Row="1" Background="White" Margin="10,10,10,10">
-                        <TextBox x:Name="TxtBuscarRutas" Margin="5,5,5,5" FontFamily="Microsoft JhengHei UI Light" Padding="15,0,0,0" Width="165">
+                        <TextBox x:Name="TxtBuscarRutas" Margin="5,5,5,5" FontFamily="Microsoft JhengHei UI Light" Padding="15,0,0,0" Width="165" TextChanged="TxtBuscarRutas_TextChanged">
                             <TextBox.Background>
                                 <ImageBrush ImageSource="/Imagenes/icon_magnifying_glass.png" Stretch="Uniform" AlignmentX="Left"/>
                             </TextBox.Background>
                         </TextBox>
-                        <ListBox x:Name="LstBoxRutas" Height="277" Margin="5,0,5,5" FontFamily="Microsoft JhengHei UI Light"/>
+                        <ListBox x:Name="LstBoxRutas" Height="277" Margin="5,0,5,5" FontFamily="Microsoft JhengHei UI Light" SelectionChanged="LstBoxRutas_SelectionChanged"/>
                     </StackPanel>
                 </Viewbox>
 
                 <Viewbox Grid.Row="1" Grid.Column="1" Stretch="Uniform">
                     <DockPanel Grid.Column="1" LastChildFill="False" Grid.Row="1" Background="White" Margin="10,10,10,10">
                         <StackPanel Margin="10,10,10,10">
-                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Nombre" Margin="0,15,0,0"/>
-                            <TextBox x:Name="TxtNombreRuta" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0"/>
-                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Provincia/s" Margin="0,15,0,0"/>
-                            <ListBox x:Name="LstBoxProvincias" Margin="0,10,0,0" FontFamily="Microsoft JhengHei UI Light" SelectionMode="Multiple" Height="135"/>
-                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Fecha y hora" Margin="0,15,0,0"/>
-                            <DatePicker x:Name="DateRuta" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" FirstDayOfWeek="Monday"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Nombre *" Margin="0,15,0,0"/>
+                            <TextBox x:Name="TxtNombreRuta" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" MinWidth="149.333333333333" MaxWidth="149.333333333333"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Provincia/s *" Margin="0,15,0,0"/>
+                            <ListBox x:Name="LstBoxProvincias" Margin="0,10,0,0" FontFamily="Microsoft JhengHei UI Light" SelectionMode="Multiple" Height="135" MinWidth="149.333333333333" MaxWidth="149.333333333333"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Fecha y hora *" Margin="0,15,0,0"/>
+                            <DatePicker x:Name="DateRuta" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" FirstDayOfWeek="Monday" MinWidth="149.333333333333" MaxWidth="149.333333333333"/>
                         </StackPanel>
                         <StackPanel Margin="10,10,10,10">
-                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Origen" Margin="0,15,0,0"/>
-                            <TextBox x:Name="TxtOrigenRuta" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="130"/>
-                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Destino" Margin="0,15,0,0"/>
-                            <TextBox x:Name="TxtDestinoRuta" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0"/>
-                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Nivel de dificultad" Margin="0,15,0,0"/>
-                            <ComboBox x:Name="ComboDificultadRutas" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Origen *" Margin="0,15,0,0"/>
+                            <TextBox x:Name="TxtOrigenRuta" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="149.333333333333" MinWidth="149.333333333333" MaxWidth="149.333333333333"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Destino *" Margin="0,15,0,0"/>
+                            <TextBox x:Name="TxtDestinoRuta" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" MinWidth="149.333333333333" MaxWidth="149.333333333333"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Nivel de dificultad *" Margin="0,15,0,0"/>
+                            <ComboBox x:Name="ComboDificultadRutas" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" SelectedValuePath="Content">
+                                <ComboBoxItem Content="Bajo"/>
+                                <ComboBoxItem Content="Medio"/>
+                                <ComboBoxItem Content="Difícil"/>
+                            </ComboBox>
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Guía asignado" Margin="0,15,0,0"/>
-                            <ComboBox x:Name="ComboGuiaRutas" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0"/>
-                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Duración estimada" Margin="0,15,0,0"/>
-                            <TextBox x:Name="TxtDuracionRuta" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0"/>
+                            <ComboBox x:Name="ComboGuiaRutas" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" MinWidth="149.333333333333" MaxWidth="149.333333333333"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Duración estimada *" Margin="0,15,0,0"/>
+                            <TextBox x:Name="TxtDuracionRuta" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" MinWidth="149.333333333333" MaxWidth="149.333333333333"/>
                         </StackPanel>
                         <StackPanel Margin="10,10,10,10">
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Forma de acceso" Margin="0,15,0,0"/>
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="hasta el punto de" Margin="0,0,0,0"/>
-                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="origen" Margin="0,0,0,0"/>
-                            <TextBox x:Name="TxtAccesoRuta" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Height="92"/>
-                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Material necesario" Margin="0,15,0,0"/>
-                            <TextBox x:Name="TxtMaterialRuta" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Height="92"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="origen *" Margin="0,0,0,0"/>
+                            <TextBox x:Name="TxtAccesoRuta" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Height="92" ScrollViewer.CanContentScroll="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MaxWidth="98.6666666666667" MinWidth="98.6666666666667"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Material necesario *" Margin="0,15,0,0"/>
+                            <TextBox x:Name="TxtMaterialRuta" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Height="92" ScrollViewer.CanContentScroll="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MaxWidth="98.6666666666667" MinWidth="98.6666666666667"/>
                         </StackPanel>
                         <StackPanel Margin="10,10,10,10">
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Forma de vuelta" Margin="0,15,0,0"/>
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="desde el punto de" Margin="0,0,0,0"/>
-                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="llegada" Margin="0,0,0,0"/>
-                            <TextBox x:Name="TxtVueltaRuta" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Height="92"/>
-                            <CheckBox x:Name="CheckComerRuta" Content="¿Se come en ruta?" Margin="0,15,0,0" FontFamily="Microsoft JhengHei UI Light"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="llegada *" Margin="0,0,0,0"/>
+                            <TextBox x:Name="TxtVueltaRuta" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Height="92" MinWidth="144.666666666667" MaxWidth="144.666666666667" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"/>
+                            <CheckBox x:Name="CheckComerRuta" Content="¿Se come en ruta? *" Margin="0,15,0,0" FontFamily="Microsoft JhengHei UI Light"/>
 
-                            <DockPanel LastChildFill="False" Margin="0,10,0,0" Height="93">
-                                <StackPanel Margin="0,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                                    <Button x:Name="BtnAnadirRuta" Content="Dar de alta" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0" FontFamily="Microsoft JhengHei UI Light" BorderThickness="0,0,0,0" Padding="3,5,5,5">
-                                        <Button.Resources>
-                                            <Style TargetType="Border">
-                                                <Setter Property="CornerRadius" Value="5"/>
-                                            </Style>
-                                        </Button.Resources>
-                                    </Button>
-                                    <Button x:Name="BtnModificarRuta" Content="Modificar" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8,0,0" FontFamily="Microsoft JhengHei UI Light" BorderThickness="0,0,0,0" Padding="8,5,8,5" IsEnabled="False">
-                                        <Button.Resources>
-                                            <Style TargetType="Border">
-                                                <Setter Property="CornerRadius" Value="5"/>
-                                            </Style>
-                                        </Button.Resources>
-                                    </Button>
-                                </StackPanel>
-                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                                    <Button x:Name="BtnEliminarRuta" Content="Eliminar" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8,0,0" FontFamily="Microsoft JhengHei UI Light" BorderThickness="0,0,0,0" Padding="12,5,12,5" IsEnabled="False">
-                                        <Button.Resources>
-                                            <Style TargetType="Border">
-                                                <Setter Property="CornerRadius" Value="5"/>
-                                            </Style>
-                                        </Button.Resources>
-                                    </Button>
-                                    <Button x:Name="BtnLimpiarRuta" Content="Limpiar" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8,0,0" FontFamily="Microsoft JhengHei UI Light" BorderThickness="0,0,0,0" Padding="13,5,13,5">
-                                        <Button.Resources>
-                                            <Style TargetType="Border">
-                                                <Setter Property="CornerRadius" Value="5"/>
-                                            </Style>
-                                        </Button.Resources>
-                                    </Button>
-                                </StackPanel>
-                            </DockPanel>
+                            <StackPanel Margin="0,10,0,0">
+                                <TextBlock x:Name="TxtFalloAnadirRuta" Text="Error al añadir. Debe completar todos los campos obligatorios (*)." FontFamily="Microsoft JhengHei UI Light" FontSize="8" Foreground="Red" Visibility="Hidden" MinWidth="144.666666666667" MaxWidth="144.666666666667" TextWrapping="Wrap"/>
+                                <DockPanel LastChildFill="False" Margin="0,5,0,0" Height="64">
+                                    <StackPanel Margin="0,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                                        <Button x:Name="BtnAnadirRuta" Content="Dar de alta" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0" FontFamily="Microsoft JhengHei UI Light" BorderThickness="0,0,0,0" Padding="3,5,5,5" Click="BtnAnadirRuta_Click">
+                                            <Button.Resources>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="CornerRadius" Value="5"/>
+                                                </Style>
+                                            </Button.Resources>
+                                        </Button>
+                                        <Button x:Name="BtnModificarRuta" Content="Modificar" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8,0,0" FontFamily="Microsoft JhengHei UI Light" BorderThickness="0,0,0,0" Padding="8,5,8,5" IsEnabled="False" Click="BtnModificarRuta_Click">
+                                            <Button.Resources>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="CornerRadius" Value="5"/>
+                                                </Style>
+                                            </Button.Resources>
+                                        </Button>
+                                    </StackPanel>
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                                        <Button x:Name="BtnEliminarRuta" Content="Eliminar" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8,0,0" FontFamily="Microsoft JhengHei UI Light" BorderThickness="0,0,0,0" Padding="12,5,12,5" IsEnabled="False" Click="BtnEliminarRuta_Click">
+                                            <Button.Resources>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="CornerRadius" Value="5"/>
+                                                </Style>
+                                            </Button.Resources>
+                                        </Button>
+                                        <Button x:Name="BtnLimpiarRuta" Content="Limpiar" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8,0,0" FontFamily="Microsoft JhengHei UI Light" BorderThickness="0,0,0,0" Padding="13,5,13,5" Click="BtnLimpiarRuta_Click">
+                                            <Button.Resources>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="CornerRadius" Value="5"/>
+                                                </Style>
+                                            </Button.Resources>
+                                        </Button>
+                                    </StackPanel>
+                                </DockPanel>
+                            </StackPanel>
                         </StackPanel>
                     </DockPanel>
                 </Viewbox>

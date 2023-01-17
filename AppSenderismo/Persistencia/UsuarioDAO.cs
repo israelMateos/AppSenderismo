@@ -18,10 +18,9 @@ namespace AppSenderismo.Persistencia
             List<List<string>> usuariosLeidos = Agente.Instancia.Leer("SELECT * FROM `user`");
             foreach (List<string> usuarioLeido in usuariosLeidos)
             {
-                Usuario usuario = new Usuario(usuarioLeido[0].ToString(),
-                    usuarioLeido[1].ToString(), usuarioLeido[2].ToString(),
-                    usuarioLeido[3].ToString(), usuarioLeido[4].ToString(),
-                    usuarioLeido[5].ToString(), DateTime.Parse(usuarioLeido[6]));
+                Usuario usuario = new Usuario(usuarioLeido[0], usuarioLeido[1],
+                    usuarioLeido[2], usuarioLeido[3], usuarioLeido[4],
+                    usuarioLeido[5], DateTime.Parse(usuarioLeido[6]));
                 usuarios.Add(usuario);
             }
         }
@@ -29,15 +28,16 @@ namespace AppSenderismo.Persistencia
         public void Leer(Usuario usuario)
         {
             List<List<string>> usuariosLeidos =
-                Agente.Instancia.Leer("SELECT * FROM `user` WHERE email = '" + usuario.Email + "'");
+                Agente.Instancia.Leer("SELECT * FROM `user` WHERE email = '"
+                + usuario.Email + "' AND password = '" + usuario.Pass + "'");
             foreach (List<string> usuarioLeido in usuariosLeidos)
             {
-                usuario.Email = usuarioLeido[0].ToString();
-                usuario.Pass = usuarioLeido[1].ToString();
-                usuario.Nombre = usuarioLeido[2].ToString();
-                usuario.Apellidos = usuarioLeido[3].ToString();
-                usuario.Telefono = usuarioLeido[4].ToString();
-                usuario.Dni = usuarioLeido[5].ToString();
+                usuario.Email = usuarioLeido[0];
+                usuario.Pass = usuarioLeido[1];
+                usuario.Nombre = usuarioLeido[2];
+                usuario.Apellidos = usuarioLeido[3];
+                usuario.Telefono = usuarioLeido[4];
+                usuario.Dni = usuarioLeido[5];
                 usuario.UltimoAcceso = DateTime.Parse(usuarioLeido[6]);
             }
         }
