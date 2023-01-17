@@ -66,6 +66,11 @@ namespace AppSenderismo.Dominio
             Dao.LeerPorId(this);
         }
 
+        public List<Ruta> LeerRutas()
+        {
+            return Dao.LeerRutas(this);
+        }
+
         public int Insertar()
         {
             return Dao.Insertar(this);

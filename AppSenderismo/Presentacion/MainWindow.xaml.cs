@@ -358,5 +358,40 @@ namespace AppSenderismo.Presentacion
                 }
             }
         }
+
+        private void RellenarLstBoxIdiomas()
+        {
+            string[] idiomas = { "Árabe", "Chino", "Español", "Francés",
+                "Alemán", "Inglés", "Italiano", "Coreano", "Japonés",
+                "Portugués", "Ruso" };
+            foreach (string idioma in idiomas)
+            {
+                CheckBox elemento = new CheckBox() {
+                    Content = idioma, IsChecked = false};
+                LstBoxIdiomas.Items.Add(elemento);
+            }
+        }
+
+        private void MarcarCasillasLstBoxIdiomas(string[] idiomas)
+        {
+            foreach (string idioma in idiomas)
+            {
+                foreach (CheckBox elemento in LstBoxIdiomas.Items)
+                {
+                    if (elemento.Content.ToString() == idioma)
+                    {
+                        elemento.IsChecked = true;
+                    }
+                }
+            }
+        }
+
+        private void RellenarLstBoxRutasGuia(Guia guia)
+        {
+            foreach (Ruta ruta in guia.LeerRutas())
+            {
+                LstBoxRutasGuia.Items.Add(ruta.Nombre);
+            }
+        }
     }
 }
