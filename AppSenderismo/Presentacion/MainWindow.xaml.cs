@@ -181,14 +181,8 @@ namespace AppSenderismo.Presentacion
                 ComboDificultadRutas.SelectedValue = ruta.Dificultad;
                 if (ruta.Guia != null)
                 {
-                    foreach (object elemento in ComboGuiaRutas.Items)
-                    {
-                        if (elemento.ToString() == ruta.Guia.Email)
-                        {
-                            ComboGuiaRutas.SelectedItem = elemento;
-                            break;
-                        }
-                    }
+                    ComboGuiaRutas.SelectedItem = ComboGuiaRutas.Items.OfType<string>()
+                        .FirstOrDefault(x => x == ruta.Guia.Email); ;
                 }
                 else
                 {
