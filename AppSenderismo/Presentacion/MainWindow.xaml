@@ -126,7 +126,7 @@
                                             </Style>
                                         </Button.Resources>
                                     </Button>
-                                    <Button x:Name="BtnModificarRuta" Content="Modificar" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8,0,0" FontFamily="Microsoft JhengHei UI Light" BorderThickness="0,0,0,0" Padding="8,5,8,5" IsEnabled="False">
+                                    <Button x:Name="BtnModificarRuta" Content="Modificar" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8,0,0" FontFamily="Microsoft JhengHei UI Light" BorderThickness="0,0,0,0" Padding="8,5,8,5" IsEnabled="False" Click="BtnModificarRuta_Click">
                                         <Button.Resources>
                                             <Style TargetType="Border">
                                                 <Setter Property="CornerRadius" Value="5"/>

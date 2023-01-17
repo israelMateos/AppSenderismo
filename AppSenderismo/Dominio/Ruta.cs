@@ -31,6 +31,26 @@ namespace AppSenderismo.Dominio
             Dao = new RutaDAO();
         }
 
+        public Ruta(string nombre, string provincias, DateTime fecha,
+            string origen, string destino, string dificultad, int duracionEstimada,
+            string formaAcceso, string formaSalida, string materialNecesario,
+            bool comidaEnRuta, Guia guia)
+        {
+            Nombre = nombre;
+            Provincias = provincias;
+            Fecha = fecha;
+            Origen = origen;
+            Destino = destino;
+            Dificultad = dificultad;
+            DuracionEstimada = duracionEstimada;
+            FormaAcceso = formaAcceso;
+            FormaSalida = formaSalida;
+            MaterialNecesario = materialNecesario;
+            ComidaEnRuta = comidaEnRuta;
+            Guia = guia;
+            Dao = new RutaDAO();
+        }
+
         public Ruta(int id, string nombre, string provincias, DateTime fecha,
             string origen, string destino, string dificultad, int duracionEstimada,
             string formaAcceso, string formaSalida, string materialNecesario,

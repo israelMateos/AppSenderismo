@@ -81,16 +81,26 @@ namespace AppSenderismo.Persistencia
 
         public int Modificar(Ruta ruta)
         {
-            return Agente.Instancia.Modificar("UPDATE route SET name = "
-                + ruta.Nombre + ", provinces = " + ruta.Provincias + ", date_time = "
-                + ruta.Fecha.ToString("yyyy-MM-dd HH:mm:ss") + ", origin = "
-                + ruta.Origen + ", destination = " + ruta.Destino + ", difficulty = "
-                + ruta.Dificultad + ", estimated_duration = " + ruta.DuracionEstimada
-                + ", access_way = " + ruta.FormaAcceso + ", exit_way = "
-                + ruta.FormaSalida + ", needed_material = " + ruta.MaterialNecesario
-                + ", eat_in_route = " + (ruta.ComidaEnRuta ? 1 : 0) + ", guide_id = "
-                + (ruta.Guia == null ? ruta.Guia.Id.ToString() : "NULL")
-                + " WHERE name = " + ruta.Nombre);
+            Console.WriteLine("UPDATE route SET provinces = '"
+                + ruta.Provincias + "', date_time = '"
+                + ruta.Fecha.ToString("yyyy-MM-dd HH:mm:ss") + "', origin = '"
+                + ruta.Origen + "', destination = '" + ruta.Destino + "', difficulty = '"
+                + ruta.Dificultad + "', estimated_duration = '" + ruta.DuracionEstimada
+                + "', access_way = '" + ruta.FormaAcceso + "', exit_way = '"
+                + ruta.FormaSalida + "', needed_material = '" + ruta.MaterialNecesario
+                + "', eat_in_route = " + (ruta.ComidaEnRuta ? 1 : 0) + ", guide_id = "
+                + (ruta.Guia != null ? ruta.Guia.Id.ToString() : "NULL")
+                + " WHERE name = '" + ruta.Nombre + "'");
+            return Agente.Instancia.Modificar("UPDATE route SET provinces = '"
+                + ruta.Provincias + "', date_time = '"
+                + ruta.Fecha.ToString("yyyy-MM-dd HH:mm:ss") + "', origin = '"
+                + ruta.Origen + "', destination = '" + ruta.Destino + "', difficulty = '"
+                + ruta.Dificultad + "', estimated_duration = '" + ruta.DuracionEstimada
+                + "', access_way = '" + ruta.FormaAcceso + "', exit_way = '"
+                + ruta.FormaSalida + "', needed_material = '" + ruta.MaterialNecesario
+                + "', eat_in_route = " + (ruta.ComidaEnRuta ? 1 : 0) + ", guide_id = "
+                + (ruta.Guia != null ? ruta.Guia.Id.ToString() : "NULL")
+                + " WHERE name = '" + ruta.Nombre + "'");
         }
 
         public int Eliminar(Ruta ruta)

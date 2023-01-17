@@ -243,5 +243,52 @@ namespace AppSenderismo.Presentacion
                 }
             }
         }
+
+        private void BtnModificarRuta_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("¿Estás seguro de que quieres modificar la ruta?",
+                "Confirmar Modificación", MessageBoxButton.YesNo,
+                MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                string provincias = "";
+                foreach (CheckBox elemento in LstBoxProvincias.Items)
+                {
+                    if (elemento != null && (elemento.IsChecked ?? false))
+                    {
+                        provincias += elemento.Content.ToString() + ",";
+                    }
+                }
+                if (provincias != "")
+                {
+                    provincias = provincias.Substring(0, provincias.Length - 1);
+                }
+                Guia guia = null;
+                if (ComboGuiaRutas.SelectedItem != null)
+                {
+                    guia = new Guia(ComboGuiaRutas.SelectedItem.ToString());
+                    guia.Leer();
+                }
+                Ruta ruta = new Ruta(TxtNombreRuta.Text, provincias,
+                    DateRuta.SelectedDate.Value, TxtOrigenRuta.Text,
+                    TxtDestinoRuta.Text, ComboDificultadRutas.Text,
+                    int.Parse(TxtDuracionRuta.Text), TxtAccesoRuta.Text,
+                    TxtVueltaRuta.Text, TxtMaterialRuta.Text,
+                    CheckComerRuta.IsChecked ?? false, guia);
+                try
+                {
+                    int rutasModificadas;
+                    if ((rutasModificadas = ruta.Modificar()) != 1)
+                    {
+                        MessageBox.Show("Se han modificado " + rutasModificadas +
+                            " rutas.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    BtnLimpiarRuta_Click(sender, e);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
     }
 }
