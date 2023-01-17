@@ -89,7 +89,7 @@ namespace AppSenderismo.Persistencia
                 + "availability_restrictions, score) VALUES ('"
                 + guia.Nombre + "', '" + guia.Apellidos + "', '"
                 + guia.Telefono + "', '" + guia.Email + "', '"
-                + guia.Idiomas + "', '" + guia.Restricciones + ", '"
+                + guia.Idiomas + "', '" + guia.Restricciones + "', '"
                 + guia.Puntuacion + "')");
         }
 

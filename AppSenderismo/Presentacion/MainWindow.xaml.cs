@@ -456,7 +456,7 @@ namespace AppSenderismo.Presentacion
             LstBoxIdiomas.Items.Clear();
             RellenarLstBoxIdiomas();
             TxtApellidosGuia.Clear();
-            TxtTelefonosGuía.Clear();
+            TxtTelefonosGuia.Clear();
             TxtCorreosGuia.Clear();
             TxtRestriccionesGuia.Clear();
             LstBoxRutasGuia.Items.Clear();
@@ -488,12 +488,69 @@ namespace AppSenderismo.Presentacion
                 RellenarLstBoxIdiomas();
                 MarcarCasillasLstBoxIdiomas(Regex.Split(guia.Idiomas, ",\\s*"));
                 TxtApellidosGuia.Text = guia.Apellidos;
-                TxtTelefonosGuía.Text = guia.Telefono;
+                TxtTelefonosGuia.Text = guia.Telefono;
                 TxtCorreosGuia.Text = guia.Email;
                 TxtRestriccionesGuia.Text = guia.Restricciones;
                 LstBoxRutasGuia.Items.Clear();
                 RellenarLstBoxRutasGuia(guia);
                 TxtPuntuacionGuia.Text = guia.Puntuacion.ToString();
+            }
+        }
+
+        private void BtnAnadirGuia_Click(object sender, RoutedEventArgs e)
+        {
+            bool algunaMarcada = false;
+            foreach (CheckBox elemento in LstBoxIdiomas.Items)
+            {
+                if (elemento.IsChecked == true)
+                {
+                    algunaMarcada = true;
+                    break;
+                }
+            }
+            if (!algunaMarcada || string.IsNullOrEmpty(TxtNombreGuia.Text) ||
+                string.IsNullOrEmpty(TxtApellidosGuia.Text) ||
+                string.IsNullOrEmpty(TxtTelefonosGuia.Text) ||
+                string.IsNullOrEmpty(TxtCorreosGuia.Text) ||
+                string.IsNullOrEmpty(TxtPuntuacionGuia.Text) ||
+                string.IsNullOrEmpty(TxtRestriccionesGuia.Text))
+            {
+                TxtFalloAnadirGuia.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                TxtFalloAnadirGuia.Visibility = Visibility.Hidden;
+                string idiomas = "";
+                foreach (CheckBox elemento in LstBoxIdiomas.Items)
+                {
+                    if (elemento != null && (elemento.IsChecked ?? false))
+                    {
+                        idiomas += elemento.Content.ToString() + ",";
+                    }
+                }
+                if (idiomas != "")
+                {
+                    idiomas = idiomas.Substring(0, idiomas.Length - 1);
+                }
+                Guia guia = new Guia(TxtNombreGuia.Text, TxtApellidosGuia.Text,
+                    TxtTelefonosGuia.Text, TxtCorreosGuia.Text, idiomas,
+                    TxtRestriccionesGuia.Text, int.Parse(TxtPuntuacionGuia.Text));
+                try
+                {
+                    int guiasInsertados;
+                    if ((guiasInsertados = guia.Insertar()) != 1)
+                    {
+                        MessageBox.Show("Se han añadido " + guiasInsertados +
+                            " rutas.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    BtnLimpiarGuia_Click(sender, e);
+                    LstBoxGuias.Items.Clear();
+                    RellenarLstBoxGuias();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }
