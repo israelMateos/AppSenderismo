@@ -131,6 +131,14 @@ namespace AppSenderismo.Presentacion
                     RellenarLstBoxProvincias();
                     RellenarComboGuiaRutas();
                 }
+                if (tabGuias.IsSelected)
+                {
+                    BtnLimpiarGuia_Click(sender, e);
+                    LstBoxGuias.Items.Clear();
+                    LstBoxIdiomas.Items.Clear();
+                    RellenarLstBoxGuias();
+                    RellenarLstBoxIdiomas();
+                }
             }
         }
 
@@ -439,6 +447,23 @@ namespace AppSenderismo.Presentacion
             {
                 LstBoxRutasGuia.Items.Add(ruta.Nombre);
             }
+        }
+
+        private void BtnLimpiarGuia_Click(object sender, RoutedEventArgs e)
+        {
+            LstBoxGuias.UnselectAll();
+            TxtNombreGuia.Clear();
+            LstBoxIdiomas.Items.Clear();
+            RellenarLstBoxIdiomas();
+            TxtApellidosGuia.Clear();
+            TxtTelefonosGuía.Clear();
+            TxtCorreosGuia.Clear();
+            TxtRestriccionesGuia.Clear();
+            LstBoxRutasGuia.Items.Clear();
+            TxtPuntuacionGuia.Clear();
+            BtnAnadirRuta.IsEnabled = true;
+            BtnModificarRuta.IsEnabled = false;
+            BtnEliminarRuta.IsEnabled = false;
         }
     }
 }
