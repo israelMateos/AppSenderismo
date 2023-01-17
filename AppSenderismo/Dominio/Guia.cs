@@ -37,6 +37,19 @@ namespace AppSenderismo.Dominio
             Dao = new GuiaDAO();
         }
 
+        public Guia(string nombre, string apellidos, string telefono,
+            string email, string idiomas, string restricciones, int puntuacion)
+        {
+            Nombre = nombre;
+            Apellidos = apellidos;
+            Telefono = telefono;
+            Email = email;
+            Idiomas = idiomas;
+            Restricciones = restricciones;
+            Puntuacion = puntuacion;
+            Dao = new GuiaDAO();
+        }
+
         public Guia(int id, string nombre, string apellidos, string telefono,
             string email, string idiomas, string restricciones, int puntuacion)
         {
@@ -64,6 +77,11 @@ namespace AppSenderismo.Dominio
         public void LeerPorId()
         {
             Dao.LeerPorId(this);
+        }
+
+        public List<Ruta> LeerRutas()
+        {
+            return Dao.LeerRutas(this);
         }
 
         public int Insertar()

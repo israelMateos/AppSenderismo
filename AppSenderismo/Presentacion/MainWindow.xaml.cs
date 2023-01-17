@@ -131,6 +131,14 @@ namespace AppSenderismo.Presentacion
                     RellenarLstBoxProvincias();
                     RellenarComboGuiaRutas();
                 }
+                if (tabGuias.IsSelected)
+                {
+                    BtnLimpiarGuia_Click(sender, e);
+                    LstBoxGuias.Items.Clear();
+                    LstBoxIdiomas.Items.Clear();
+                    RellenarLstBoxGuias();
+                    RellenarLstBoxIdiomas();
+                }
             }
         }
 
@@ -351,6 +359,261 @@ namespace AppSenderismo.Presentacion
                     BtnLimpiarRuta_Click(sender, e);
                     LstBoxRutas.Items.Clear();
                     RellenarLstBoxRutas();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private List<String> ObtenerEmailsGuias()
+        {
+            Guia guia = new Guia();
+            try
+            {
+                guia.LeerTodos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            List<string> emailsGuias = new List<string>();
+            foreach (Guia g in guia.Dao.guias)
+            {
+                emailsGuias.Add(g.Email);
+            }
+            return emailsGuias;
+        }
+
+        private void RellenarLstBoxGuias()
+        {
+            foreach (string emailGuia in ObtenerEmailsGuias())
+            {
+                LstBoxGuias.Items.Add(emailGuia);
+            }
+        }
+
+        private void TxtBuscarGuias_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string busqueda = TxtBuscarGuias.Text;
+            LstBoxGuias.Items.Clear();
+
+            if (string.IsNullOrEmpty(busqueda))
+            {
+                RellenarLstBoxGuias();
+            }
+            else
+            {
+                IEnumerable<string> guiasFiltrados = ObtenerEmailsGuias()
+                    .Where(guia => guia.ToLower().Contains(busqueda.ToLower()));
+                foreach (string guia in guiasFiltrados)
+                {
+                    LstBoxGuias.Items.Add(guia);
+                }
+            }
+        }
+
+        private void RellenarLstBoxIdiomas()
+        {
+            string[] idiomas = { "Árabe", "Chino", "Español", "Francés",
+                "Alemán", "Inglés", "Italiano", "Coreano", "Japonés",
+                "Portugués", "Ruso" };
+            foreach (string idioma in idiomas)
+            {
+                CheckBox elemento = new CheckBox() {
+                    Content = idioma, IsChecked = false};
+                LstBoxIdiomas.Items.Add(elemento);
+            }
+        }
+
+        private void MarcarCasillasLstBoxIdiomas(string[] idiomas)
+        {
+            foreach (string idioma in idiomas)
+            {
+                foreach (CheckBox elemento in LstBoxIdiomas.Items)
+                {
+                    if (elemento.Content.ToString() == idioma)
+                    {
+                        elemento.IsChecked = true;
+                    }
+                }
+            }
+        }
+
+        private void RellenarLstBoxRutasGuia(Guia guia)
+        {
+            foreach (Ruta ruta in guia.LeerRutas())
+            {
+                LstBoxRutasGuia.Items.Add(ruta.Nombre);
+            }
+        }
+
+        private void BtnLimpiarGuia_Click(object sender, RoutedEventArgs e)
+        {
+            LstBoxGuias.UnselectAll();
+            TxtNombreGuia.Clear();
+            LstBoxIdiomas.Items.Clear();
+            RellenarLstBoxIdiomas();
+            TxtApellidosGuia.Clear();
+            TxtTelefonosGuia.Clear();
+            TxtCorreosGuia.Clear();
+            TxtRestriccionesGuia.Clear();
+            LstBoxRutasGuia.Items.Clear();
+            TxtPuntuacionGuia.Clear();
+            BtnAnadirRuta.IsEnabled = true;
+            BtnModificarRuta.IsEnabled = false;
+            BtnEliminarRuta.IsEnabled = false;
+        }
+
+        private void LstBoxGuias_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            BtnAnadirGuia.IsEnabled = false;
+            BtnModificarGuia.IsEnabled = true;
+            BtnEliminarGuia.IsEnabled = true;
+
+            if (LstBoxGuias.SelectedItem != null)
+            {
+                Guia guia = new Guia(LstBoxGuias.SelectedItem.ToString());
+                try
+                {
+                    guia.Leer();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                TxtNombreGuia.Text = guia.Nombre;
+                LstBoxIdiomas.Items.Clear();
+                RellenarLstBoxIdiomas();
+                MarcarCasillasLstBoxIdiomas(Regex.Split(guia.Idiomas, ",\\s*"));
+                TxtApellidosGuia.Text = guia.Apellidos;
+                TxtTelefonosGuia.Text = guia.Telefono;
+                TxtCorreosGuia.Text = guia.Email;
+                TxtRestriccionesGuia.Text = guia.Restricciones;
+                LstBoxRutasGuia.Items.Clear();
+                RellenarLstBoxRutasGuia(guia);
+                TxtPuntuacionGuia.Text = guia.Puntuacion.ToString();
+            }
+        }
+
+        private void BtnAnadirGuia_Click(object sender, RoutedEventArgs e)
+        {
+            bool algunaMarcada = false;
+            foreach (CheckBox elemento in LstBoxIdiomas.Items)
+            {
+                if (elemento.IsChecked == true)
+                {
+                    algunaMarcada = true;
+                    break;
+                }
+            }
+            if (!algunaMarcada || string.IsNullOrEmpty(TxtNombreGuia.Text) ||
+                string.IsNullOrEmpty(TxtApellidosGuia.Text) ||
+                string.IsNullOrEmpty(TxtTelefonosGuia.Text) ||
+                string.IsNullOrEmpty(TxtCorreosGuia.Text) ||
+                string.IsNullOrEmpty(TxtPuntuacionGuia.Text) ||
+                string.IsNullOrEmpty(TxtRestriccionesGuia.Text))
+            {
+                TxtFalloAnadirGuia.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                TxtFalloAnadirGuia.Visibility = Visibility.Hidden;
+                string idiomas = "";
+                foreach (CheckBox elemento in LstBoxIdiomas.Items)
+                {
+                    if (elemento != null && (elemento.IsChecked ?? false))
+                    {
+                        idiomas += elemento.Content.ToString() + ",";
+                    }
+                }
+                if (idiomas != "")
+                {
+                    idiomas = idiomas.Substring(0, idiomas.Length - 1);
+                }
+                Guia guia = new Guia(TxtNombreGuia.Text, TxtApellidosGuia.Text,
+                    TxtTelefonosGuia.Text, TxtCorreosGuia.Text, idiomas,
+                    TxtRestriccionesGuia.Text, int.Parse(TxtPuntuacionGuia.Text));
+                try
+                {
+                    int guiasInsertados;
+                    if ((guiasInsertados = guia.Insertar()) != 1)
+                    {
+                        MessageBox.Show("Se han añadido " + guiasInsertados +
+                            " rutas.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    BtnLimpiarGuia_Click(sender, e);
+                    LstBoxGuias.Items.Clear();
+                    RellenarLstBoxGuias();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private void BtnEliminarGuia_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("¿Estás seguro de que quieres eliminar el guía?",
+                "Confirmar Eliminación", MessageBoxButton.YesNo,
+                MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                Guia guia = new Guia(TxtCorreosGuia.Text);
+                try
+                {
+                    int guiasEliminadas;
+                    if ((guiasEliminadas = guia.Eliminar()) != 1)
+                    {
+                        MessageBox.Show("Se han eliminado " + guiasEliminadas +
+                            " guías.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    LstBoxGuias.Items.RemoveAt(LstBoxGuias.SelectedIndex);
+                    BtnLimpiarGuia_Click(sender, e);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private void BtnModificarGuia_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("¿Estás seguro de que quieres modificar el guía?",
+                "Confirmar Modificación", MessageBoxButton.YesNo,
+                MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                string idiomas = "";
+                foreach (CheckBox elemento in LstBoxIdiomas.Items)
+                {
+                    if (elemento != null && (elemento.IsChecked ?? false))
+                    {
+                        idiomas += elemento.Content.ToString() + ",";
+                    }
+                }
+                if (idiomas != "")
+                {
+                    idiomas = idiomas.Substring(0, idiomas.Length - 1);
+                }
+                try
+                {
+                    // Para mantener el ID en caso de que se cambien todos los campos
+                    Guia guia = new Guia(LstBoxGuias.SelectedItem.ToString());
+                    guia.Leer();
+                    guia = new Guia(guia.Id, TxtNombreGuia.Text, TxtApellidosGuia.Text,
+                        TxtTelefonosGuia.Text, TxtCorreosGuia.Text, idiomas,
+                        TxtRestriccionesGuia.Text, int.Parse(TxtPuntuacionGuia.Text));
+                    int guiasModificadas;
+                    if ((guiasModificadas = guia.Modificar()) != 1)
+                    {
+                        MessageBox.Show("Se han modificado " + guiasModificadas +
+                            " guías.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    LstBoxGuias.Items.Clear();
+                    RellenarLstBoxGuias();
+                    BtnLimpiarGuia_Click(sender, e);
                 }
                 catch (Exception ex)
                 {

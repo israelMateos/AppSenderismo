@@ -64,6 +64,24 @@ namespace AppSenderismo.Persistencia
             }
         }
 
+        public List<Ruta> LeerRutas(Guia guia)
+        {
+            List<List<string>> rutasLeidas =
+                Agente.Instancia.Leer("SELECT * FROM `route` WHERE guide_id = "
+                + guia.Id);
+            List<Ruta> rutasGuia = new List<Ruta>();
+            foreach (List<string> rutaLeida in rutasLeidas)
+            {
+                Ruta ruta = new Ruta(int.Parse(rutaLeida[0]), rutaLeida[1],
+                    rutaLeida[2], DateTime.Parse(rutaLeida[3]),
+                    rutaLeida[4], rutaLeida[5], rutaLeida[6],
+                    int.Parse(rutaLeida[7]), rutaLeida[8], rutaLeida[9],
+                    rutaLeida[10], bool.Parse(rutaLeida[11]), guia);
+                rutasGuia.Add(ruta);
+            }
+            return rutasGuia;
+        }
+
         public int Insertar(Guia guia)
         {
             return Agente.Instancia.Modificar("INSERT INTO `guide` "
@@ -71,17 +89,17 @@ namespace AppSenderismo.Persistencia
                 + "availability_restrictions, score) VALUES ('"
                 + guia.Nombre + "', '" + guia.Apellidos + "', '"
                 + guia.Telefono + "', '" + guia.Email + "', '"
-                + guia.Idiomas + "', '" + guia.Restricciones + ", '"
+                + guia.Idiomas + "', '" + guia.Restricciones + "', '"
                 + guia.Puntuacion + "')");
         }
 
         public int Modificar(Guia guia)
         {
             return Agente.Instancia.Modificar("UPDATE `guide` SET name='" + guia.Nombre
-                + "', apellidos='" + guia.Apellidos + "', phone='" + guia.Telefono
-                + "', languages='" + guia.Idiomas + "', availability_restrictions='"
-                + guia.Restricciones + "', score='" + guia.Puntuacion
-                + "' WHERE email='" + guia.Email + "'");
+                + "', surname='" + guia.Apellidos + "', phone='" + guia.Telefono
+                + "', email='" + guia.Email + "', languages='" + guia.Idiomas
+                + "', availability_restrictions='" + guia.Restricciones
+                + "', score='" + guia.Puntuacion + "' WHERE id='" + guia.Id + "'");
         }
 
         public int Eliminar(Guia guia)
