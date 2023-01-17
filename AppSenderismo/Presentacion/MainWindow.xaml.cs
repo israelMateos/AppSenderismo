@@ -290,5 +290,73 @@ namespace AppSenderismo.Presentacion
                 }
             }
         }
+
+        private void BtnAnadirRuta_Click(object sender, RoutedEventArgs e)
+        {
+            bool algunaMarcada = false;
+            foreach (CheckBox elemento in LstBoxProvincias.Items)
+            {
+                if (elemento.IsChecked == true)
+                {
+                    algunaMarcada = true;
+                    break;
+                }
+            }
+            if (!algunaMarcada || string.IsNullOrEmpty(TxtOrigenRuta.Text) ||
+                string.IsNullOrEmpty(TxtDestinoRuta.Text) ||
+                string.IsNullOrEmpty(TxtDuracionRuta.Text) ||
+                string.IsNullOrEmpty(TxtAccesoRuta.Text) ||
+                string.IsNullOrEmpty(TxtVueltaRuta.Text) ||
+                string.IsNullOrEmpty(TxtMaterialRuta.Text) ||
+                DateRuta.SelectedDate == null ||
+                ComboDificultadRutas.SelectedIndex == -1)
+            {
+                TxtFalloAnadirRuta.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                TxtFalloAnadirRuta.Visibility = Visibility.Hidden;
+                string provincias = "";
+                foreach (CheckBox elemento in LstBoxProvincias.Items)
+                {
+                    if (elemento != null && (elemento.IsChecked ?? false))
+                    {
+                        provincias += elemento.Content.ToString() + ",";
+                    }
+                }
+                if (provincias != "")
+                {
+                    provincias = provincias.Substring(0, provincias.Length - 1);
+                }
+                Guia guia = null;
+                if (ComboGuiaRutas.SelectedItem != null)
+                {
+                    guia = new Guia(ComboGuiaRutas.SelectedItem.ToString());
+                    guia.Leer();
+                }
+                Ruta ruta = new Ruta(TxtNombreRuta.Text, provincias,
+                    DateRuta.SelectedDate.Value, TxtOrigenRuta.Text,
+                    TxtDestinoRuta.Text, ComboDificultadRutas.Text,
+                    int.Parse(TxtDuracionRuta.Text), TxtAccesoRuta.Text,
+                    TxtVueltaRuta.Text, TxtMaterialRuta.Text,
+                    CheckComerRuta.IsChecked ?? false, guia);
+                try
+                {
+                    int rutasInsertadas;
+                    if ((rutasInsertadas = ruta.Insertar()) != 1)
+                    {
+                        MessageBox.Show("Se han añadido " + rutasInsertadas +
+                            " rutas.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    BtnLimpiarRuta_Click(sender, e);
+                    LstBoxRutas.Items.Clear();
+                    RellenarLstBoxRutas();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
     }
 }

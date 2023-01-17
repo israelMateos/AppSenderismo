@@ -67,6 +67,16 @@ namespace AppSenderismo.Persistencia
             {
 
             }
+            Console.WriteLine("INSERT INTO route(name, provinces,"
+                + " date_time, origin, destination, difficulty, estimated_duration,"
+                + " access_way, exit_way, needed_material, eat_in_route, guide_id)"
+                + " VALUES('" + ruta.Nombre + "', '" + ruta.Provincias + "', '"
+                + ruta.Fecha.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + ruta.Origen
+                + "', '" + ruta.Destino + "', '" + ruta.Dificultad + "', '"
+                + ruta.DuracionEstimada + "', '" + ruta.FormaAcceso + "', '"
+                + ruta.FormaSalida + "', '" + ruta.MaterialNecesario + "', "
+                + (ruta.ComidaEnRuta ? 1 : 0) + ", "
+                + (ruta.Guia != null ? ruta.Guia.Id.ToString() : "NULL") + ")");
             return Agente.Instancia.Modificar("INSERT INTO route(name, provinces,"
                 + " date_time, origin, destination, difficulty, estimated_duration,"
                 + " access_way, exit_way, needed_material, eat_in_route, guide_id)"
@@ -74,9 +84,9 @@ namespace AppSenderismo.Persistencia
                 + ruta.Fecha.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + ruta.Origen
                 + "', '" + ruta.Destino + "', '" + ruta.Dificultad + "', '"
                 + ruta.DuracionEstimada + "', '" + ruta.FormaAcceso + "', '"
-                + ruta.FormaSalida + "', '" + ruta.MaterialNecesario + "', '"
-                + (ruta.ComidaEnRuta ? 1 : 0) + "', '"
-                + (ruta.Guia == null ? ruta.Guia.Id.ToString() : "NULL") + "')");
+                + ruta.FormaSalida + "', '" + ruta.MaterialNecesario + "', "
+                + (ruta.ComidaEnRuta ? 1 : 0) + ", "
+                + (ruta.Guia != null ? ruta.Guia.Id.ToString() : "NULL") + ")");
         }
 
         public int Modificar(Ruta ruta)
