@@ -553,5 +553,30 @@ namespace AppSenderismo.Presentacion
                 }
             }
         }
+
+        private void BtnEliminarGuia_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("¿Estás seguro de que quieres eliminar el guía?",
+                "Confirmar Eliminación", MessageBoxButton.YesNo,
+                MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                Guia guia = new Guia(TxtCorreosGuia.Text);
+                try
+                {
+                    int guiasEliminadas;
+                    if ((guiasEliminadas = guia.Eliminar()) != 1)
+                    {
+                        MessageBox.Show("Se han eliminado " + guiasEliminadas +
+                            " guías.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    LstBoxGuias.Items.RemoveAt(LstBoxGuias.SelectedIndex);
+                    BtnLimpiarGuia_Click(sender, e);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
     }
 }
