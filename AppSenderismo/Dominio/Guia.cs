@@ -28,11 +28,13 @@ namespace AppSenderismo.Dominio
         public Guia(int id)
         {
             Id = id;
+            Dao = new GuiaDAO();
         }
 
         public Guia(string email)
         {
             Email = email;
+            Dao = new GuiaDAO();
         }
 
         public Guia(int id, string nombre, string apellidos, string telefono,
@@ -46,6 +48,7 @@ namespace AppSenderismo.Dominio
             Idiomas = idiomas;
             Restricciones = restricciones;
             Puntuacion = puntuacion;
+            Dao = new GuiaDAO();
         }
 
         public void LeerTodos()
@@ -56,6 +59,11 @@ namespace AppSenderismo.Dominio
         public void Leer()
         {
             Dao.Leer(this);
+        }
+
+        public void LeerPorId()
+        {
+            Dao.LeerPorId(this);
         }
 
         public int Insertar()

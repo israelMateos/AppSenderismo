@@ -94,6 +94,16 @@ namespace AppSenderismo.Presentacion
             }
         }
 
+        private void RellenarComboGuiaRutas()
+        {
+            Guia guia = new Guia();
+            guia.LeerTodos();
+            foreach (Guia g in guia.Dao.guias)
+            {
+                ComboGuiaRutas.Items.Add(g.Email);
+            }
+        }
+
         private void TabCtrlSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.Source is TabControl)
@@ -105,6 +115,7 @@ namespace AppSenderismo.Presentacion
                     LstBoxProvincias.Items.Clear();
                     RellenarLstBoxRutas();
                     RellenarLstBoxProvincias();
+                    RellenarComboGuiaRutas();
                 }
             }
         }
@@ -134,6 +145,7 @@ namespace AppSenderismo.Presentacion
             LstBoxRutas.UnselectAll();
             TxtNombreRuta.Clear();
             LstBoxProvincias.Items.Clear();
+            RellenarLstBoxProvincias();
             DateRuta.SelectedDate = null;
             TxtOrigenRuta.Clear();
             TxtDestinoRuta.Clear();
@@ -144,7 +156,6 @@ namespace AppSenderismo.Presentacion
             TxtVueltaRuta.Clear();
             TxtMaterialRuta.Clear();
             CheckComerRuta.IsChecked = false;
-            LstBoxProvincias.Items.Clear();
             BtnAnadirRuta.IsEnabled = true;
             BtnModificarRuta.IsEnabled = false;
             BtnEliminarRuta.IsEnabled = false;
@@ -160,7 +171,6 @@ namespace AppSenderismo.Presentacion
             {
                 Ruta ruta = new Ruta(LstBoxRutas.SelectedItem.ToString());
                 ruta.Leer();
-
                 TxtNombreRuta.Text = ruta.Nombre;
                 LstBoxProvincias.Items.Clear();
                 RellenarLstBoxProvincias();
@@ -168,10 +178,22 @@ namespace AppSenderismo.Presentacion
                 DateRuta.SelectedDate = ruta.Fecha;
                 TxtOrigenRuta.Text = ruta.Origen;
                 TxtDestinoRuta.Text = ruta.Destino;
-                ComboDificultadRutas.SelectedItem = ComboDificultadRutas.Items
-                    .Cast<ComboBoxItem>().FirstOrDefault(i =>
-                    i.Content.ToString() == ruta.Dificultad);
-                ComboGuiaRutas.SelectedItem = null;
+                ComboDificultadRutas.SelectedValue = ruta.Dificultad;
+                if (ruta.Guia != null)
+                {
+                    foreach (object elemento in ComboGuiaRutas.Items)
+                    {
+                        if (elemento.ToString() == ruta.Guia.Email)
+                        {
+                            ComboGuiaRutas.SelectedItem = elemento;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    ComboGuiaRutas.SelectedItem = null;
+                }
                 TxtDuracionRuta.Text = ruta.DuracionEstimada.ToString();
                 TxtAccesoRuta.Text = ruta.FormaAcceso;
                 TxtVueltaRuta.Text = ruta.FormaSalida;

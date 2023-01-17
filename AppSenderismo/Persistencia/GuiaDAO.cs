@@ -46,6 +46,24 @@ namespace AppSenderismo.Persistencia
             }
         }
 
+        public void LeerPorId(Guia guia)
+        {
+            List<List<string>> guiasLeidos =
+                Agente.Instancia.Leer("SELECT * FROM `guide` WHERE id = '"
+                + guia.Id + "'");
+            foreach (List<string> guiaLeido in guiasLeidos)
+            {
+                guia.Id = int.Parse(guiaLeido[0]);
+                guia.Nombre = guiaLeido[1];
+                guia.Apellidos = guiaLeido[2];
+                guia.Telefono = guiaLeido[3];
+                guia.Email = guiaLeido[4];
+                guia.Idiomas = guiaLeido[5];
+                guia.Restricciones = guiaLeido[6];
+                guia.Puntuacion = int.Parse(guiaLeido[7]);
+            }
+        }
+
         public int Insertar(Guia guia)
         {
             return Agente.Instancia.Modificar("INSERT INTO `guide` "

@@ -28,7 +28,8 @@ namespace AppSenderismo.Persistencia
         public void Leer(Usuario usuario)
         {
             List<List<string>> usuariosLeidos =
-                Agente.Instancia.Leer("SELECT * FROM `user` WHERE email = '" + usuario.Email + "'");
+                Agente.Instancia.Leer("SELECT * FROM `user` WHERE email = '"
+                + usuario.Email + "' AND password = '" + usuario.Pass + "'");
             foreach (List<string> usuarioLeido in usuariosLeidos)
             {
                 usuario.Email = usuarioLeido[0];

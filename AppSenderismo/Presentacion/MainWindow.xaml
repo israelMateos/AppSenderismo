@@ -92,7 +92,7 @@
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Destino" Margin="0,15,0,0"/>
                             <TextBox x:Name="TxtDestinoRuta" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" MinWidth="149.333333333333" MaxWidth="149.333333333333"/>
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Nivel de dificultad" Margin="0,15,0,0"/>
-                            <ComboBox x:Name="ComboDificultadRutas" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0">
+                            <ComboBox x:Name="ComboDificultadRutas" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" SelectedValuePath="Content">
                                 <ComboBoxItem Content="Bajo"/>
                                 <ComboBoxItem Content="Medio"/>
                                 <ComboBoxItem Content="Difícil"/>

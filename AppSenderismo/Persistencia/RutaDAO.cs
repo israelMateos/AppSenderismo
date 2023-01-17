@@ -18,10 +18,14 @@ namespace AppSenderismo.Persistencia
             List<List<string>> rutasLeidas = Agente.Instancia.Leer("SELECT * FROM `route`");
             foreach (List<string> rutaLeida in rutasLeidas)
             {
-                Guia guia = new Guia(int.Parse(rutaLeida[12]));
-                guia.Leer();
-                Ruta ruta = new Ruta(int.Parse(rutaLeida[0]),
-                    rutaLeida[1], rutaLeida[2], DateTime.Parse(rutaLeida[3]),
+                Guia guia = null;
+                if (!(string.IsNullOrEmpty(rutaLeida[12]) || rutaLeida[12] == "NULL"))
+                {
+                    guia = new Guia(int.Parse(rutaLeida[12]));
+                    guia.LeerPorId();
+                }
+                Ruta ruta = new Ruta(int.Parse(rutaLeida[0]), rutaLeida[1],
+                    rutaLeida[2], DateTime.Parse(rutaLeida[3]),
                     rutaLeida[4], rutaLeida[5], rutaLeida[6],
                     int.Parse(rutaLeida[7]), rutaLeida[8], rutaLeida[9],
                     rutaLeida[10], bool.Parse(rutaLeida[11]), guia);
@@ -47,14 +51,22 @@ namespace AppSenderismo.Persistencia
                 ruta.FormaSalida = rutaLeida[9];
                 ruta.MaterialNecesario = rutaLeida[10];
                 ruta.ComidaEnRuta = bool.Parse(rutaLeida[11]);
-                Guia guia = new Guia(int.Parse(rutaLeida[12]));
-                guia.Leer();
+                Guia guia = null;
+                if (!(string.IsNullOrEmpty(rutaLeida[12]) || rutaLeida[12] == "NULL"))
+                {
+                    guia = new Guia(int.Parse(rutaLeida[12]));
+                    guia.LeerPorId();
+                }
                 ruta.Guia = guia;
             }
         }
 
         public int Insertar(Ruta ruta)
         {
+            if (ruta.Guia != null)
+            {
+
+            }
             return Agente.Instancia.Modificar("INSERT INTO route(name, provinces,"
                 + " date_time, origin, destination, difficulty, estimated_duration,"
                 + " access_way, exit_way, needed_material, eat_in_route, guide_id)"
@@ -63,7 +75,8 @@ namespace AppSenderismo.Persistencia
                 + "', '" + ruta.Destino + "', '" + ruta.Dificultad + "', '"
                 + ruta.DuracionEstimada + "', '" + ruta.FormaAcceso + "', '"
                 + ruta.FormaSalida + "', '" + ruta.MaterialNecesario + "', '"
-                + (ruta.ComidaEnRuta ? 1 : 0) + "', '" + ruta.Guia.Id + "')");
+                + (ruta.ComidaEnRuta ? 1 : 0) + "', '"
+                + (ruta.Guia == null ? ruta.Guia.Id.ToString() : "NULL") + "')");
         }
 
         public int Modificar(Ruta ruta)
@@ -76,7 +89,8 @@ namespace AppSenderismo.Persistencia
                 + ", access_way = " + ruta.FormaAcceso + ", exit_way = "
                 + ruta.FormaSalida + ", needed_material = " + ruta.MaterialNecesario
                 + ", eat_in_route = " + (ruta.ComidaEnRuta ? 1 : 0) + ", guide_id = "
-                + ruta.Guia.Id + " WHERE name = " + ruta.Nombre);
+                + (ruta.Guia == null ? ruta.Guia.Id.ToString() : "NULL")
+                + " WHERE name = " + ruta.Nombre);
         }
 
         public int Eliminar(Ruta ruta)
