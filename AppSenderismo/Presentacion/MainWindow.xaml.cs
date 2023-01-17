@@ -359,6 +359,53 @@ namespace AppSenderismo.Presentacion
             }
         }
 
+        private List<String> ObtenerEmailsGuias()
+        {
+            Guia guia = new Guia();
+            try
+            {
+                guia.LeerTodos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            List<string> emailsGuias = new List<string>();
+            foreach (Guia g in guia.Dao.guias)
+            {
+                emailsGuias.Add(g.Email);
+            }
+            return emailsGuias;
+        }
+
+        private void RellenarLstBoxGuias()
+        {
+            foreach (string emailGuia in ObtenerEmailsGuias())
+            {
+                LstBoxGuias.Items.Add(emailGuia);
+            }
+        }
+
+        private void TxtBuscarGuias_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string busqueda = TxtBuscarGuias.Text;
+            LstBoxGuias.Items.Clear();
+
+            if (string.IsNullOrEmpty(busqueda))
+            {
+                RellenarLstBoxGuias();
+            }
+            else
+            {
+                IEnumerable<string> guiasFiltrados = ObtenerEmailsGuias()
+                    .Where(guia => guia.ToLower().Contains(busqueda.ToLower()));
+                foreach (string guia in guiasFiltrados)
+                {
+                    LstBoxGuias.Items.Add(guia);
+                }
+            }
+        }
+
         private void RellenarLstBoxIdiomas()
         {
             string[] idiomas = { "Árabe", "Chino", "Español", "Francés",
