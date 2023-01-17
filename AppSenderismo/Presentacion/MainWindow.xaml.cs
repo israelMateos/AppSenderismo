@@ -47,9 +47,9 @@ namespace AppSenderismo.Presentacion
             {
                 ruta.LeerTodas();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             List<string> nombresRutas = new List<string>();
             foreach (Ruta r in ruta.Dao.rutas)
@@ -108,9 +108,9 @@ namespace AppSenderismo.Presentacion
             {
                 guia.LeerTodos();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             foreach (Guia g in guia.Dao.guias)
             {
@@ -173,6 +173,7 @@ namespace AppSenderismo.Presentacion
             BtnAnadirRuta.IsEnabled = true;
             BtnModificarRuta.IsEnabled = false;
             BtnEliminarRuta.IsEnabled = false;
+            TxtNombreRuta.IsEnabled = true;
         }
 
         private void LstBoxRutas_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -214,6 +215,32 @@ namespace AppSenderismo.Presentacion
                 TxtVueltaRuta.Text = ruta.FormaSalida;
                 TxtMaterialRuta.Text = ruta.MaterialNecesario;
                 CheckComerRuta.IsChecked = ruta.ComidaEnRuta;
+                TxtNombreRuta.IsEnabled = false;
+            }
+        }
+
+        private void BtnEliminarRuta_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("¿Estás seguro de que quieres eliminar la ruta?",
+                "Confirmar Eliminación", MessageBoxButton.YesNo,
+                MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                Ruta ruta = new Ruta(TxtNombreRuta.Text);
+                try
+                {
+                    int rutasEliminadas;
+                    if ((rutasEliminadas = ruta.Eliminar()) != 1)
+                    {
+                        MessageBox.Show("Se han eliminado " + rutasEliminadas +
+                            " rutas.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    LstBoxRutas.Items.RemoveAt(LstBoxRutas.SelectedIndex);
+                    BtnLimpiarRuta_Click(sender, e);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }
