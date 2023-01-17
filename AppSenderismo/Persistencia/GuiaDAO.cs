@@ -96,10 +96,10 @@ namespace AppSenderismo.Persistencia
         public int Modificar(Guia guia)
         {
             return Agente.Instancia.Modificar("UPDATE `guide` SET name='" + guia.Nombre
-                + "', apellidos='" + guia.Apellidos + "', phone='" + guia.Telefono
-                + "', languages='" + guia.Idiomas + "', availability_restrictions='"
-                + guia.Restricciones + "', score='" + guia.Puntuacion
-                + "' WHERE email='" + guia.Email + "'");
+                + "', surname='" + guia.Apellidos + "', phone='" + guia.Telefono
+                + "', email='" + guia.Email + "', languages='" + guia.Idiomas
+                + "', availability_restrictions='" + guia.Restricciones
+                + "', score='" + guia.Puntuacion + "' WHERE id='" + guia.Id + "'");
         }
 
         public int Eliminar(Guia guia)

@@ -578,5 +578,48 @@ namespace AppSenderismo.Presentacion
                 }
             }
         }
+
+        private void BtnModificarGuia_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("¿Estás seguro de que quieres modificar el guía?",
+                "Confirmar Modificación", MessageBoxButton.YesNo,
+                MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                string idiomas = "";
+                foreach (CheckBox elemento in LstBoxIdiomas.Items)
+                {
+                    if (elemento != null && (elemento.IsChecked ?? false))
+                    {
+                        idiomas += elemento.Content.ToString() + ",";
+                    }
+                }
+                if (idiomas != "")
+                {
+                    idiomas = idiomas.Substring(0, idiomas.Length - 1);
+                }
+                try
+                {
+                    // Para mantener el ID en caso de que se cambien todos los campos
+                    Guia guia = new Guia(LstBoxGuias.SelectedItem.ToString());
+                    guia.Leer();
+                    guia = new Guia(guia.Id, TxtNombreGuia.Text, TxtApellidosGuia.Text,
+                        TxtTelefonosGuia.Text, TxtCorreosGuia.Text, idiomas,
+                        TxtRestriccionesGuia.Text, int.Parse(TxtPuntuacionGuia.Text));
+                    int guiasModificadas;
+                    if ((guiasModificadas = guia.Modificar()) != 1)
+                    {
+                        MessageBox.Show("Se han modificado " + guiasModificadas +
+                            " guías.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    LstBoxGuias.Items.Clear();
+                    RellenarLstBoxGuias();
+                    BtnLimpiarGuia_Click(sender, e);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
     }
 }
