@@ -465,5 +465,36 @@ namespace AppSenderismo.Presentacion
             BtnModificarRuta.IsEnabled = false;
             BtnEliminarRuta.IsEnabled = false;
         }
+
+        private void LstBoxGuias_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            BtnAnadirGuia.IsEnabled = false;
+            BtnModificarGuia.IsEnabled = true;
+            BtnEliminarGuia.IsEnabled = true;
+
+            if (LstBoxGuias.SelectedItem != null)
+            {
+                Guia guia = new Guia(LstBoxGuias.SelectedItem.ToString());
+                try
+                {
+                    guia.Leer();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                TxtNombreGuia.Text = guia.Nombre;
+                LstBoxIdiomas.Items.Clear();
+                RellenarLstBoxIdiomas();
+                MarcarCasillasLstBoxIdiomas(Regex.Split(guia.Idiomas, ",\\s*"));
+                TxtApellidosGuia.Text = guia.Apellidos;
+                TxtTelefonosGuía.Text = guia.Telefono;
+                TxtCorreosGuia.Text = guia.Email;
+                TxtRestriccionesGuia.Text = guia.Restricciones;
+                LstBoxRutasGuia.Items.Clear();
+                RellenarLstBoxRutasGuia(guia);
+                TxtPuntuacionGuia.Text = guia.Puntuacion.ToString();
+            }
+        }
     }
 }

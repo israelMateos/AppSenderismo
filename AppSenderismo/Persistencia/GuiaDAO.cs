@@ -67,7 +67,7 @@ namespace AppSenderismo.Persistencia
         public List<Ruta> LeerRutas(Guia guia)
         {
             List<List<string>> rutasLeidas =
-                Agente.Instancia.Leer("SELECT * FROM `route` WHERE route_id = "
+                Agente.Instancia.Leer("SELECT * FROM `route` WHERE guide_id = "
                 + guia.Id);
             List<Ruta> rutasGuia = new List<Ruta>();
             foreach (List<string> rutaLeida in rutasLeidas)
