@@ -43,7 +43,14 @@ namespace AppSenderismo.Presentacion
         private List<String> ObtenerNombresRutas()
         {
             Ruta ruta = new Ruta();
-            ruta.LeerTodas();
+            try
+            {
+                ruta.LeerTodas();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             List<string> nombresRutas = new List<string>();
             foreach (Ruta r in ruta.Dao.rutas)
             {
@@ -97,7 +104,14 @@ namespace AppSenderismo.Presentacion
         private void RellenarComboGuiaRutas()
         {
             Guia guia = new Guia();
-            guia.LeerTodos();
+            try
+            {
+                guia.LeerTodos();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             foreach (Guia g in guia.Dao.guias)
             {
                 ComboGuiaRutas.Items.Add(g.Email);
@@ -170,7 +184,14 @@ namespace AppSenderismo.Presentacion
             if (LstBoxRutas.SelectedItem != null)
             {
                 Ruta ruta = new Ruta(LstBoxRutas.SelectedItem.ToString());
-                ruta.Leer();
+                try
+                {
+                    ruta.Leer();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
                 TxtNombreRuta.Text = ruta.Nombre;
                 LstBoxProvincias.Items.Clear();
                 RellenarLstBoxProvincias();
