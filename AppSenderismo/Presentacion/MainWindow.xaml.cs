@@ -780,6 +780,96 @@ namespace AppSenderismo.Presentacion
             BtnEliminarExc.IsEnabled = false;
         }
 
+        private void BtnAnadirExc_Click(object sender, RoutedEventArgs e)
+        {
+            bool algunaPlaneadaMarcada = false;
+            foreach (CheckBox elemento in LstBoxRutasPlaneadas.Items)
+            {
+                if (elemento.IsChecked == true)
+                {
+                    algunaPlaneadaMarcada = true;
+                    break;
+                }
+            }
+            bool algunaRealizadaMarcada = false;
+            foreach (CheckBox elemento in LstBoxRutasRealizadas.Items)
+            {
+                if (elemento.IsChecked == true)
+                {
+                    algunaRealizadaMarcada = true;
+                    break;
+                }
+            }
+            if(string.IsNullOrEmpty(TxtNombreExc.Text) ||
+                string.IsNullOrEmpty(TxtApellidosExc.Text) ||
+                string.IsNullOrEmpty(TxtTlfnExc.Text) ||
+                string.IsNullOrEmpty(TxtEdadExc.Text))
+            {
+                //TxtFalloAnadirExc.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                //TxtFalloAnadirExc.Visibility = Visibility.Hidden;
+                Excursionista excursionista = new Excursionista(TxtNombreExc.Text,
+                    TxtApellidosExc.Text, TxtTlfnExc.Text, int.Parse(TxtEdadExc.Text));
+                List<Ruta> rutasPlaneadas = new List<Ruta>();
+                List<Ruta> rutasRealizadas = new List<Ruta>();
+                if (algunaPlaneadaMarcada)
+                {
+                    foreach (CheckBox elemento in LstBoxRutasPlaneadas.Items)
+                    {
+                        if (elemento != null && (elemento.IsChecked ?? false))
+                        {
+                            Ruta ruta = new Ruta(elemento.Content.ToString());
+                            ruta.Leer();
+                            rutasPlaneadas.Add(ruta);
+                        }
+                    }
+                }
+                if (algunaRealizadaMarcada)
+                {
+                    foreach (CheckBox elemento in LstBoxRutasRealizadas.Items)
+                    {
+                        if (elemento != null && (elemento.IsChecked ?? false))
+                        {
+                            Ruta ruta = new Ruta(elemento.Content.ToString());
+                            ruta.Leer();
+                            rutasRealizadas.Add(ruta);
+                        }
+                    }
+                }
+                try
+                {
+                    int excursionistasInsertados;
+                    if ((excursionistasInsertados = excursionista.Insertar()) != 1)
+                    {
+                        MessageBox.Show("Se han añadido " + excursionistasInsertados +
+                            " rutas.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    if (algunaPlaneadaMarcada || algunaRealizadaMarcada)
+                    {
+                        excursionista.Leer();
+                        excursionista.RutasRealizadas = rutasRealizadas;
+                        excursionista.RutasPlaneadas = rutasPlaneadas;
+                        int realizarRutaInsertados;
+                        if ((realizarRutaInsertados = excursionista.InsertarRutas()) < 1)
+                        {
+                            MessageBox.Show("Se han insertado " + realizarRutaInsertados +
+                                " rutas.", "Error", MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+                        }
+                    }
+                    BtnLimpiarExc_Click(sender, e);
+                    LstBoxExc.Items.Clear();
+                    RellenarLstBoxExc();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
         private void BtnEliminarExc_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("¿Estás seguro de que quieres eliminar el excursionista?",

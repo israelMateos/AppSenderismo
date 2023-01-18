@@ -41,6 +41,18 @@ namespace AppSenderismo.Dominio
             Dao = new ExcursionistaDAO();
         }
 
+        public Excursionista(string nombre, string apellidos, string telefono,
+            int edad)
+        {
+            Nombre = nombre;
+            Apellidos = apellidos;
+            Edad = edad;
+            Telefono = telefono;
+            RutasPlaneadas = new List<Ruta>();
+            RutasRealizadas = new List<Ruta>();
+            Dao = new ExcursionistaDAO();
+        }
+
         public Excursionista(int id, string nombre, string apellidos,
             string telefono, int edad)
         {
@@ -62,6 +74,16 @@ namespace AppSenderismo.Dominio
         public void Leer()
         {
             Dao.Leer(this);
+        }
+
+        public int Insertar()
+        {
+            return Dao.Insertar(this);
+        }
+
+        public int InsertarRutas()
+        {
+            return Dao.InsertarRutas(this);
         }
 
         public int Eliminar()

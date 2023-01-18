@@ -104,6 +104,27 @@ namespace AppSenderismo.Persistencia
             excursionista.RutasRealizadas = rutasRealizadas;
         }
 
+        public int Insertar(Excursionista excursionista)
+        {
+            return Agente.Instancia.Modificar("INSERT INTO `traveller` "
+                + "(name, surname, phone, age) VALUES ('"
+                + excursionista.Nombre + "', '" + excursionista.Apellidos + "', '"
+                + excursionista.Telefono + "', " + excursionista.Edad + ")");
+        }
+
+        public int InsertarRutas(Excursionista excursionista)
+        {
+            int rutasInsertadas = 0;
+            foreach (Ruta ruta in excursionista.RutasPlaneadas
+                .Concat(excursionista.RutasRealizadas).ToList())
+            {
+                rutasInsertadas += Agente.Instancia.Modificar("INSERT INTO `takes`"
+                    + " (traveller_id, route_id) VALUES (" + excursionista.Id
+                    + ", " + ruta.Id + ")");
+            }
+            return rutasInsertadas;
+        }
+
         public int Eliminar(Excursionista excursionista)
         {
             return Agente.Instancia.Modificar("DELETE FROM `traveller` WHERE "
