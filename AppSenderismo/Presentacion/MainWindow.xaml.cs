@@ -929,5 +929,66 @@ namespace AppSenderismo.Presentacion
                 }
             }
         }
+
+        private void BtnModificarExc_Click(object sender, RoutedEventArgs e)
+        {
+            if(string.IsNullOrEmpty(TxtNombreExc.Text) ||
+                string.IsNullOrEmpty(TxtApellidosExc.Text) ||
+                string.IsNullOrEmpty(TxtTlfnExc.Text) ||
+                string.IsNullOrEmpty(TxtEdadExc.Text))
+            {
+                //TxtFalloAnadirExc.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                //TxtFalloAnadirExc.Visibility = Visibility.Hidden;
+                Excursionista excursionista
+                    = new Excursionista(LstBoxExc.SelectedItem.ToString().Split('(', ')')[1]);
+                excursionista.Leer();
+                excursionista = new Excursionista(excursionista.Id, TxtNombreExc.Text,
+                    TxtApellidosExc.Text, TxtTlfnExc.Text, int.Parse(TxtEdadExc.Text));
+                List<Ruta> rutasPlaneadas = new List<Ruta>();
+                List<Ruta> rutasRealizadas = new List<Ruta>();
+                foreach (CheckBox elemento in LstBoxRutasPlaneadas.Items)
+                {
+                    if (elemento != null && (elemento.IsChecked ?? false))
+                    {
+                        Ruta ruta = new Ruta(elemento.Content.ToString());
+                        ruta.Leer();
+                        rutasPlaneadas.Add(ruta);
+                    }
+                }
+                foreach (CheckBox elemento in LstBoxRutasRealizadas.Items)
+                {
+                    if (elemento != null && (elemento.IsChecked ?? false))
+                    {
+                        Ruta ruta = new Ruta(elemento.Content.ToString());
+                        ruta.Leer();
+                        rutasRealizadas.Add(ruta);
+                    }
+                }
+                try
+                {
+                    int excursionistasModificados;
+                    if ((excursionistasModificados = excursionista.Modificar()) != 1)
+                    {
+                        MessageBox.Show("Se han modificado " + excursionistasModificados +
+                            " rutas.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
+                    excursionista.RutasRealizadas = rutasRealizadas;
+                    excursionista.RutasPlaneadas = rutasPlaneadas;
+                    excursionista.EliminarRutas();
+                    excursionista.InsertarRutas();
+                    BtnLimpiarExc_Click(sender, e);
+                    LstBoxExc.Items.Clear();
+                    RellenarLstBoxExc();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
     }
 }

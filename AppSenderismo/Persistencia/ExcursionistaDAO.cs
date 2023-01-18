@@ -125,6 +125,14 @@ namespace AppSenderismo.Persistencia
             return rutasInsertadas;
         }
 
+        public int Modificar(Excursionista excursionista)
+        {
+            return Agente.Instancia.Modificar("UPDATE `traveller` SET name='"
+                + excursionista.Nombre + "', surname='" + excursionista.Apellidos
+                + "', phone='" + excursionista.Telefono + "', age="
+                + excursionista.Edad + " WHERE id=" + excursionista.Id);
+        }
+
         public int Eliminar(Excursionista excursionista)
         {
             return Agente.Instancia.Modificar("DELETE FROM `traveller` WHERE "
