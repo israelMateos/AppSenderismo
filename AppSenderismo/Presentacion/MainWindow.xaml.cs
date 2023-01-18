@@ -139,6 +139,14 @@ namespace AppSenderismo.Presentacion
                     RellenarLstBoxGuias();
                     RellenarLstBoxIdiomas();
                 }
+                if (tabExcursionista.IsSelected)
+                {
+                    LstBoxExc.Items.Clear();
+                    RellenarLstBoxExc();
+                    LstBoxRutasPlaneadas.Items.Clear();
+                    LstBoxRutasRealizadas.Items.Clear();
+                    RellenarLstBoxRutasExc();
+                }
             }
         }
 
@@ -619,6 +627,141 @@ namespace AppSenderismo.Presentacion
                 {
                     MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+            }
+        }
+
+        private List<String> ObtenerItemsLstBoxExc()
+        {
+            Excursionista excursionista = new Excursionista();
+            try
+            {
+                excursionista.LeerTodos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            List<string> nombreApellidosExcursionistas = new List<string>();
+            foreach (Excursionista e in excursionista.Dao.excursionistas)
+            {
+                nombreApellidosExcursionistas.Add(e.Nombre + " " + e.Apellidos
+                    + " (" + e.Telefono + ")");
+            }
+            return nombreApellidosExcursionistas;
+        }
+
+        private void RellenarLstBoxExc()
+        {
+            foreach (string itemExcursionista in ObtenerItemsLstBoxExc())
+            {
+                LstBoxExc.Items.Add(itemExcursionista);
+            }
+        }
+
+        private void TxtBuscarExc_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string busqueda = TxtBuscarExc.Text;
+            LstBoxExc.Items.Clear();
+
+            if (string.IsNullOrEmpty(busqueda))
+            {
+                RellenarLstBoxExc();
+            }
+            else
+            {
+                IEnumerable<string> excFiltrados = ObtenerItemsLstBoxExc()
+                    .Where(exc => exc.ToLower().Contains(busqueda.ToLower()));
+                foreach (string exc in excFiltrados)
+                {
+                    LstBoxExc.Items.Add(exc);
+                }
+            }
+        }
+
+        private void RellenarLstBoxRutasExc()
+        {
+            foreach (string nombreRuta in ObtenerNombresRutas())
+            {
+                CheckBox elemento = new CheckBox() {
+                    Content = nombreRuta, IsChecked = false};
+                Ruta ruta = new Ruta(nombreRuta);
+                ruta.Leer();
+                if (DateTime.Compare(ruta.Fecha, DateTime.Today) > 0)
+                {
+                    LstBoxRutasPlaneadas.Items.Add(elemento);
+                }
+                else
+                {
+                    LstBoxRutasRealizadas.Items.Add(elemento);
+                }
+            }
+        }
+
+        private void MarcarCasillasLstBoxRutasPlaneadas(List<string> rutas)
+        {
+            foreach (string ruta in rutas)
+            {
+                foreach (CheckBox elemento in LstBoxRutasPlaneadas.Items)
+                {
+                    if (elemento.Content.ToString() == ruta)
+                    {
+                        elemento.IsChecked = true;
+                    }
+                }
+            }
+        }
+
+        private void MarcarCasillasLstBoxRutasRealizadas(List<string> rutas)
+        {
+            foreach (string ruta in rutas)
+            {
+                foreach (CheckBox elemento in LstBoxRutasRealizadas.Items)
+                {
+                    if (elemento.Content.ToString() == ruta)
+                    {
+                        elemento.IsChecked = true;
+                    }
+                }
+            }
+        }
+
+        private void LstBoxExc_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            BtnAnadirExc.IsEnabled = false;
+            BtnModificarExc.IsEnabled = true;
+            BtnEliminarExc.IsEnabled = true;
+
+            if (LstBoxExc.SelectedItem != null)
+            {
+                string tlfnExcursionista = LstBoxExc.SelectedItem.ToString().Split('(', ')')[1];
+                Excursionista excursionista = new Excursionista(tlfnExcursionista);
+                try
+                {
+                    excursionista.Leer();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                TxtNombreExc.Text = excursionista.Nombre;
+                TxtApellidosExc.Text = excursionista.Apellidos;
+                TxtTlfnExc.Text = excursionista.Telefono;
+                TxtEdadExc.Text = excursionista.Edad.ToString();
+                LstBoxRutasPlaneadas.Items.Clear();
+                LstBoxRutasRealizadas.Items.Clear();
+                RellenarLstBoxRutasExc();
+                List<string> rutasPlaneadas = new List<string>();
+                List<string> rutasRealizadas = new List<string>();
+                foreach (Ruta ruta in excursionista.RutasPlaneadas)
+                {
+                    rutasPlaneadas.Add(ruta.Nombre);
+                }
+                foreach (Ruta ruta in excursionista.RutasRealizadas)
+                {
+                    rutasRealizadas.Add(ruta.Nombre);
+                }
+                MarcarCasillasLstBoxRutasPlaneadas(rutasPlaneadas);
+                MarcarCasillasLstBoxRutasRealizadas(rutasRealizadas);
             }
         }
     }
