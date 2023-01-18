@@ -139,6 +139,14 @@ namespace AppSenderismo.Presentacion
                     RellenarLstBoxGuias();
                     RellenarLstBoxIdiomas();
                 }
+                if (tabExcursionista.IsSelected)
+                {
+                    LstBoxExc.Items.Clear();
+                    RellenarLstBoxExc();
+                    LstBoxRutasPlaneadas.Items.Clear();
+                    LstBoxRutasRealizadas.Items.Clear();
+                    RellenarLstBoxRutasExc();
+                }
             }
         }
 
@@ -254,47 +262,71 @@ namespace AppSenderismo.Presentacion
 
         private void BtnModificarRuta_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("¿Estás seguro de que quieres modificar la ruta?",
-                "Confirmar Modificación", MessageBoxButton.YesNo,
-                MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            bool algunaMarcada = false;
+            foreach (CheckBox elemento in LstBoxProvincias.Items)
             {
-                string provincias = "";
-                foreach (CheckBox elemento in LstBoxProvincias.Items)
+                if (elemento.IsChecked == true)
                 {
-                    if (elemento != null && (elemento.IsChecked ?? false))
+                    algunaMarcada = true;
+                    break;
+                }
+            }
+            if (!algunaMarcada || string.IsNullOrEmpty(TxtOrigenRuta.Text) ||
+                string.IsNullOrEmpty(TxtDestinoRuta.Text) ||
+                string.IsNullOrEmpty(TxtDuracionRuta.Text) ||
+                string.IsNullOrEmpty(TxtAccesoRuta.Text) ||
+                string.IsNullOrEmpty(TxtVueltaRuta.Text) ||
+                string.IsNullOrEmpty(TxtMaterialRuta.Text) ||
+                DateRuta.SelectedDate == null ||
+                ComboDificultadRutas.SelectedIndex == -1)
+            {
+                TxtFalloAnadirRuta.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                TxtFalloAnadirRuta.Visibility = Visibility.Hidden;
+                if (MessageBox.Show("¿Estás seguro de que quieres modificar la ruta?",
+                    "Confirmar Modificación", MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    string provincias = "";
+                    foreach (CheckBox elemento in LstBoxProvincias.Items)
                     {
-                        provincias += elemento.Content.ToString() + ",";
+                        if (elemento != null && (elemento.IsChecked ?? false))
+                        {
+                            provincias += elemento.Content.ToString() + ",";
+                        }
                     }
-                }
-                if (provincias != "")
-                {
-                    provincias = provincias.Substring(0, provincias.Length - 1);
-                }
-                Guia guia = null;
-                if (ComboGuiaRutas.SelectedItem != null)
-                {
-                    guia = new Guia(ComboGuiaRutas.SelectedItem.ToString());
-                    guia.Leer();
-                }
-                Ruta ruta = new Ruta(TxtNombreRuta.Text, provincias,
-                    DateRuta.SelectedDate.Value, TxtOrigenRuta.Text,
-                    TxtDestinoRuta.Text, ComboDificultadRutas.Text,
-                    int.Parse(TxtDuracionRuta.Text), TxtAccesoRuta.Text,
-                    TxtVueltaRuta.Text, TxtMaterialRuta.Text,
-                    CheckComerRuta.IsChecked ?? false, guia);
-                try
-                {
-                    int rutasModificadas;
-                    if ((rutasModificadas = ruta.Modificar()) != 1)
+                    if (provincias != "")
                     {
-                        MessageBox.Show("Se han modificado " + rutasModificadas +
-                            " rutas.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        provincias = provincias.Substring(0, provincias.Length - 1);
                     }
-                    BtnLimpiarRuta_Click(sender, e);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Guia guia = null;
+                    if (ComboGuiaRutas.SelectedItem != null)
+                    {
+                        guia = new Guia(ComboGuiaRutas.SelectedItem.ToString());
+                        guia.Leer();
+                    }
+                    Ruta ruta = new Ruta(TxtNombreRuta.Text, provincias,
+                        DateRuta.SelectedDate.Value, TxtOrigenRuta.Text,
+                        TxtDestinoRuta.Text, ComboDificultadRutas.Text,
+                        int.Parse(TxtDuracionRuta.Text), TxtAccesoRuta.Text,
+                        TxtVueltaRuta.Text, TxtMaterialRuta.Text,
+                        CheckComerRuta.IsChecked ?? false, guia);
+                    try
+                    {
+                        int rutasModificadas;
+                        if ((rutasModificadas = ruta.Modificar()) != 1)
+                        {
+                            MessageBox.Show("Se han modificado " + rutasModificadas +
+                                " rutas.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        BtnLimpiarRuta_Click(sender, e);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
             }
         }
@@ -581,39 +613,422 @@ namespace AppSenderismo.Presentacion
 
         private void BtnModificarGuia_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("¿Estás seguro de que quieres modificar el guía?",
-                "Confirmar Modificación", MessageBoxButton.YesNo,
-                MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            bool algunaMarcada = false;
+            foreach (CheckBox elemento in LstBoxIdiomas.Items)
             {
-                string idiomas = "";
-                foreach (CheckBox elemento in LstBoxIdiomas.Items)
+                if (elemento.IsChecked == true)
                 {
-                    if (elemento != null && (elemento.IsChecked ?? false))
+                    algunaMarcada = true;
+                    break;
+                }
+            }
+            if (!algunaMarcada || string.IsNullOrEmpty(TxtNombreGuia.Text) ||
+                string.IsNullOrEmpty(TxtApellidosGuia.Text) ||
+                string.IsNullOrEmpty(TxtTelefonosGuia.Text) ||
+                string.IsNullOrEmpty(TxtCorreosGuia.Text) ||
+                string.IsNullOrEmpty(TxtPuntuacionGuia.Text) ||
+                string.IsNullOrEmpty(TxtRestriccionesGuia.Text))
+            {
+                TxtFalloAnadirGuia.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                TxtFalloAnadirGuia.Visibility = Visibility.Hidden;
+                if (MessageBox.Show("¿Estás seguro de que quieres modificar el guía?",
+                    "Confirmar Modificación", MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    string idiomas = "";
+                    foreach (CheckBox elemento in LstBoxIdiomas.Items)
                     {
-                        idiomas += elemento.Content.ToString() + ",";
+                        if (elemento != null && (elemento.IsChecked ?? false))
+                        {
+                            idiomas += elemento.Content.ToString() + ",";
+                        }
+                    }
+                    if (idiomas != "")
+                    {
+                        idiomas = idiomas.Substring(0, idiomas.Length - 1);
+                    }
+                    try
+                    {
+                        // Para mantener el ID en caso de que se cambien todos los campos
+                        Guia guia = new Guia(LstBoxGuias.SelectedItem.ToString());
+                        guia.Leer();
+                        guia = new Guia(guia.Id, TxtNombreGuia.Text, TxtApellidosGuia.Text,
+                            TxtTelefonosGuia.Text, TxtCorreosGuia.Text, idiomas,
+                            TxtRestriccionesGuia.Text, int.Parse(TxtPuntuacionGuia.Text));
+                        int guiasModificadas;
+                        if ((guiasModificadas = guia.Modificar()) != 1)
+                        {
+                            MessageBox.Show("Se han modificado " + guiasModificadas +
+                                " guías.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        LstBoxGuias.Items.Clear();
+                        RellenarLstBoxGuias();
+                        BtnLimpiarGuia_Click(sender, e);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
-                if (idiomas != "")
+            }
+        }
+
+        private List<String> ObtenerItemsLstBoxExc()
+        {
+            Excursionista excursionista = new Excursionista();
+            try
+            {
+                excursionista.LeerTodos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            List<string> nombreApellidosExcursionistas = new List<string>();
+            foreach (Excursionista e in excursionista.Dao.excursionistas)
+            {
+                nombreApellidosExcursionistas.Add(e.Nombre + " " + e.Apellidos
+                    + " (" + e.Telefono + ")");
+            }
+            return nombreApellidosExcursionistas;
+        }
+
+        private void RellenarLstBoxExc()
+        {
+            foreach (string itemExcursionista in ObtenerItemsLstBoxExc())
+            {
+                LstBoxExc.Items.Add(itemExcursionista);
+            }
+        }
+
+        private void TxtBuscarExc_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string busqueda = TxtBuscarExc.Text;
+            LstBoxExc.Items.Clear();
+
+            if (string.IsNullOrEmpty(busqueda))
+            {
+                RellenarLstBoxExc();
+            }
+            else
+            {
+                IEnumerable<string> excFiltrados = ObtenerItemsLstBoxExc()
+                    .Where(exc => exc.ToLower().Contains(busqueda.ToLower()));
+                foreach (string exc in excFiltrados)
                 {
-                    idiomas = idiomas.Substring(0, idiomas.Length - 1);
+                    LstBoxExc.Items.Add(exc);
+                }
+            }
+        }
+
+        private void RellenarLstBoxRutasExc()
+        {
+            foreach (string nombreRuta in ObtenerNombresRutas())
+            {
+                CheckBox elemento = new CheckBox() {
+                    Content = nombreRuta, IsChecked = false};
+                Ruta ruta = new Ruta(nombreRuta);
+                ruta.Leer();
+                if (DateTime.Compare(ruta.Fecha, DateTime.Today) > 0)
+                {
+                    LstBoxRutasPlaneadas.Items.Add(elemento);
+                }
+                else
+                {
+                    LstBoxRutasRealizadas.Items.Add(elemento);
+                }
+            }
+        }
+
+        private void MarcarCasillasLstBoxRutasPlaneadas(List<string> rutas)
+        {
+            foreach (string ruta in rutas)
+            {
+                foreach (CheckBox elemento in LstBoxRutasPlaneadas.Items)
+                {
+                    if (elemento.Content.ToString() == ruta)
+                    {
+                        elemento.IsChecked = true;
+                    }
+                }
+            }
+        }
+
+        private void MarcarCasillasLstBoxRutasRealizadas(List<string> rutas)
+        {
+            foreach (string ruta in rutas)
+            {
+                foreach (CheckBox elemento in LstBoxRutasRealizadas.Items)
+                {
+                    if (elemento.Content.ToString() == ruta)
+                    {
+                        elemento.IsChecked = true;
+                    }
+                }
+            }
+        }
+
+        private void LstBoxExc_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            BtnAnadirExc.IsEnabled = false;
+            BtnModificarExc.IsEnabled = true;
+            BtnEliminarExc.IsEnabled = true;
+
+            if (LstBoxExc.SelectedItem != null)
+            {
+                string tlfnExcursionista = LstBoxExc.SelectedItem.ToString().Split('(', ')')[1];
+                Excursionista excursionista = new Excursionista(tlfnExcursionista);
+                try
+                {
+                    excursionista.Leer();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                TxtNombreExc.Text = excursionista.Nombre;
+                TxtApellidosExc.Text = excursionista.Apellidos;
+                TxtTlfnExc.Text = excursionista.Telefono;
+                TxtEdadExc.Text = excursionista.Edad.ToString();
+                LstBoxRutasPlaneadas.Items.Clear();
+                LstBoxRutasRealizadas.Items.Clear();
+                RellenarLstBoxRutasExc();
+                List<string> rutasPlaneadas = new List<string>();
+                List<string> rutasRealizadas = new List<string>();
+                foreach (Ruta ruta in excursionista.RutasPlaneadas)
+                {
+                    rutasPlaneadas.Add(ruta.Nombre);
+                }
+                foreach (Ruta ruta in excursionista.RutasRealizadas)
+                {
+                    rutasRealizadas.Add(ruta.Nombre);
+                }
+                MarcarCasillasLstBoxRutasPlaneadas(rutasPlaneadas);
+                MarcarCasillasLstBoxRutasRealizadas(rutasRealizadas);
+            }
+        }
+
+        private void BtnLimpiarExc_Click(object sender, RoutedEventArgs e)
+        {
+            LstBoxExc.UnselectAll();
+            TxtNombreExc.Clear();
+            TxtApellidosExc.Clear();
+            TxtTlfnExc.Clear();
+            TxtEdadExc.Clear();
+            LstBoxRutasPlaneadas.Items.Clear();
+            LstBoxRutasRealizadas.Items.Clear();
+            RellenarLstBoxRutasExc();
+            BtnAnadirExc.IsEnabled = true;
+            BtnModificarExc.IsEnabled = false;
+            BtnEliminarExc.IsEnabled = false;
+        }
+
+        private void BtnAnadirExc_Click(object sender, RoutedEventArgs e)
+        {
+            bool algunaPlaneadaMarcada = false;
+            foreach (CheckBox elemento in LstBoxRutasPlaneadas.Items)
+            {
+                if (elemento.IsChecked == true)
+                {
+                    algunaPlaneadaMarcada = true;
+                    break;
+                }
+            }
+            bool algunaRealizadaMarcada = false;
+            foreach (CheckBox elemento in LstBoxRutasRealizadas.Items)
+            {
+                if (elemento.IsChecked == true)
+                {
+                    algunaRealizadaMarcada = true;
+                    break;
+                }
+            }
+            if(string.IsNullOrEmpty(TxtNombreExc.Text) ||
+                string.IsNullOrEmpty(TxtApellidosExc.Text) ||
+                string.IsNullOrEmpty(TxtTlfnExc.Text) ||
+                string.IsNullOrEmpty(TxtEdadExc.Text))
+            {
+                TxtFalloAnadirExc.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                TxtFalloAnadirExc.Visibility = Visibility.Hidden;
+                Excursionista excursionista = new Excursionista(TxtNombreExc.Text,
+                    TxtApellidosExc.Text, TxtTlfnExc.Text, int.Parse(TxtEdadExc.Text));
+                List<Ruta> rutasPlaneadas = new List<Ruta>();
+                List<Ruta> rutasRealizadas = new List<Ruta>();
+                if (algunaPlaneadaMarcada)
+                {
+                    foreach (CheckBox elemento in LstBoxRutasPlaneadas.Items)
+                    {
+                        if (elemento != null && (elemento.IsChecked ?? false))
+                        {
+                            Ruta ruta = new Ruta(elemento.Content.ToString());
+                            ruta.Leer();
+                            rutasPlaneadas.Add(ruta);
+                        }
+                    }
+                }
+                if (algunaRealizadaMarcada)
+                {
+                    foreach (CheckBox elemento in LstBoxRutasRealizadas.Items)
+                    {
+                        if (elemento != null && (elemento.IsChecked ?? false))
+                        {
+                            Ruta ruta = new Ruta(elemento.Content.ToString());
+                            ruta.Leer();
+                            rutasRealizadas.Add(ruta);
+                        }
+                    }
                 }
                 try
                 {
-                    // Para mantener el ID en caso de que se cambien todos los campos
-                    Guia guia = new Guia(LstBoxGuias.SelectedItem.ToString());
-                    guia.Leer();
-                    guia = new Guia(guia.Id, TxtNombreGuia.Text, TxtApellidosGuia.Text,
-                        TxtTelefonosGuia.Text, TxtCorreosGuia.Text, idiomas,
-                        TxtRestriccionesGuia.Text, int.Parse(TxtPuntuacionGuia.Text));
-                    int guiasModificadas;
-                    if ((guiasModificadas = guia.Modificar()) != 1)
+                    int excursionistasInsertados;
+                    if ((excursionistasInsertados = excursionista.Insertar()) != 1)
                     {
-                        MessageBox.Show("Se han modificado " + guiasModificadas +
-                            " guías.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Se han añadido " + excursionistasInsertados +
+                            " rutas.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
-                    LstBoxGuias.Items.Clear();
-                    RellenarLstBoxGuias();
-                    BtnLimpiarGuia_Click(sender, e);
+                    if (algunaPlaneadaMarcada || algunaRealizadaMarcada)
+                    {
+                        excursionista.Leer();
+                        excursionista.RutasRealizadas = rutasRealizadas;
+                        excursionista.RutasPlaneadas = rutasPlaneadas;
+                        int realizarRutaInsertados;
+                        if ((realizarRutaInsertados = excursionista.InsertarRutas()) < 1)
+                        {
+                            MessageBox.Show("Se han insertado " + realizarRutaInsertados +
+                                " rutas.", "Error", MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+                        }
+                    }
+                    BtnLimpiarExc_Click(sender, e);
+                    LstBoxExc.Items.Clear();
+                    RellenarLstBoxExc();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private void BtnEliminarExc_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("¿Estás seguro de que quieres eliminar el excursionista?",
+                "Confirmar Eliminación", MessageBoxButton.YesNo,
+                MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                Excursionista excursionista =
+                    new Excursionista(LstBoxExc.SelectedItem.ToString().Split('(', ')')[1]);
+
+                bool algunaMarcada = false;
+                foreach (CheckBox elemento in LstBoxRutasPlaneadas.Items)
+                {
+                    if (elemento.IsChecked == true)
+                    {
+                        algunaMarcada = true;
+                        break;
+                    }
+                }
+                if (!algunaMarcada)
+                {
+                    foreach (CheckBox elemento in LstBoxRutasRealizadas.Items)
+                    {
+                        if (elemento.IsChecked == true)
+                        {
+                            algunaMarcada = true;
+                            break;
+                        }
+                    }
+                }
+
+                try
+                {
+                    int excursionistasEliminados;
+                    if (algunaMarcada)
+                    {
+                        excursionista.Leer();
+                        int realizarRutaEliminados;
+                        if ((realizarRutaEliminados = excursionista.EliminarRutas()) < 1)
+                        {
+                            MessageBox.Show("Se han eliminado " + realizarRutaEliminados +
+                                " excursionistas.", "Error", MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+                        }
+                    }
+                    if ((excursionistasEliminados = excursionista.Eliminar()) != 1)
+                    {
+                        MessageBox.Show("Se han eliminado " + excursionistasEliminados +
+                            " excursionistas.", "Error", MessageBoxButton.OK,
+                            MessageBoxImage.Error);
+                    }
+                    LstBoxExc.Items.RemoveAt(LstBoxExc.SelectedIndex);
+                    BtnLimpiarExc_Click(sender, e);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private void BtnModificarExc_Click(object sender, RoutedEventArgs e)
+        {
+            if(string.IsNullOrEmpty(TxtNombreExc.Text) ||
+                string.IsNullOrEmpty(TxtApellidosExc.Text) ||
+                string.IsNullOrEmpty(TxtTlfnExc.Text) ||
+                string.IsNullOrEmpty(TxtEdadExc.Text))
+            {
+                TxtFalloAnadirExc.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                TxtFalloAnadirExc.Visibility = Visibility.Hidden;
+                Excursionista excursionista
+                    = new Excursionista(LstBoxExc.SelectedItem.ToString().Split('(', ')')[1]);
+                excursionista.Leer();
+                excursionista = new Excursionista(excursionista.Id, TxtNombreExc.Text,
+                    TxtApellidosExc.Text, TxtTlfnExc.Text, int.Parse(TxtEdadExc.Text));
+                List<Ruta> rutasPlaneadas = new List<Ruta>();
+                List<Ruta> rutasRealizadas = new List<Ruta>();
+                foreach (CheckBox elemento in LstBoxRutasPlaneadas.Items)
+                {
+                    if (elemento != null && (elemento.IsChecked ?? false))
+                    {
+                        Ruta ruta = new Ruta(elemento.Content.ToString());
+                        ruta.Leer();
+                        rutasPlaneadas.Add(ruta);
+                    }
+                }
+                foreach (CheckBox elemento in LstBoxRutasRealizadas.Items)
+                {
+                    if (elemento != null && (elemento.IsChecked ?? false))
+                    {
+                        Ruta ruta = new Ruta(elemento.Content.ToString());
+                        ruta.Leer();
+                        rutasRealizadas.Add(ruta);
+                    }
+                }
+                try
+                {
+                    int excursionistasModificados;
+                    if ((excursionistasModificados = excursionista.Modificar()) != 1)
+                    {
+                        MessageBox.Show("Se han modificado " + excursionistasModificados +
+                            " rutas.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
+                    excursionista.RutasRealizadas = rutasRealizadas;
+                    excursionista.RutasPlaneadas = rutasPlaneadas;
+                    excursionista.EliminarRutas();
+                    excursionista.InsertarRutas();
+                    BtnLimpiarExc_Click(sender, e);
+                    LstBoxExc.Items.Clear();
+                    RellenarLstBoxExc();
                 }
                 catch (Exception ex)
                 {
