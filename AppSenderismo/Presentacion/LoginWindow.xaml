@@ -23,9 +23,9 @@
             <Border BorderThickness="1" BorderBrush="Black" Grid.Column="1" Grid.Row="1" Background="White">
                 <StackPanel Grid.Column="1" Grid.Row="1" Margin="20,20,20,20">
                     <TextBox Text="AppSenderismo" FontFamily="Microsoft JhengHei UI Light" FontSize="20" HorizontalAlignment="Center" BorderThickness="0,0,0,0" IsHitTestVisible="False" IsTabStop="False"/>
-                    <TextBox Text="Usuario" FontFamily="Microsoft JhengHei UI Light" FontSize="14" Margin="0,20,0,0" BorderThickness="0,0,0,0" IsHitTestVisible="False" IsTabStop="False"/>
+                    <TextBox x:Name="TxtBoxUsuario" Text="Usuario" FontFamily="Microsoft JhengHei UI Light" FontSize="14" Margin="0,20,0,0" BorderThickness="0,0,0,0" IsHitTestVisible="False" IsTabStop="False"/>
                     <TextBox x:Name="TxtUsuario" FontFamily="Microsoft JhengHei UI Light" FontSize="14" CaretBrush="#FF1D1B1B" BorderThickness="0,0,0,1" Margin="0,5,0,0" TextChanged="TxtUsuario_TextChanged"/>
-                    <TextBox Text="Contraseña" FontFamily="Microsoft JhengHei UI Light" FontSize="14" BorderThickness="0,0,0,0" Margin="0,15,0,0" IsHitTestVisible="False" IsTabStop="False"/>
+                    <TextBox x:Name="TxtBoxPass" Text="Contraseña" FontFamily="Microsoft JhengHei UI Light" FontSize="14" BorderThickness="0,0,0,0" Margin="0,15,0,0" IsHitTestVisible="False" IsTabStop="False"/>
                     <PasswordBox x:Name="TxtPass" FontFamily="Microsoft JhengHei UI Light" FontSize="14" CaretBrush="#FF1D1B1B" BorderThickness="0,0,0,1" Margin="0,5,0,0" PasswordChar="*" PasswordChanged="TxtPass_PasswordChanged" KeyDown="TxtPass_KeyDown"/>
                     <TextBox x:Name="TxtIncorrecto" Text="Combinación usuario/contraseña incorrecta" FontFamily="Microsoft JhengHei UI Light" FontSize="12" BorderThickness="0,0,0,0" HorizontalContentAlignment="Center" Margin="0,5,0,0" Foreground="Red" Visibility="Hidden" IsTabStop="False"/>
                     <Button x:Name="BtnLogin" Content="Iniciar sesión" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8,0,0" FontFamily="Microsoft JhengHei UI Light" FontSize="16" BorderThickness="0,0,0,0" Padding="12,12,12,12" UseLayoutRounding="False" Click="BtnLogin_Click">
@@ -39,7 +39,7 @@
             </Border>
         </Viewbox>
         <DockPanel Grid.Column="2" HorizontalAlignment="Right" Margin="0,5,5,5" VerticalAlignment="Top">
-            <Button x:Name="BtnIdioma" Margin="0,0,5,0">
+            <Button x:Name="BtnIdioma" Margin="0,0,5,0" Click="BtnIdioma_Click">
                 <StackPanel Width="16" Height="16">
                     <Image Source="/Imagenes/icon_globe.png"/>
                 </StackPanel>
