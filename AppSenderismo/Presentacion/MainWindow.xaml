@@ -118,7 +118,7 @@
                             <CheckBox x:Name="CheckComerRuta" Content="¿Se come en ruta? *" Margin="0,15,0,0" FontFamily="Microsoft JhengHei UI Light"/>
 
                             <StackPanel Margin="0,10,0,0">
-                                <TextBlock x:Name="TxtFalloAnadirRuta" Text="Error al añadir. Debe completar todos los campos obligatorios (*)." FontFamily="Microsoft JhengHei UI Light" FontSize="8" Foreground="Red" Visibility="Hidden" MinWidth="144.666666666667" MaxWidth="144.666666666667" TextWrapping="Wrap"/>
+                                <TextBlock x:Name="TxtFalloAnadirRuta" Text="Error al añadir/modificar. Debe completar todos los campos obligatorios (*)." FontFamily="Microsoft JhengHei UI Light" FontSize="8" Foreground="Red" MinWidth="144.666666666667" MaxWidth="144.666666666667" TextWrapping="Wrap" Visibility="Hidden"/>
                                 <DockPanel LastChildFill="False" Margin="0,5,0,0" Height="64">
                                     <StackPanel Margin="0,0,5,0" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                                         <Button x:Name="BtnAnadirRuta" Content="Dar de alta" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0" FontFamily="Microsoft JhengHei UI Light" BorderThickness="0,0,0,0" Padding="3,5,5,5" Click="BtnAnadirRuta_Click">
@@ -203,37 +203,35 @@
                             <TextBox x:Name="TxtNombreGuia" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="165" MinWidth="165" MaxWidth="165"/>
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Apellidos *" Margin="0,15,0,0"/>
                             <TextBox x:Name="TxtApellidosGuia" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" MinWidth="165" Width="165" MaxWidth="165"/>
-                            <Button x:Name="BtnCambiarImagenGuias" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,42,0,0">
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Teléfono *" Margin="0,15,0,0"/>
+                            <TextBox x:Name="TxtTelefonosGuia" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="165" MinWidth="165" MaxWidth="165"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Correos electrónicos *" Margin="0,15,0,0"/>
+                            <TextBox x:Name="TxtCorreosGuia" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="165" MinWidth="165" MaxWidth="165"/>
+                            <Button x:Name="BtnCambiarImagenGuias" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,0">
                                 <StackPanel Width="100" Height="120">
                                     <Image Source="/Imagenes/user_avatar.png"/>
                                 </StackPanel>
                             </Button>
                         </StackPanel>
                         <StackPanel Margin="20,10,20,10">
-                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Teléfono *" Margin="0,15,0,0"/>
-                            <TextBox x:Name="TxtTelefonosGuia" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="165" MinWidth="165" MaxWidth="165"/>
-                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Correos electrónicos *" Margin="0,15,0,0"/>
-                            <TextBox x:Name="TxtCorreosGuia" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="165" MinWidth="165" MaxWidth="165"/>
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Idiomas *" Margin="0,15,0,0"/>
-                            <ListBox x:Name="LstBoxIdiomas" Margin="0,10,0,0" FontFamily="Microsoft JhengHei UI Light" SelectionMode="Multiple" Height="121.5"/>
+                            <ListBox x:Name="LstBoxIdiomas" Margin="0,10,0,0" FontFamily="Microsoft JhengHei UI Light" SelectionMode="Multiple" Height="145"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Rutas realizadas/planeadas" Margin="0,15,0,0"/>
+                            <ListBox x:Name="LstBoxRutasGuia" Margin="0,10,0,0" FontFamily="Microsoft JhengHei UI Light" Height="145" Width="162" MinWidth="165" MaxWidth="165"/>
                         </StackPanel>
                         <StackPanel Margin="20,10,20,10">
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Restricciones de disponibilidad *" Margin="0,15,0,0"/>
-                            <TextBox x:Name="TxtRestriccionesGuia" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Height="62" MinWidth="165" MaxWidth="164" Width="165" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"/>
-                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Rutas realizadas/planeadas" Margin="0,15,0,0"/>
-                            <ListBox x:Name="LstBoxRutasGuia" Margin="0,10,0,0" FontFamily="Microsoft JhengHei UI Light" Height="135" Width="162" MinWidth="165" MaxWidth="165"/>
-                            <DockPanel Margin="0,15,0,0" Width="165">
-                                <TextBlock x:Name="TxtFalloAnadirGuia" Text="Error al añadir. Debe completar todos los campos obligatorios (*)." FontFamily="Microsoft JhengHei UI Light" FontSize="9" Foreground="Red" TextWrapping="Wrap" Width="90" Visibility="Hidden"/>
-                                <StackPanel Margin="5,0,0,0" Width="70">
-                                    <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Puntuación *" Margin="0,0,0,0" HorizontalAlignment="Right"/>
-                                    <TextBox x:Name="TxtPuntuacionGuia" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Padding="20,0,0,0" Width="40" HorizontalAlignment="Right" MinWidth="40" MaxWidth="40">
-                                    <TextBox.Background>
-                                        <ImageBrush ImageSource="/Imagenes/icon_ok.png" Stretch="Uniform" AlignmentX="Left"/>
-                                    </TextBox.Background>
-                                    </TextBox>
-                                </StackPanel>
-                            </DockPanel>
-                            <DockPanel LastChildFill="False" Margin="0,10,0,0" HorizontalAlignment="Center" Height="70">
+                            <TextBox x:Name="TxtRestriccionesGuia" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Height="145" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" MinWidth="174.666666666667" MaxWidth="174.666666666667"/>
+                            <StackPanel Margin="0,15,0,0" Width="70" HorizontalAlignment="Right">
+                                <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Puntuación *" Margin="0,0,0,0" HorizontalAlignment="Right"/>
+                                <TextBox x:Name="TxtPuntuacionGuia" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Padding="20,0,0,0" Width="40" HorizontalAlignment="Right" MinWidth="40" MaxWidth="40">
+                                <TextBox.Background>
+                                    <ImageBrush ImageSource="/Imagenes/icon_ok.png" Stretch="Uniform" AlignmentX="Left"/>
+                                </TextBox.Background>
+                                </TextBox>
+                            </StackPanel>
+                            <TextBlock x:Name="TxtFalloAnadirGuia" Text="Error al añadir/modificar. Debe completar todos los campos obligatorios (*)." FontFamily="Microsoft JhengHei UI Light" FontSize="9" Foreground="Red" TextWrapping="Wrap" Margin="0,15,0,0" Width="174.666666666667" TextAlignment="Right" Height="28" HorizontalAlignment="Right"/>
+                            <DockPanel LastChildFill="False" Margin="0,15,0,0" HorizontalAlignment="Right" Height="70">
                                 <StackPanel Margin="0,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                                     <Button x:Name="BtnAnadirGuia" Content="Dar de alta" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,0" FontFamily="Microsoft JhengHei UI Light" BorderThickness="0,0,0,0" Padding="3,5,5,5" Click="BtnAnadirGuia_Click">
                                         <Button.Resources>
@@ -310,14 +308,10 @@
                 <Viewbox Grid.Column="1" Grid.Row="1" Stretch="Uniform">
                     <DockPanel Grid.Column="1" LastChildFill="False" Grid.Row="1" Background="White" Margin="10,10,10,10">
                         <StackPanel Margin="20,10,20,10">
-                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Nombre" Margin="0,15,0,0"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Margin="0,15,0,0"><Run Text="Nombre"/><Run Text=" *"/></TextBlock>
                             <TextBox x:Name="TxtNombreExc" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0"/>
-                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Apellidos" Margin="0,15,0,0"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Margin="0,15,0,0"><Run Text="Apellidos"/><Run Text=" *"/></TextBlock>
                             <TextBox x:Name="TxtApellidosExc" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0"/>
-                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Teléfono" Margin="0,15,0,0"/>
-                            <TextBox x:Name="TxtTlfnExc" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0"/>
-                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Edad" Margin="0,15,0,0"/>
-                            <TextBox x:Name="TxtEdadExc" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="28" HorizontalAlignment="Left"/>
                             <Button x:Name="BtnCambiarImagenExc" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,0" IsEnabled="False">
                                 <StackPanel Width="110" Height="130">
                                     <Image Source="/Imagenes/user_avatar.png"/>
@@ -325,10 +319,17 @@
                             </Button>
                         </StackPanel>
                         <StackPanel Margin="20,10,20,10">
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Margin="0,15,0,0"><Run Text="Teléfono"/><Run Text=" *"/></TextBlock>
+                            <TextBox x:Name="TxtTlfnExc" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="70" HorizontalAlignment="Left"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Margin="0,15,0,0"><Run Text="Edad"/><Run Text=" *"/></TextBlock>
+                            <TextBox x:Name="TxtEdadExc" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="28" HorizontalAlignment="Left"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Rutas realizadas" Margin="0,15,0,0"/>
+                            <ListBox x:Name="LstBoxRutasRealizadas" Margin="0,10,0,0" FontFamily="Microsoft JhengHei UI Light" Height="112" Width="144.666666666667"/>
+                        </StackPanel>
+                        <StackPanel Margin="20,10,20,10">
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Rutas planeadas" Margin="0,15,0,0"/>
                             <ListBox x:Name="LstBoxRutasPlaneadas" Margin="0,10,0,0" FontFamily="Microsoft JhengHei UI Light" Height="112"/>
-                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Rutas realizadas" Margin="0,15,0,0"/>
-                            <ListBox x:Name="LstBoxRutasRealizadas" Margin="0,10,0,0" FontFamily="Microsoft JhengHei UI Light" Height="112"/>
+                            <TextBlock x:Name="TxtFalloAnadirExc" Text="Error al añadir/modificar. Debe completar todos los campos obligatorios (*)." FontFamily="Microsoft JhengHei UI Light" FontSize="9" Foreground="Red" TextWrapping="Wrap" Width="144.666666666667" Margin="0,8,0,0" Visibility="Hidden"/>
                             <DockPanel LastChildFill="False" Margin="0,15,0,0">
                                 <StackPanel Margin="0,0,10,0" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                                     <Button x:Name="BtnAnadirExc" Content="Dar de alta" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" FontFamily="Microsoft JhengHei UI Light" BorderThickness="0,0,0,0" Padding="3,5,5,5" Click="BtnAnadirExc_Click">

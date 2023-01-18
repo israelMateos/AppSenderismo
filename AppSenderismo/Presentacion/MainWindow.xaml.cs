@@ -262,47 +262,71 @@ namespace AppSenderismo.Presentacion
 
         private void BtnModificarRuta_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("¿Estás seguro de que quieres modificar la ruta?",
-                "Confirmar Modificación", MessageBoxButton.YesNo,
-                MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            bool algunaMarcada = false;
+            foreach (CheckBox elemento in LstBoxProvincias.Items)
             {
-                string provincias = "";
-                foreach (CheckBox elemento in LstBoxProvincias.Items)
+                if (elemento.IsChecked == true)
                 {
-                    if (elemento != null && (elemento.IsChecked ?? false))
+                    algunaMarcada = true;
+                    break;
+                }
+            }
+            if (!algunaMarcada || string.IsNullOrEmpty(TxtOrigenRuta.Text) ||
+                string.IsNullOrEmpty(TxtDestinoRuta.Text) ||
+                string.IsNullOrEmpty(TxtDuracionRuta.Text) ||
+                string.IsNullOrEmpty(TxtAccesoRuta.Text) ||
+                string.IsNullOrEmpty(TxtVueltaRuta.Text) ||
+                string.IsNullOrEmpty(TxtMaterialRuta.Text) ||
+                DateRuta.SelectedDate == null ||
+                ComboDificultadRutas.SelectedIndex == -1)
+            {
+                TxtFalloAnadirRuta.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                TxtFalloAnadirRuta.Visibility = Visibility.Hidden;
+                if (MessageBox.Show("¿Estás seguro de que quieres modificar la ruta?",
+                    "Confirmar Modificación", MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    string provincias = "";
+                    foreach (CheckBox elemento in LstBoxProvincias.Items)
                     {
-                        provincias += elemento.Content.ToString() + ",";
+                        if (elemento != null && (elemento.IsChecked ?? false))
+                        {
+                            provincias += elemento.Content.ToString() + ",";
+                        }
                     }
-                }
-                if (provincias != "")
-                {
-                    provincias = provincias.Substring(0, provincias.Length - 1);
-                }
-                Guia guia = null;
-                if (ComboGuiaRutas.SelectedItem != null)
-                {
-                    guia = new Guia(ComboGuiaRutas.SelectedItem.ToString());
-                    guia.Leer();
-                }
-                Ruta ruta = new Ruta(TxtNombreRuta.Text, provincias,
-                    DateRuta.SelectedDate.Value, TxtOrigenRuta.Text,
-                    TxtDestinoRuta.Text, ComboDificultadRutas.Text,
-                    int.Parse(TxtDuracionRuta.Text), TxtAccesoRuta.Text,
-                    TxtVueltaRuta.Text, TxtMaterialRuta.Text,
-                    CheckComerRuta.IsChecked ?? false, guia);
-                try
-                {
-                    int rutasModificadas;
-                    if ((rutasModificadas = ruta.Modificar()) != 1)
+                    if (provincias != "")
                     {
-                        MessageBox.Show("Se han modificado " + rutasModificadas +
-                            " rutas.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        provincias = provincias.Substring(0, provincias.Length - 1);
                     }
-                    BtnLimpiarRuta_Click(sender, e);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Guia guia = null;
+                    if (ComboGuiaRutas.SelectedItem != null)
+                    {
+                        guia = new Guia(ComboGuiaRutas.SelectedItem.ToString());
+                        guia.Leer();
+                    }
+                    Ruta ruta = new Ruta(TxtNombreRuta.Text, provincias,
+                        DateRuta.SelectedDate.Value, TxtOrigenRuta.Text,
+                        TxtDestinoRuta.Text, ComboDificultadRutas.Text,
+                        int.Parse(TxtDuracionRuta.Text), TxtAccesoRuta.Text,
+                        TxtVueltaRuta.Text, TxtMaterialRuta.Text,
+                        CheckComerRuta.IsChecked ?? false, guia);
+                    try
+                    {
+                        int rutasModificadas;
+                        if ((rutasModificadas = ruta.Modificar()) != 1)
+                        {
+                            MessageBox.Show("Se han modificado " + rutasModificadas +
+                                " rutas.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        BtnLimpiarRuta_Click(sender, e);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
             }
         }
@@ -589,43 +613,65 @@ namespace AppSenderismo.Presentacion
 
         private void BtnModificarGuia_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("¿Estás seguro de que quieres modificar el guía?",
-                "Confirmar Modificación", MessageBoxButton.YesNo,
-                MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            bool algunaMarcada = false;
+            foreach (CheckBox elemento in LstBoxIdiomas.Items)
             {
-                string idiomas = "";
-                foreach (CheckBox elemento in LstBoxIdiomas.Items)
+                if (elemento.IsChecked == true)
                 {
-                    if (elemento != null && (elemento.IsChecked ?? false))
+                    algunaMarcada = true;
+                    break;
+                }
+            }
+            if (!algunaMarcada || string.IsNullOrEmpty(TxtNombreGuia.Text) ||
+                string.IsNullOrEmpty(TxtApellidosGuia.Text) ||
+                string.IsNullOrEmpty(TxtTelefonosGuia.Text) ||
+                string.IsNullOrEmpty(TxtCorreosGuia.Text) ||
+                string.IsNullOrEmpty(TxtPuntuacionGuia.Text) ||
+                string.IsNullOrEmpty(TxtRestriccionesGuia.Text))
+            {
+                TxtFalloAnadirGuia.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                TxtFalloAnadirGuia.Visibility = Visibility.Hidden;
+                if (MessageBox.Show("¿Estás seguro de que quieres modificar el guía?",
+                    "Confirmar Modificación", MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    string idiomas = "";
+                    foreach (CheckBox elemento in LstBoxIdiomas.Items)
                     {
-                        idiomas += elemento.Content.ToString() + ",";
+                        if (elemento != null && (elemento.IsChecked ?? false))
+                        {
+                            idiomas += elemento.Content.ToString() + ",";
+                        }
                     }
-                }
-                if (idiomas != "")
-                {
-                    idiomas = idiomas.Substring(0, idiomas.Length - 1);
-                }
-                try
-                {
-                    // Para mantener el ID en caso de que se cambien todos los campos
-                    Guia guia = new Guia(LstBoxGuias.SelectedItem.ToString());
-                    guia.Leer();
-                    guia = new Guia(guia.Id, TxtNombreGuia.Text, TxtApellidosGuia.Text,
-                        TxtTelefonosGuia.Text, TxtCorreosGuia.Text, idiomas,
-                        TxtRestriccionesGuia.Text, int.Parse(TxtPuntuacionGuia.Text));
-                    int guiasModificadas;
-                    if ((guiasModificadas = guia.Modificar()) != 1)
+                    if (idiomas != "")
                     {
-                        MessageBox.Show("Se han modificado " + guiasModificadas +
-                            " guías.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        idiomas = idiomas.Substring(0, idiomas.Length - 1);
                     }
-                    LstBoxGuias.Items.Clear();
-                    RellenarLstBoxGuias();
-                    BtnLimpiarGuia_Click(sender, e);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    try
+                    {
+                        // Para mantener el ID en caso de que se cambien todos los campos
+                        Guia guia = new Guia(LstBoxGuias.SelectedItem.ToString());
+                        guia.Leer();
+                        guia = new Guia(guia.Id, TxtNombreGuia.Text, TxtApellidosGuia.Text,
+                            TxtTelefonosGuia.Text, TxtCorreosGuia.Text, idiomas,
+                            TxtRestriccionesGuia.Text, int.Parse(TxtPuntuacionGuia.Text));
+                        int guiasModificadas;
+                        if ((guiasModificadas = guia.Modificar()) != 1)
+                        {
+                            MessageBox.Show("Se han modificado " + guiasModificadas +
+                                " guías.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        LstBoxGuias.Items.Clear();
+                        RellenarLstBoxGuias();
+                        BtnLimpiarGuia_Click(sender, e);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
             }
         }
@@ -805,11 +851,11 @@ namespace AppSenderismo.Presentacion
                 string.IsNullOrEmpty(TxtTlfnExc.Text) ||
                 string.IsNullOrEmpty(TxtEdadExc.Text))
             {
-                //TxtFalloAnadirExc.Visibility = Visibility.Visible;
+                TxtFalloAnadirExc.Visibility = Visibility.Visible;
             }
             else
             {
-                //TxtFalloAnadirExc.Visibility = Visibility.Hidden;
+                TxtFalloAnadirExc.Visibility = Visibility.Hidden;
                 Excursionista excursionista = new Excursionista(TxtNombreExc.Text,
                     TxtApellidosExc.Text, TxtTlfnExc.Text, int.Parse(TxtEdadExc.Text));
                 List<Ruta> rutasPlaneadas = new List<Ruta>();
@@ -937,11 +983,11 @@ namespace AppSenderismo.Presentacion
                 string.IsNullOrEmpty(TxtTlfnExc.Text) ||
                 string.IsNullOrEmpty(TxtEdadExc.Text))
             {
-                //TxtFalloAnadirExc.Visibility = Visibility.Visible;
+                TxtFalloAnadirExc.Visibility = Visibility.Visible;
             }
             else
             {
-                //TxtFalloAnadirExc.Visibility = Visibility.Hidden;
+                TxtFalloAnadirExc.Visibility = Visibility.Hidden;
                 Excursionista excursionista
                     = new Excursionista(LstBoxExc.SelectedItem.ToString().Split('(', ')')[1]);
                 excursionista.Leer();
