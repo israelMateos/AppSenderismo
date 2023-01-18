@@ -103,5 +103,17 @@ namespace AppSenderismo.Persistencia
             }
             excursionista.RutasRealizadas = rutasRealizadas;
         }
+
+        public int Eliminar(Excursionista excursionista)
+        {
+            return Agente.Instancia.Modificar("DELETE FROM `traveller` WHERE "
+                + "phone='" + excursionista.Telefono + "'");
+        }
+
+        public int EliminarRutas(Excursionista excursionista)
+        {
+            return Agente.Instancia.Modificar("DELETE FROM `takes` WHERE "
+                + "traveller_id='" + excursionista.Id + "'");
+        }
     }
 }

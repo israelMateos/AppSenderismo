@@ -779,5 +779,65 @@ namespace AppSenderismo.Presentacion
             BtnModificarExc.IsEnabled = false;
             BtnEliminarExc.IsEnabled = false;
         }
+
+        private void BtnEliminarExc_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("¿Estás seguro de que quieres eliminar el excursionista?",
+                "Confirmar Eliminación", MessageBoxButton.YesNo,
+                MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                Excursionista excursionista =
+                    new Excursionista(LstBoxExc.SelectedItem.ToString().Split('(', ')')[1]);
+
+                bool algunaMarcada = false;
+                foreach (CheckBox elemento in LstBoxRutasPlaneadas.Items)
+                {
+                    if (elemento.IsChecked == true)
+                    {
+                        algunaMarcada = true;
+                        break;
+                    }
+                }
+                if (!algunaMarcada)
+                {
+                    foreach (CheckBox elemento in LstBoxRutasRealizadas.Items)
+                    {
+                        if (elemento.IsChecked == true)
+                        {
+                            algunaMarcada = true;
+                            break;
+                        }
+                    }
+                }
+
+                try
+                {
+                    int excursionistasEliminados;
+                    if (algunaMarcada)
+                    {
+                        excursionista.Leer();
+                        int realizarRutaEliminados;
+                        if ((realizarRutaEliminados = excursionista.EliminarRutas()) < 1)
+                        {
+                            MessageBox.Show("Se han eliminado " + realizarRutaEliminados +
+                                " excursionistas.", "Error", MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+                        }
+                    }
+                    if ((excursionistasEliminados = excursionista.Eliminar()) != 1)
+                    {
+                        MessageBox.Show("Se han eliminado " + excursionistasEliminados +
+                            " excursionistas.", "Error", MessageBoxButton.OK,
+                            MessageBoxImage.Error);
+                    }
+                    LstBoxExc.Items.RemoveAt(LstBoxExc.SelectedIndex);
+                    BtnLimpiarExc_Click(sender, e);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
     }
 }

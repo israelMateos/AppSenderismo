@@ -63,5 +63,15 @@ namespace AppSenderismo.Dominio
         {
             Dao.Leer(this);
         }
+
+        public int Eliminar()
+        {
+            return Dao.Eliminar(this);
+        }
+
+        public int EliminarRutas()
+        {
+            return Dao.EliminarRutas(this);
+        }
     }
 }
