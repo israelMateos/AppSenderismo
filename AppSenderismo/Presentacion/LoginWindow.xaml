@@ -49,7 +49,7 @@
                     <Image Source="/Imagenes/icon_question_mark.png"/>
                 </StackPanel>
             </Button>
-            <Button x:Name="BtnSalir">
+            <Button x:Name="BtnSalir" Click="BtnSalir_Click">
                 <StackPanel Width="16" Height="16">
                     <Image Source="/Imagenes/icon_cross.png"/>
                 </StackPanel>
