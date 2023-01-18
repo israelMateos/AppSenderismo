@@ -158,7 +158,7 @@ CREATE TABLE `traveller` (
 
 LOCK TABLES `traveller` WRITE;
 /*!40000 ALTER TABLE `traveller` DISABLE KEYS */;
-INSERT INTO `traveller` VALUES (1,'John','Doe','612345678',25),(2,'Jane','Doe','601234567',30),(3,'Mike','Smith','712345678',35),(4,'Samantha','Johnson','701234567',40),(5,'Emily','Williams','612345679',45),(6,'Jacob','Jones','701234568',50),(7,'Michael','Brown','612345670',55),(8,'Emily','Miller','701234561',60),(9,'Jacob','Davis','612345662',65),(10,'Michael','Garcia','701234563',70),(11,'Emily','Rodriguez','612345665',75),(12,'Jacob','Martinez','701234566',78),(13,'Michael','Anderson','612345667',79),(14,'Emily','Taylor','701234568',80),(15,'Jacob','Thomas','712345669',75),(16,'Michael','Hernandez','701234560',70),(17,'Emily','Moore','612345661',65),(18,'Jacob','Martin','701234562',60);
+INSERT INTO `traveller` VALUES (1,'John','Doe','612345678',25),(2,'Jane','Doe','601234567',30),(3,'Mike','Smith','712345678',35),(4,'Samantha','Johnson','701236567',40),(5,'Emily','Williams','612345679',45),(6,'Jacob','Jones','700234568',50),(7,'Michael','Brown','612345670',55),(8,'Emily','Miller','701234561',60),(9,'Jacob','Davis','612345662',65),(10,'Michael','Garcia','701234563',70),(11,'Emily','Rodriguez','612345665',75),(12,'Jacob','Martinez','701234566',78),(13,'Michael','Anderson','612345667',79),(14,'Emily','Taylor','701234568',80),(15,'Jacob','Thomas','712345669',75),(16,'Michael','Hernandez','701234560',70),(17,'Emily','Moore','612345661',65),(18,'Jacob','Martin','701234562',60);
 /*!40000 ALTER TABLE `traveller` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
