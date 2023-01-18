@@ -354,7 +354,7 @@
                                             </Style>
                                         </Button.Resources>
                                     </Button>
-                                    <Button x:Name="BtnLimpiarExc" Content="Limpiar" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8,0,0" FontFamily="Microsoft JhengHei UI Light" BorderThickness="0,0,0,0" Padding="13,5,13,5">
+                                    <Button x:Name="BtnLimpiarExc" Content="Limpiar" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,8,0,0" FontFamily="Microsoft JhengHei UI Light" BorderThickness="0,0,0,0" Padding="13,5,13,5" Click="BtnLimpiarExc_Click">
                                         <Button.Resources>
                                             <Style TargetType="Border">
                                                 <Setter Property="CornerRadius" Value="5"/>

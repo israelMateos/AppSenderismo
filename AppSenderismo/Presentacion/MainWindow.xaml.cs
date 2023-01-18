@@ -764,5 +764,20 @@ namespace AppSenderismo.Presentacion
                 MarcarCasillasLstBoxRutasRealizadas(rutasRealizadas);
             }
         }
+
+        private void BtnLimpiarExc_Click(object sender, RoutedEventArgs e)
+        {
+            LstBoxExc.UnselectAll();
+            TxtNombreExc.Clear();
+            TxtApellidosExc.Clear();
+            TxtTlfnExc.Clear();
+            TxtEdadExc.Clear();
+            LstBoxRutasPlaneadas.Items.Clear();
+            LstBoxRutasRealizadas.Items.Clear();
+            RellenarLstBoxRutasExc();
+            BtnAnadirExc.IsEnabled = true;
+            BtnModificarExc.IsEnabled = false;
+            BtnEliminarExc.IsEnabled = false;
+        }
     }
 }
