@@ -45,7 +45,7 @@
                             <Image Source="/Imagenes/icon_question_mark.png"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="BtnSalirDatosUsuario">
+                    <Button x:Name="BtnSalirDatosUsuario" Click="BtnSalirDatosUsuario_Click">
                         <StackPanel Width="16" Height="16">
                             <Image Source="/Imagenes/icon_cross.png"/>
                         </StackPanel>
@@ -164,7 +164,7 @@
                             <Image Source="/Imagenes/icon_question_mark.png"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="BtnSalirRutas">
+                    <Button x:Name="BtnSalirRutas" Click="BtnSalirRutas_Click">
                         <StackPanel Width="16" Height="16">
                             <Image Source="/Imagenes/icon_cross.png"/>
                         </StackPanel>
@@ -275,7 +275,7 @@
                             <Image Source="/Imagenes/icon_question_mark.png"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="BtnSalirGuias">
+                    <Button x:Name="BtnSalirGuias" Click="BtnSalirGuias_Click">
                         <StackPanel Width="16" Height="16">
                             <Image Source="/Imagenes/icon_cross.png"/>
                         </StackPanel>
@@ -373,7 +373,7 @@
                             <Image Source="/Imagenes/icon_question_mark.png"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="BtnSalirExc">
+                    <Button x:Name="BtnSalirExc" Click="BtnSalirExc_Clic">
                         <StackPanel Width="16" Height="16">
                             <Image Source="/Imagenes/icon_cross.png"/>
                         </StackPanel>
@@ -466,7 +466,7 @@
                             <Image Source="/Imagenes/icon_question_mark.png"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="BtnSalirPromo">
+                    <Button x:Name="BtnSalirPromo" Click="BtnSalirPromo_Click">
                         <StackPanel Width="16" Height="16">
                             <Image Source="/Imagenes/icon_cross.png"/>
                         </StackPanel>

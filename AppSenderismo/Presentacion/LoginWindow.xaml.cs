@@ -100,5 +100,10 @@ namespace AppSenderismo.Presentacion
             TxtIncorrecto.Text = "Incorrect username/password combination";
             BtnLogin.Content = "Login";
         }
+
+        private void BtnSalir_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }
