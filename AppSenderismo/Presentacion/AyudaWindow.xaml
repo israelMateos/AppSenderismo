@@ -1,1 +1,37 @@
-
+<Window x:Class="AppSenderismo.Presentacion.AyudaWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AppSenderismo.Presentacion"
+        mc:Ignorable="d"
+        Title="AppSenderismo" WindowState="Maximized">
+  
+  <Grid Background="#FF2E2B2B">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="37*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="300*"/>
+            <RowDefinition Height="67*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+    <Viewbox Grid.Column="1" Grid.Row="2" Stretch="Uniform">
+                    <DockPanel Grid.Column="1" Grid.Row="2" Background="White" Margin="0,0,0,0" Height="310">
+                        <StackPanel Margin="40,0,20,0" HorizontalAlignment="Left">
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Introducción" Margin="0,20,0,0"/>
+                            <TextBox x:Name="TxtIntroducción" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="200" IsEnabled="False"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Privacidad y seguridad" Margin="0,10,0,0"/>
+                            <TextBox x:Name="TxtPrivSec" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" IsEnabled="False"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Personalizar" Margin="0,10,0,0"/>
+                            <TextBox x:Name="TxtPersonalizar" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="100" HorizontalAlignment="Left" IsEnabled="False"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Solución de problemas" Margin="0,10,0,0"/>
+                            <TextBox x:Name="TxtSolProblemas" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" HorizontalAlignment="Left" Width="100" IsEnabled="False"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Contacta con nosotros" Margin="0,10,0,0"/>
+                            <TextBox x:Name="TxtContacta" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" HorizontalAlignment="Left" Width="100" IsEnabled="False"/>
+                      </StackPanel>
+                    </DockPanel>
+                </Viewbox>
