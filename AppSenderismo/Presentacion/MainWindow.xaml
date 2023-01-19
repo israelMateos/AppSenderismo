@@ -219,9 +219,9 @@
                             <TextBox x:Name="TxtTelefonosGuia" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="165" MinWidth="165" MaxWidth="165"/>
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Correos electrónicos *" Margin="0,15,0,0"/>
                             <TextBox x:Name="TxtCorreosGuia" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="165" MinWidth="165" MaxWidth="165"/>
-                            <Button x:Name="BtnCambiarImagenGuias" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,0">
-                                <StackPanel Width="100" Height="120">
-                                    <Image Source="/Imagenes/user_avatar.png"/>
+                            <Button x:Name="BtnCambiarImagenGuias" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,0" Click="BtnCambiarImagenGuias_Click" MinHeight="123.333333333333" MaxHeight="123.333333333333" MinWidth="104.666666666667" MaxWidth="104.666666666667">
+                                <StackPanel Width="100" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Image x:Name="imgGuia" Source="/Imagenes/user_avatar.png" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
                         </StackPanel>
@@ -336,9 +336,9 @@
                             <TextBox x:Name="TxtNombreExc" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0"/>
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Margin="0,15,0,0"><Run Text="Apellidos"/><Run Text=" *"/></TextBlock>
                             <TextBox x:Name="TxtApellidosExc" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0"/>
-                            <Button x:Name="BtnCambiarImagenExc" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,0" IsEnabled="False">
-                                <StackPanel Width="110" Height="130">
-                                    <Image Source="/Imagenes/user_avatar.png"/>
+                            <Button x:Name="BtnCambiarImagenExc" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,15,0,0" IsEnabled="True" Click="BtnCambiarImagenExc_Click" MinHeight="136" MaxHeight="134.666666666667" MinWidth="114.666666666667" MaxWidth="114.666666666667">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Image x:Name="imgExcursionista" Source="/Imagenes/user_avatar.png" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
                         </StackPanel>
