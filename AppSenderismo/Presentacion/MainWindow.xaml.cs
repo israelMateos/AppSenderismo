@@ -1283,5 +1283,40 @@ namespace AppSenderismo.Presentacion
                 imgExcursionista.Source = new BitmapImage(new Uri(openFileDialog.FileName));
             }
         }
+
+        private void BtnAdjuntarArchivosPromo_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Multiselect = true
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string rutaCarpeta = "AdjuntosPromos";
+                if (!Directory.Exists(rutaCarpeta))
+                {
+                    Directory.CreateDirectory(rutaCarpeta);
+                }
+
+                string prefijo = TxtNombrePromo.Text + "_";
+                foreach (string rutaFichero in openFileDialog.FileNames)
+                {
+                    FileInfo fichero = new FileInfo(rutaFichero);
+                    string nuevoNombreFichero = prefijo + fichero.Name;
+                    fichero.CopyTo(System.IO.Path.Combine(rutaCarpeta, nuevoNombreFichero), true);
+                }
+
+                LstBoxAdjuntos.Items.Clear();
+                string[] ficheros = Directory.GetFiles(rutaCarpeta);
+                foreach (string fichero in ficheros)
+                {
+                    if (System.IO.Path.GetFileName(fichero).StartsWith(prefijo))
+                    {
+                        LstBoxAdjuntos.Items.Add(System.IO.Path.GetFileName(fichero));
+                    }
+                }
+            }
+        }
     }
 }
