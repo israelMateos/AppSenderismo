@@ -9,11 +9,11 @@ namespace AppSenderismo.Persistencia
 {
     public class GuiaDAO
     {
-        public readonly List<Guia> guias;
+        public readonly List<Guia> Guias;
 
         public GuiaDAO()
         {
-            guias = new List<Guia>();
+            Guias = new List<Guia>();
         }
 
         public void LeerTodos()
@@ -24,7 +24,7 @@ namespace AppSenderismo.Persistencia
                 Guia guia = new Guia(int.Parse(guiaLeido[0]), guiaLeido[1],
                     guiaLeido[2], guiaLeido[3], guiaLeido[4], guiaLeido[5],
                     guiaLeido[6], int.Parse(guiaLeido[7]));
-                guias.Add(guia);
+                Guias.Add(guia);
             }
         }
 

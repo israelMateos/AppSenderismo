@@ -6,11 +6,11 @@ namespace AppSenderismo.Persistencia
 {
     public class UsuarioDAO
     {
-        public readonly List<Usuario> usuarios;
+        public readonly List<Usuario> Usuarios;
 
         public UsuarioDAO()
         {
-            usuarios = new List<Usuario>();
+            Usuarios = new List<Usuario>();
         }
 
         public void LeerTodos()
@@ -21,7 +21,7 @@ namespace AppSenderismo.Persistencia
                 Usuario usuario = new Usuario(usuarioLeido[0], usuarioLeido[1],
                     usuarioLeido[2], usuarioLeido[3], usuarioLeido[4],
                     usuarioLeido[5], DateTime.Parse(usuarioLeido[6]));
-                usuarios.Add(usuario);
+                Usuarios.Add(usuario);
             }
         }
 

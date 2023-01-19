@@ -9,11 +9,11 @@ namespace AppSenderismo.Persistencia
 {
     public class ExcursionistaDAO
     {
-        public readonly List<Excursionista> excursionistas;
+        public readonly List<Excursionista> Excursionistas;
 
         public ExcursionistaDAO()
         {
-            excursionistas = new List<Excursionista>();
+            Excursionistas = new List<Excursionista>();
         }
 
         public void LeerTodos()
@@ -26,7 +26,7 @@ namespace AppSenderismo.Persistencia
                     new Excursionista(int.Parse(excursionistaLeido[0]),
                     excursionistaLeido[1], excursionistaLeido[2],
                     excursionistaLeido[3], int.Parse(excursionistaLeido[4]));
-                excursionistas.Add(excursionista);
+                Excursionistas.Add(excursionista);
             }
         }
 
