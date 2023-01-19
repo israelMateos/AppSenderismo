@@ -12,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Microsoft.Win32;
+using System.IO;
 using AppSenderismo.Dominio;
 
 namespace AppSenderismo.Presentacion
@@ -1252,6 +1254,34 @@ namespace AppSenderismo.Presentacion
         private void BtnSalirPromo_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void BtnCambiarImagenGuias_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) "
+                + "| *.jpg; *.jpeg; *.jpe; *.jfif; *.png"
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                imgGuia.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+            }
+        }
+
+        private void BtnCambiarImagenExc_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) "
+                + "| *.jpg; *.jpeg; *.jpe; *.jfif; *.png"
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                imgExcursionista.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+            }
         }
     }
 }
