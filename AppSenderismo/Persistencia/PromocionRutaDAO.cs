@@ -49,6 +49,13 @@ namespace AppSenderismo.Persistencia
                 + promo.Tipo + "', '" + promo.Descripcion + "')");
         }
 
+        public int Modificar(PromocionRuta promo)
+        {
+            return Agente.Instancia.Modificar("UPDATE `route_promotion` SET name='"
+                + promo.Nombre + "', type='" + promo.Tipo + "', description='"
+                + promo.Descripcion + "' WHERE id=" + promo.Id);
+        }
+
         public int Eliminar(PromocionRuta promo)
         {
             return Agente.Instancia.Modificar("DELETE FROM `route_promotion` WHERE "

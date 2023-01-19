@@ -1159,6 +1159,50 @@ namespace AppSenderismo.Presentacion
             }
         }
 
+        private void BtnModificarPromo_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (string.IsNullOrEmpty(TxtNombrePromo.Text) ||
+                ComboTipoPromo.SelectedIndex == -1 ||
+                string.IsNullOrEmpty(TxtDescripcionPromo.Text))
+            {
+                TxtFalloAnadirPromo.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                TxtFalloAnadirPromo.Visibility = Visibility.Hidden;
+                if (MessageBox.Show("¿Estás seguro de que quieres modificar la"
+                    + " promoción/ruta temática?", "Confirmar Modificación",
+                    MessageBoxButton.YesNo, MessageBoxImage.Warning)
+                    == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        // Para mantener el ID en caso de que se cambien todos los campos
+                        PromocionRuta promo
+                            = new PromocionRuta(LstBoxPromo.SelectedItem.ToString());
+                        promo.Leer();
+                        promo = new PromocionRuta(promo.Id, TxtNombrePromo.Text,
+                            ComboTipoPromo.Text, TxtDescripcionPromo.Text);
+                        int promosModificadas;
+                        if ((promosModificadas = promo.Modificar()) != 1)
+                        {
+                            MessageBox.Show("Se han modificado " + promosModificadas +
+                                " promociones/rutas temáticas.", "Error",
+                                MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        LstBoxPromo.Items.Clear();
+                        RellenarLstBoxPromos();
+                        BtnLimpiarPromo_Click(sender, e);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+        }
+
         private void BtnEliminarPromo_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("¿Estás seguro de que quieres eliminar la promoción"

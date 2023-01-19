@@ -58,6 +58,11 @@ namespace AppSenderismo.Dominio
             return Dao.Insertar(this);
         }
 
+        public int Modificar()
+        {
+            return Dao.Modificar(this);
+        }
+
         public int Eliminar()
         {
             return Dao.Eliminar(this);
