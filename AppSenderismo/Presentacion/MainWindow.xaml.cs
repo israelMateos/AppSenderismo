@@ -63,6 +63,7 @@ namespace AppSenderismo.Presentacion
                 }
                 if (tabExcursionista.IsSelected)
                 {
+                    BtnLimpiarExc_Click(sender, e);
                     LstBoxExc.Items.Clear();
                     RellenarLstBoxExc();
                     LstBoxRutasPlaneadas.Items.Clear();
@@ -71,6 +72,7 @@ namespace AppSenderismo.Presentacion
                 }
                 if (tabPromocionesTematicas.IsSelected)
                 {
+                    BtnLimpiarPromo_Click(sender, e);
                     LstBoxPromo.Items.Clear();
                     RellenarLstBoxPromos();
                 }
@@ -1087,6 +1089,41 @@ namespace AppSenderismo.Presentacion
                     LstBoxPromo.Items.Add(promo);
                 }
             }
+        }
+
+        private void LstBoxPromo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            BtnAnadirPromo.IsEnabled = false;
+            BtnModificarPromo.IsEnabled = true;
+            BtnEliminarPromo.IsEnabled = true;
+
+            if (LstBoxPromo.SelectedItem != null)
+            {
+                PromocionRuta promo = new PromocionRuta(LstBoxPromo.SelectedItem.ToString());
+                try
+                {
+                    promo.Leer();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                TxtNombrePromo.Text = promo.Nombre;
+                TxtDescripcionPromo.Text = promo.Descripcion;
+                ComboTipoPromo.SelectedValue = promo.Tipo;
+            }
+        }
+
+        private void BtnLimpiarPromo_Click(object sender, RoutedEventArgs e)
+        {
+            LstBoxPromo.UnselectAll();
+            TxtNombrePromo.Clear();
+            ComboTipoPromo.SelectedItem = null;
+            TxtDescripcionPromo.Clear();
+            LstBoxAdjuntos.Items.Clear();
+            BtnAnadirPromo.IsEnabled = true;
+            BtnModificarPromo.IsEnabled = false;
+            BtnEliminarPromo.IsEnabled = false;
         }
 
         private void BtnSalirDatosUsuario_Click(object sender, RoutedEventArgs e)
