@@ -77,6 +77,7 @@ namespace AppSenderismo.Presentacion
                     BtnLimpiarPromo_Click(sender, e);
                     LstBoxPromo.Items.Clear();
                     RellenarLstBoxPromos();
+                    LstBoxAdjuntos.Items.Clear();
                 }
             }
         }
@@ -1113,6 +1114,7 @@ namespace AppSenderismo.Presentacion
                 TxtNombrePromo.Text = promo.Nombre;
                 TxtDescripcionPromo.Text = promo.Descripcion;
                 ComboTipoPromo.SelectedValue = promo.Tipo;
+                RellenarLstBoxAdjutos();
             }
         }
 
@@ -1281,6 +1283,70 @@ namespace AppSenderismo.Presentacion
             if (openFileDialog.ShowDialog() == true)
             {
                 imgExcursionista.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+            }
+        }
+
+        private void RellenarLstBoxAdjutos()
+        {
+            LstBoxAdjuntos.Items.Clear();
+            string rutaCarpeta = "AdjuntosPromos";
+            if (Directory.Exists(rutaCarpeta))
+            {
+                string[] ficheros = Directory.GetFiles(rutaCarpeta);
+                string prefijo = TxtNombrePromo.Text + "_";
+                foreach (string fichero in ficheros)
+                {
+                    if (System.IO.Path.GetFileName(fichero).StartsWith(prefijo))
+                    {
+                        LstBoxAdjuntos.Items.Add(System.IO.Path.GetFileName(fichero)
+                            .Replace(prefijo, ""));
+                    }
+                }
+            }
+        }
+
+        private void BtnAdjuntarArchivosPromo_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Multiselect = true
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                // Create the "AdjuntosPromos" folder if it doesn't exist
+                string rutaCarpeta = "AdjuntosPromos";
+                if (!Directory.Exists(rutaCarpeta))
+                {
+                    Directory.CreateDirectory(rutaCarpeta);
+                }
+
+                // Copy the selected files to the "AdjuntosPromos" folder
+                // with a prefix consisting of the contents of the TxtNombrePromo TextBox
+                string prefijo = TxtNombrePromo.Text + "_";
+                foreach (string rutaFichero in openFileDialog.FileNames)
+                {
+                    FileInfo fichero = new FileInfo(rutaFichero);
+                    string nuevoNombreFichero = prefijo + fichero.Name;
+                    fichero.CopyTo(System.IO.Path.Combine(rutaCarpeta, nuevoNombreFichero), true);
+                }
+
+                // Clear the ListBox and add the files that match the prefix
+                RellenarLstBoxAdjutos();
+            }
+        }
+
+        private void LstBoxAdjuntos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                string fichero = LstBoxAdjuntos.SelectedItem.ToString();
+                string rutaCarpeta = "AdjuntosPromos";
+                string rutaFichero = System.IO.Path.Combine(rutaCarpeta,
+                    TxtNombrePromo.Text + "_" + fichero);
+
+                File.Delete(rutaFichero);
+                LstBoxAdjuntos.Items.Remove(LstBoxAdjuntos.SelectedItem);
             }
         }
     }
