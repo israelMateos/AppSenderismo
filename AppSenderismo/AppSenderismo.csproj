@@ -129,5 +129,9 @@
   <ItemGroup>
     <Resource Include="Imagenes\background.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\icon_back.png" />
+    <Resource Include="Imagenes\icon_forward.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
