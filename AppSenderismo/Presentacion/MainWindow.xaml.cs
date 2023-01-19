@@ -52,7 +52,7 @@ namespace AppSenderismo.Presentacion
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             List<string> nombresRutas = new List<string>();
-            foreach (Ruta r in ruta.Dao.rutas)
+            foreach (Ruta r in ruta.Dao.Rutas)
             {
                 nombresRutas.Add(r.Nombre);
             }
@@ -112,7 +112,7 @@ namespace AppSenderismo.Presentacion
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            foreach (Guia g in guia.Dao.guias)
+            foreach (Guia g in guia.Dao.Guias)
             {
                 ComboGuiaRutas.Items.Add(g.Email);
             }
@@ -411,7 +411,7 @@ namespace AppSenderismo.Presentacion
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             List<string> emailsGuias = new List<string>();
-            foreach (Guia g in guia.Dao.guias)
+            foreach (Guia g in guia.Dao.Guias)
             {
                 emailsGuias.Add(g.Email);
             }
@@ -688,7 +688,7 @@ namespace AppSenderismo.Presentacion
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             List<string> nombreApellidosExcursionistas = new List<string>();
-            foreach (Excursionista e in excursionista.Dao.excursionistas)
+            foreach (Excursionista e in excursionista.Dao.Excursionistas)
             {
                 nombreApellidosExcursionistas.Add(e.Nombre + " " + e.Apellidos
                     + " (" + e.Telefono + ")");

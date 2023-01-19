@@ -6,11 +6,11 @@ namespace AppSenderismo.Persistencia
 {
     public class RutaDAO
     {
-        public readonly List<Ruta> rutas;
+        public readonly List<Ruta> Rutas;
 
         public RutaDAO()
         {
-            rutas = new List<Ruta>();
+            Rutas = new List<Ruta>();
         }
 
         public void LeerTodas()
@@ -29,7 +29,7 @@ namespace AppSenderismo.Persistencia
                     rutaLeida[4], rutaLeida[5], rutaLeida[6],
                     int.Parse(rutaLeida[7]), rutaLeida[8], rutaLeida[9],
                     rutaLeida[10], bool.Parse(rutaLeida[11]), guia);
-                rutas.Add(ruta);
+                Rutas.Add(ruta);
             }
         }
 
