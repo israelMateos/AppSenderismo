@@ -1126,6 +1126,39 @@ namespace AppSenderismo.Presentacion
             BtnEliminarPromo.IsEnabled = false;
         }
 
+        private void BtnAnadirPromo_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(TxtNombrePromo.Text) ||
+                ComboTipoPromo.SelectedIndex == -1 ||
+                string.IsNullOrEmpty(TxtDescripcionPromo.Text))
+            {
+                TxtFalloAnadirPromo.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                TxtFalloAnadirPromo.Visibility = Visibility.Hidden;
+                PromocionRuta promo = new PromocionRuta(TxtNombrePromo.Text,
+                    ComboTipoPromo.Text, TxtDescripcionPromo.Text);
+                try
+                {
+                    int promosInsertadas;
+                    if ((promosInsertadas = promo.Insertar()) != 1)
+                    {
+                        MessageBox.Show("Se han añadido " + promosInsertadas +
+                            " promociones/rutas temáticas.", "Error",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    BtnLimpiarPromo_Click(sender, e);
+                    LstBoxPromo.Items.Clear();
+                    RellenarLstBoxPromos();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
         private void BtnEliminarPromo_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("¿Estás seguro de que quieres eliminar la promoción"
