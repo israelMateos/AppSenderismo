@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AppSenderismo.Presentacion"
         mc:Ignorable="d"
-        Title="AppSenderismo" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="AppSenderismo" WindowState="Maximized">
 
     <Grid Background="#FF2E2B2B">
         <Grid.RowDefinitions>
@@ -34,6 +34,9 @@
                                 <Setter Property="CornerRadius" Value="5"/>
                             </Style>
                         </Button.Resources>
+                        <Button.Effect>
+                            <DropShadowEffect ShadowDepth="2" Color="Black" Opacity="0.5"/>
+                        </Button.Effect>
                     </Button>
                 </StackPanel>
             </Border>

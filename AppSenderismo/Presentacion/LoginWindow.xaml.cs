@@ -54,9 +54,19 @@ namespace AppSenderismo.Presentacion
             usuario.Leer();
             if (!string.IsNullOrEmpty(usuario.Dni))
             {
-                MainWindow mainWindow = new MainWindow(usuario);
+                Window loginWindow = GetWindow(this);
+
+                Window mainWindow = new MainWindow(usuario)
+                {
+                    Width = loginWindow.Width,
+                    Height = loginWindow.Height,
+                    Left = loginWindow.Left,
+                    Top = loginWindow.Top,
+                    WindowState = loginWindow.WindowState
+                };
+
+                loginWindow.Close();
                 mainWindow.Show();
-                Close();
             }
             else
             {
