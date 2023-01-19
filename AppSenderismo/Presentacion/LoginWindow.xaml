@@ -7,7 +7,10 @@
         mc:Ignorable="d"
         Title="AppSenderismo" WindowState="Maximized">
 
-    <Grid Background="#FF2E2B2B">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Imagenes/background.png"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="37*"/>
             <RowDefinition Height="50*"/>

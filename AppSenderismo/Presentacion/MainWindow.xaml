@@ -8,7 +8,10 @@
         Title="AppSenderismo" Loaded="MainWindow_Loaded">
     <TabControl x:Name="TabCtrl" SelectionChanged="TabCtrlSelectionChanged">
         <TabItem x:Name="tabDatosUsuario" Header="Datos de usuario">
-            <Grid Background="#FF2E2B2B">
+            <Grid>
+            <Grid.Background>
+                <ImageBrush ImageSource="/Imagenes/background.png"/>
+            </Grid.Background>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="36*"/>
                     <RowDefinition Height="20*"/>
@@ -54,7 +57,10 @@
             </Grid>
         </TabItem>
         <TabItem x:Name="tabRutas" Header="Rutas">
-            <Grid Background="#FF2E2B2B">
+            <Grid>
+            <Grid.Background>
+                <ImageBrush ImageSource="/Imagenes/background.png"/>
+            </Grid.Background>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="36*"/>
                     <RowDefinition Height="365*"/>
@@ -186,7 +192,10 @@
         </TabItem>
 
         <TabItem x:Name="tabGuias" Header="Guias senderistas">
-            <Grid Background="#FF2E2B2B">
+            <Grid>
+            <Grid.Background>
+                <ImageBrush ImageSource="/Imagenes/background.png"/>
+            </Grid.Background>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="36*"/>
                     <RowDefinition Height="365*"/>
@@ -308,7 +317,10 @@
             </Grid>
         </TabItem>
         <TabItem x:Name="tabExcursionista" Header="Excursionistas">
-            <Grid Background="#FF2E2B2B">
+            <Grid>
+            <Grid.Background>
+                <ImageBrush ImageSource="/Imagenes/background.png"/>
+            </Grid.Background>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="36*"/>
                     <RowDefinition Height="365*"/>
@@ -418,7 +430,10 @@
             </Grid>
         </TabItem>
         <TabItem x:Name="tabPromocionesTematicas" Header="Promociones/Rutas temáticas">
-            <Grid Background="#FF2E2B2B">
+            <Grid>
+                <Grid.Background>
+                    <ImageBrush ImageSource="/Imagenes/background.png"/>
+                </Grid.Background>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="36*"/>
                     <RowDefinition Height="365*"/>
