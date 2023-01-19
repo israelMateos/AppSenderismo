@@ -40,7 +40,44 @@ namespace AppSenderismo.Presentacion
             TxtFechaAcceso.Text = _usuario.UltimoAcceso.ToString();
         }
 
-        private List<String> ObtenerNombresRutas()
+        private void TabCtrlSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.Source is TabControl)
+            {
+                if (tabRutas.IsSelected)
+                {
+                    BtnLimpiarRuta_Click(sender, e);
+                    LstBoxRutas.Items.Clear();
+                    LstBoxProvincias.Items.Clear();
+                    RellenarLstBoxRutas();
+                    RellenarLstBoxProvincias();
+                    RellenarComboGuiaRutas();
+                }
+                if (tabGuias.IsSelected)
+                {
+                    BtnLimpiarGuia_Click(sender, e);
+                    LstBoxGuias.Items.Clear();
+                    LstBoxIdiomas.Items.Clear();
+                    RellenarLstBoxGuias();
+                    RellenarLstBoxIdiomas();
+                }
+                if (tabExcursionista.IsSelected)
+                {
+                    LstBoxExc.Items.Clear();
+                    RellenarLstBoxExc();
+                    LstBoxRutasPlaneadas.Items.Clear();
+                    LstBoxRutasRealizadas.Items.Clear();
+                    RellenarLstBoxRutasExc();
+                }
+                if (tabPromocionesTematicas.IsSelected)
+                {
+                    LstBoxPromo.Items.Clear();
+                    RellenarLstBoxPromos();
+                }
+            }
+        }
+
+        private List<string> ObtenerNombresRutas()
         {
             Ruta ruta = new Ruta();
             try
@@ -115,38 +152,6 @@ namespace AppSenderismo.Presentacion
             foreach (Guia g in guia.Dao.Guias)
             {
                 ComboGuiaRutas.Items.Add(g.Email);
-            }
-        }
-
-        private void TabCtrlSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (e.Source is TabControl)
-            {
-                if (tabRutas.IsSelected)
-                {
-                    BtnLimpiarRuta_Click(sender, e);
-                    LstBoxRutas.Items.Clear();
-                    LstBoxProvincias.Items.Clear();
-                    RellenarLstBoxRutas();
-                    RellenarLstBoxProvincias();
-                    RellenarComboGuiaRutas();
-                }
-                if (tabGuias.IsSelected)
-                {
-                    BtnLimpiarGuia_Click(sender, e);
-                    LstBoxGuias.Items.Clear();
-                    LstBoxIdiomas.Items.Clear();
-                    RellenarLstBoxGuias();
-                    RellenarLstBoxIdiomas();
-                }
-                if (tabExcursionista.IsSelected)
-                {
-                    LstBoxExc.Items.Clear();
-                    RellenarLstBoxExc();
-                    LstBoxRutasPlaneadas.Items.Clear();
-                    LstBoxRutasRealizadas.Items.Clear();
-                    RellenarLstBoxRutasExc();
-                }
             }
         }
 
@@ -399,7 +404,7 @@ namespace AppSenderismo.Presentacion
             }
         }
 
-        private List<String> ObtenerEmailsGuias()
+        private List<string> ObtenerEmailsGuias()
         {
             Guia guia = new Guia();
             try
@@ -676,7 +681,7 @@ namespace AppSenderismo.Presentacion
             }
         }
 
-        private List<String> ObtenerItemsLstBoxExc()
+        private List<string> ObtenerItemsLstBoxExc()
         {
             Excursionista excursionista = new Excursionista();
             try
@@ -1033,6 +1038,53 @@ namespace AppSenderismo.Presentacion
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private List<string> ObtenerNombresPromos()
+        {
+            PromocionRuta promo = new PromocionRuta();
+            try
+            {
+                promo.LeerTodas();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            List<string> nombresPromos = new List<string>();
+            foreach (PromocionRuta p in promo.Dao.PromocionesRutas)
+            {
+                nombresPromos.Add(p.Nombre);
+            }
+            return nombresPromos;
+        }
+
+        private void RellenarLstBoxPromos()
+        {
+            foreach (string nombreRuta in ObtenerNombresPromos())
+            {
+                LstBoxPromo.Items.Add(nombreRuta);
+            }
+        }
+
+        private void TxtBuscarPromo_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string busqueda = TxtBuscarPromo.Text;
+            LstBoxPromo.Items.Clear();
+
+            if (string.IsNullOrEmpty(busqueda))
+            {
+                RellenarLstBoxPromos();
+            }
+            else
+            {
+                IEnumerable<string> promosFiltradas = ObtenerNombresPromos()
+                    .Where(promo => promo.ToLower().Contains(busqueda.ToLower()));
+                foreach (string promo in promosFiltradas)
+                {
+                    LstBoxPromo.Items.Add(promo);
                 }
             }
         }

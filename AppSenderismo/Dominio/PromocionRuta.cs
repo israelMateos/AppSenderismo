@@ -33,5 +33,24 @@ namespace AppSenderismo.Dominio
             Descripcion = descripcion;
             Dao = new PromocionRutaDAO();
         }
+
+        public PromocionRuta(int id, string nombre, string tipo, string descripcion)
+        {
+            Id = id;
+            Nombre = nombre;
+            Tipo = tipo;
+            Descripcion = descripcion;
+            Dao = new PromocionRutaDAO();
+        }
+
+        public void LeerTodas()
+        {
+            Dao.LeerTodas();
+        }
+
+        public void Leer()
+        {
+            Dao.Leer(this);
+        }
     }
 }
