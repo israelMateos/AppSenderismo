@@ -41,5 +41,11 @@ namespace AppSenderismo.Persistencia
                 promo.Descripcion = promoLeida[3];
             }
         }
+
+        public int Eliminar(PromocionRuta promo)
+        {
+            return Agente.Instancia.Modificar("DELETE FROM `route_promotion` WHERE "
+                + "name='" + promo.Nombre + "'");
+        }
     }
 }

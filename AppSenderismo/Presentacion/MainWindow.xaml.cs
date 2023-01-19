@@ -599,7 +599,7 @@ namespace AppSenderismo.Presentacion
                 "Confirmar Eliminación", MessageBoxButton.YesNo,
                 MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                Guia guia = new Guia(TxtCorreosGuia.Text);
+                Guia guia = new Guia(LstBoxGuias.SelectedItem.ToString());
                 try
                 {
                     int guiasEliminadas;
@@ -1124,6 +1124,32 @@ namespace AppSenderismo.Presentacion
             BtnAnadirPromo.IsEnabled = true;
             BtnModificarPromo.IsEnabled = false;
             BtnEliminarPromo.IsEnabled = false;
+        }
+
+        private void BtnEliminarPromo_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("¿Estás seguro de que quieres eliminar la promoción"
+                + "/ruta temática?",
+                "Confirmar Eliminación", MessageBoxButton.YesNo,
+                MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                PromocionRuta promo = new PromocionRuta(LstBoxPromo.SelectedItem.ToString());
+                try
+                {
+                    int promosEliminadas;
+                    if ((promosEliminadas = promo.Eliminar()) != 1)
+                    {
+                        MessageBox.Show("Se han eliminado " + promosEliminadas +
+                            " guías.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    LstBoxPromo.Items.RemoveAt(LstBoxPromo.SelectedIndex);
+                    BtnLimpiarPromo_Click(sender, e);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
 
         private void BtnSalirDatosUsuario_Click(object sender, RoutedEventArgs e)
