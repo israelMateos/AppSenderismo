@@ -59,6 +59,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Presentacion\AyudaWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Presentacion\LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -78,6 +82,9 @@
     <Compile Include="Persistencia\PromocionRutaDAO.cs" />
     <Compile Include="Persistencia\RutaDAO.cs" />
     <Compile Include="Persistencia\UsuarioDAO.cs" />
+    <Compile Include="Presentacion\AyudaWindow.xaml.cs">
+      <DependentUpon>AyudaWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Presentacion\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
@@ -125,6 +132,13 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\icon_candado.png" />
+    <Resource Include="Imagenes\icon_introduccion.png" />
+    <Resource Include="Imagenes\icon_llave.png" />
+    <Resource Include="Imagenes\icon_personalizar.png" />
+    <Resource Include="Imagenes\icon_telefono.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
