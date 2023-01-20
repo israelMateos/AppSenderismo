@@ -23,27 +23,29 @@
                     <DockPanel Grid.Column="1" Grid.Row="2" Background="White" Margin="0,0,0,0" Height="310">
                         <StackPanel Margin="40,0,20,0" HorizontalAlignment="Left">
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Introducción" Margin="0,20,0,0"/>
-                            <TextBox x:Name="TxtIntroducción" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="200" IsEnabled="False"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Esta es una aplicación en la que ponemos a disposición diferentes rutas senderistas con un guía que servirá de ayuda para la realicacización de las mismas" Margin="0,20,0,0"/>
                                 <StackPanel Width="16" Height="16">
                     <Image Source="/Imagenes/icon_introduccion.png"/>
                 </StackPanel>
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Privacidad y seguridad" Margin="0,10,0,0"/>
-                            <TextBox x:Name="TxtPrivSec" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" IsEnabled="False"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Para poder procesar sus actividades y proporcionarle contenido, es posible que la aplicación deba facilitar a la empresa cierta información personal, como su nombre y su dirección de correo electrónico. La empresa acuerdan utilizar su información personal de acuerdo con sus propias políticas de privacidad.Todos los datos recogidos por la aplicación es tan importante para ti como para nosotros." Margin="0,10,0,0"/>
+
                                 <StackPanel Width="16" Height="16">
                     <Image Source="/Imagenes/icon_candado.png"/>
                 </StackPanel>
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Personalizar" Margin="0,10,0,0"/>
-                            <TextBox x:Name="TxtPersonalizar" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="100" HorizontalAlignment="Left" IsEnabled="False"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Puede personalizar su perfil de acuerdo con los datos que se le piden y son introducidos por el usuario, además de poder personalizar el idioma con los diferentes idiomas que ofrece la aplicación en el apartado de idiomas" Margin="0,10,0,0"/>
+
                             <StackPanel Width="16" Height="16">
                     <Image Source="/Imagenes/icon_personalizar.png"/>
                 </StackPanel>
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Solución de problemas" Margin="0,10,0,0"/>
-                            <TextBox x:Name="TxtSolProblemas" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" HorizontalAlignment="Left" Width="100" IsEnabled="False"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Es posible que si está experimentando problemas con la aplicación de deba a una de las siguientes posibilidades. Primero compruebe que tiene conexión a Internet, de no ser así la aplicación no funcionará correctamente. Si una vez comprobado esto la aplicación no funciona correctamente, quizás requiera de una actualización, busque una nueva actualizacización en la tienda correspondientte desde donde instaló la aplicación." Margin="0,10,0,0"/>
                             <StackPanel Width="16" Height="16">
                     <Image Source="/Imagenes/icon_llave.png"/>
                 </StackPanel>
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Contacta con nosotros" Margin="0,10,0,0"/>
-                            <TextBox x:Name="TxtContacta" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" HorizontalAlignment="Left" Width="100" IsEnabled="False"/>
+                            <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Si aún sigue experimentando problemas o continúa teniendo dudas acerca de nuestra apliación puede contactar con nosotros con una llamada telefónica al teléfono 648 478 183" Margin="0,10,0,0"/>
                                 <StackPanel Width="16" Height="16">
                     <Image Source="/Imagenes/icon_telefono.png"/>
                 </StackPanel>
