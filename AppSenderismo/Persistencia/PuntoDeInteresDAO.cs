@@ -47,7 +47,7 @@ namespace AppSenderismo.Persistencia
         {
             List<List<string>> puntosLeidos =
                 Agente.Instancia.Leer("SELECT * FROM `interesting_site` "
-                + "WHERE phone = '" + punto.Nombre + "'");
+                + "WHERE name = '" + punto.Nombre + "'");
             foreach (List<string> puntoLeido in puntosLeidos)
             {
                 punto.Id = int.Parse(puntoLeido[0]);

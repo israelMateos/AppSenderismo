@@ -192,25 +192,25 @@
                     <DockPanel Grid.Column="1" LastChildFill="False" Grid.Row="1" Background="White" Margin="10,10,10,10">
                         <StackPanel Margin="10">
                             <TextBlock FontFamily="Microsoft JhengHei UI" Text="PUNTOS DE INTERÉS" Margin="0,0,0,10" FontWeight="Bold" TextDecorations="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                            <TextBox x:Name="TxtBuscarPdi" Margin="0" FontFamily="Microsoft JhengHei UI Light" Padding="15,0,0,0" TextChanged="TxtBuscarRutas_TextChanged" Width="121.333333333333" HorizontalAlignment="Left">
+                            <TextBox x:Name="TxtBuscarPdi" Margin="0" FontFamily="Microsoft JhengHei UI Light" Padding="15,0,0,0" TextChanged="TxtBuscarRutas_TextChanged" Width="140" HorizontalAlignment="Left">
                                 <TextBox.Background>
                                     <ImageBrush ImageSource="/Imagenes/icon_magnifying_glass.png" Stretch="Uniform" AlignmentX="Left"/>
                                 </TextBox.Background>
                             </TextBox>
-                            <ListBox x:Name="LstBoxPdi" Margin="0,4,0,0" FontFamily="Microsoft JhengHei UI Light" SelectionChanged="LstBoxPdi_SelectionChanged" Height="195" Width="121.333333333333" HorizontalAlignment="Left"/>
+                            <ListBox x:Name="LstBoxPdi" Margin="0,4,0,0" FontFamily="Microsoft JhengHei UI Light" SelectionChanged="LstBoxPdi_SelectionChanged" Height="195" Width="140" HorizontalAlignment="Left"/>
                         </StackPanel>
                         <StackPanel Margin="10">
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Nombre" Margin="0,25,0,0"/>
-                            <TextBox x:Name="TxtNombrePdi" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" MinWidth="100" MaxWidth="100" Width="100" IsEnabled="False"/>
+                            <TextBox x:Name="TxtNombrePdi" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" MinWidth="140" MaxWidth="140" Width="140" IsEnabled="False"/>
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Tipología" Margin="0,15,0,0"/>
-                            <TextBox x:Name="TxtTipologiaPdi" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="100" MinWidth="100" MaxWidth="100"/>
+                            <TextBox x:Name="TxtTipologiaPdi" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Width="140" MinWidth="140" MaxWidth="140"/>
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Descripción" Margin="0,15,0,0"/>
-                            <TextBox x:Name="TxtDescripcionPdi" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Height="74" Width="100" MinWidth="100" MaxWidth="100" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"/>
+                            <TextBox x:Name="TxtDescripcionPdi" FontFamily="Microsoft JhengHei UI Light" Margin="0,10,0,0" Height="74" Width="140" MinWidth="140" MaxWidth="140" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"/>
                         </StackPanel>
                         <StackPanel Margin="10,10,10,10">
-                            <Border Margin="0,25,0,0" BorderBrush="Black" BorderThickness="1" Background="White" Width="103.333333333333" Height="100">
+                            <Border Margin="0,25,0,0" BorderBrush="Black" BorderThickness="1" Background="White" Height="100">
                                 <StackPanel>
-                                    <Image x:Name="imgPdi" Source="/Imagenes/background.png" Stretch="Uniform" Width="80" Height="55" Margin="5,5,5,10" />
+                                    <Image x:Name="ImgPdi" Source="/Imagenes/background.png" Stretch="Uniform" Width="80" Height="55" Margin="5,5,5,10" Visibility="Hidden" />
                                     <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,5">
                                         <Button x:Name="BtnAntImgPdi" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,5,0" BorderThickness="0,0,0,0" IsEnabled="False" >
                                             <StackPanel Width="16" Height="16">
@@ -242,7 +242,7 @@
                                 </StackPanel>
                             </Border>
                             <TextBlock FontFamily="Microsoft JhengHei UI" Text="EXCURSIONISTAS" Margin="0,16,0,0" FontWeight="Bold"/>
-                            <ListBox x:Name="LstBoxExcRuta" Margin="0,10,0,0" FontFamily="Microsoft JhengHei UI Light" HorizontalAlignment="Left" Width="103.333333333333" MinWidth="103.333333333333" MaxWidth="103.333333333333" Height="49"/>
+                            <ListBox x:Name="LstBoxExcRuta" Margin="0,10,0,0" FontFamily="Microsoft JhengHei UI Light" HorizontalAlignment="Left" Width="140" MinWidth="140" MaxWidth="140" Height="49"/>
                             <Button x:Name="BtnAntRutaPdi" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,8,0,0" BorderThickness="0,0,0,0" Click="BtnAntRutaPdi_Click" >
                                 <StackPanel Width="16" Height="16">
                                     <Image Source="/Imagenes/icon_back.png"/>

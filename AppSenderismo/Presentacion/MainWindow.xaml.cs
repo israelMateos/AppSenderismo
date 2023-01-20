@@ -1418,11 +1418,30 @@ namespace AppSenderismo.Presentacion
         {
             ViewboxRuta.Visibility = Visibility.Visible;
             ViewboxPdi.Visibility = Visibility.Collapsed;
+            ImgPdi.Visibility = Visibility.Hidden;
         }
 
         private void LstBoxPdi_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            if (LstBoxPdi.SelectedItem != null)
+            {
+                PuntoDeInteres punto =
+                    new PuntoDeInteres(LstBoxPdi.SelectedItem.ToString());
+                try
+                {
+                    punto.Leer();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                TxtNombrePdi.Text = punto.Nombre;
+                TxtTipologiaPdi.Text = punto.Tipologia;
+                TxtDescripcionPdi.Text = punto.Descripcion;
+                ImgPdi.Visibility = Visibility.Visible;
+                BtnAntImgPdi.IsEnabled = true;
+                BtnSigImgPdi.IsEnabled = true;
+            }
         }
     }
 }
