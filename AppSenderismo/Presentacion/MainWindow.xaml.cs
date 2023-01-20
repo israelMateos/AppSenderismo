@@ -1122,7 +1122,7 @@ namespace AppSenderismo.Presentacion
                 TxtNombrePromo.Text = promo.Nombre;
                 TxtDescripcionPromo.Text = promo.Descripcion;
                 ComboTipoPromo.SelectedValue = promo.Tipo;
-                RellenarLstBoxAdjutos();
+                RellenarLstBoxAdjuntos();
             }
         }
 
@@ -1294,7 +1294,7 @@ namespace AppSenderismo.Presentacion
             }
         }
 
-        private void RellenarLstBoxAdjutos()
+        private void RellenarLstBoxAdjuntos()
         {
             LstBoxAdjuntos.Items.Clear();
             string rutaCarpeta = "AdjuntosPromos";
@@ -1340,7 +1340,7 @@ namespace AppSenderismo.Presentacion
                 }
 
                 // Clear the ListBox and add the files that match the prefix
-                RellenarLstBoxAdjutos();
+                RellenarLstBoxAdjuntos();
             }
         }
 
