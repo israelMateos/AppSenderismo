@@ -82,7 +82,7 @@
                     </StackPanel>
                 </Viewbox>
 
-                <Viewbox x:Name="ViewboxRuta" Grid.Row="1" Grid.Column="1" Stretch="Uniform" Visibility="Collapsed">
+                <Viewbox x:Name="ViewboxRuta" Grid.Row="1" Grid.Column="1" Stretch="Uniform">
                     <DockPanel Grid.Column="1" LastChildFill="False" Grid.Row="1" Background="White" Margin="10,10,10,10" Height="338">
                         <StackPanel Margin="10,10,10,10">
                             <TextBlock FontFamily="Microsoft JhengHei UI Light" Text="Nombre *" Margin="0,15,0,0"/>
@@ -188,7 +188,7 @@
                         </StackPanel>
                     </DockPanel>
                 </Viewbox>
-                <Viewbox x:Name="ViewboxPdi" Grid.Row="1" Grid.Column="1" Stretch="Uniform">
+                <Viewbox x:Name="ViewboxPdi" Grid.Row="1" Grid.Column="1" Stretch="Uniform" Visibility="Collapsed">
                     <DockPanel Grid.Column="1" LastChildFill="False" Grid.Row="1" Background="White" Margin="10,10,10,10">
                         <StackPanel Margin="10">
                             <TextBlock FontFamily="Microsoft JhengHei UI" Text="PUNTOS DE INTERÉS" Margin="0,0,0,10" FontWeight="Bold" TextDecorations="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
