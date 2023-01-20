@@ -54,6 +54,37 @@ DROP TABLE IF EXISTS `route`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 
+--
+-- Table structure for table `interesting_site`
+--
+
+DROP TABLE IF EXISTS `interesting_site`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `interesting_site` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `typology` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `route_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`),
+  KEY `fk_route_id` (`route_id`),
+  CONSTRAINT `fk_route_id` FOREIGN KEY (`route_id`) REFERENCES `route` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `interesting_site`
+--
+
+LOCK TABLES `interesting_site` WRITE;
+/*!40000 ALTER TABLE `interesting_site` DISABLE KEYS */;
+INSERT INTO `interesting_site` VALUES (1,'Mirador del Valle','Mirador','Desde el mirador se tiene una vista panorámica del valle y sus alrededores.',1),(2,'Área de avistamiento de aves','Avistamiento de aves','En esta área se pueden observar varias especies de aves autóctonas.',1),(3,'Cruce del río X','Cruce de río','Este es el lugar donde el sendero cruza el río X.',2),(4,'Puente Colgante','Puente','Este es un puente colgante que permite cruzar un profundo barranco.',3),(5,'Pinturas rupestres de la Cueva Y','Pinturas rupestres','En esta cueva se encuentran pinturas rupestres de gran valor cultural e histórico.',4),(6,'Castillo Medieval','Edificación histórica','Este castillo medieval es un ejemplo de arquitectura feudal y tiene una gran importancia histórica.',5),(7,'Cascada del Bosque','Cascada','Esta cascada es una de las más impresionantes de la zona, rodeada de vegetación y con una caída de agua de 20 metros.',NULL),(8,'Jardín Botánico','Jardín botánico','Este jardín cuenta con una gran variedad de plantas autóctonas y exóticas, ideales para los amantes de la botánica.',7),(9,'Punto panorámico del Monte','Mirador','Desde este punto se tiene una vista panorámica del monte y sus alrededores.',8),(10,'Museo de la Fauna','Museo','Este museo cuenta con una gran variedad de ejemplares de fauna autóctona, ideales para los amantes de la naturaleza.',9),(11,'Cueva de las estalactitas','Cueva','Esta cueva cuenta con impresionantes formaciones de estalactitas y estalagmitas, ideales para los amantes de la espeleología.',NULL),(12,'Iglesia Románica','Edificación histórica','Esta iglesia románica es un ejemplo de arquitectura religiosa y tiene una gran importancia histórica.',10);
+/*!40000 ALTER TABLE `interesting_site` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
 DROP TABLE IF EXISTS `guide`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
