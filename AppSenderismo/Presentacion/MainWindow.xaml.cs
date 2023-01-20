@@ -1122,7 +1122,7 @@ namespace AppSenderismo.Presentacion
                 TxtNombrePromo.Text = promo.Nombre;
                 TxtDescripcionPromo.Text = promo.Descripcion;
                 ComboTipoPromo.SelectedValue = promo.Tipo;
-                RellenarLstBoxAdjutos();
+                RellenarLstBoxAdjuntos();
             }
         }
 
@@ -1294,7 +1294,7 @@ namespace AppSenderismo.Presentacion
             }
         }
 
-        private void RellenarLstBoxAdjutos()
+        private void RellenarLstBoxAdjuntos()
         {
             LstBoxAdjuntos.Items.Clear();
             string rutaCarpeta = "AdjuntosPromos";
@@ -1340,7 +1340,7 @@ namespace AppSenderismo.Presentacion
                 }
 
                 // Clear the ListBox and add the files that match the prefix
-                RellenarLstBoxAdjutos();
+                RellenarLstBoxAdjuntos();
             }
         }
 
@@ -1412,6 +1412,8 @@ namespace AppSenderismo.Presentacion
             ViewboxPdi.Visibility = Visibility.Visible;
             LstBoxPdi.Items.Clear();
             RellenarLstBoxPdi();
+            LstBoxExcRuta.Items.Clear();
+            RellenarLstBoxExcRuta();
         }
 
         private void BtnAntRutaPdi_Click(object sender, RoutedEventArgs e)
@@ -1441,6 +1443,35 @@ namespace AppSenderismo.Presentacion
                 ImgPdi.Visibility = Visibility.Visible;
                 BtnAntImgPdi.IsEnabled = true;
                 BtnSigImgPdi.IsEnabled = true;
+            }
+        }
+
+        private List<string> ObtenerItemsLstBoxExcRuta()
+        {
+            Ruta ruta = new Ruta(LstBoxRutas.SelectedItem.ToString());
+            try
+            {
+                ruta.Leer();
+                ruta.LeerExcursionistas();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            List<string> nombreApellidosExcursionistas = new List<string>();
+            foreach (Excursionista e in ruta.Excursionistas)
+            {
+                nombreApellidosExcursionistas.Add(e.Nombre + " " + e.Apellidos
+                    + " (" + e.Telefono + ")");
+            }
+            return nombreApellidosExcursionistas;
+        }
+
+        private void RellenarLstBoxExcRuta()
+        {
+            foreach (string nombreExc in ObtenerItemsLstBoxExcRuta())
+            {
+                LstBoxExcRuta.Items.Add(nombreExc);
             }
         }
     }

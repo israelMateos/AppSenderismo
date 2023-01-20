@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using AppSenderismo.Persistencia;
 
 namespace AppSenderismo.Dominio
@@ -18,6 +19,7 @@ namespace AppSenderismo.Dominio
         public string MaterialNecesario { get; set; }
         public bool ComidaEnRuta { get; set; }
         public Guia Guia { get; set; }
+        public List<Excursionista> Excursionistas { get; set; }
         public readonly RutaDAO Dao;
 
         public Ruta()
@@ -91,6 +93,11 @@ namespace AppSenderismo.Dominio
         public void LeerPorId()
         {
             Dao.LeerPorId(this);
+        }
+
+        public void LeerExcursionistas()
+        {
+            Dao.LeerExcursionistas(this);
         }
 
         public int Insertar()

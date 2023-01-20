@@ -89,6 +89,23 @@ namespace AppSenderismo.Persistencia
             }
         }
 
+        public void LeerExcursionistas(Ruta ruta)
+        {
+            List<List<string>> excLeidos =
+                Agente.Instancia.Leer("SELECT traveller.* FROM traveller JOIN takes "
+                + "ON traveller.id = takes.traveller_id WHERE takes.route_id = "
+                + ruta.Id);
+            List<Excursionista> excursionistas = new List<Excursionista>();
+            foreach (List<string> excLeido in excLeidos)
+            {
+                Excursionista excursionista =
+                    new Excursionista(int.Parse(excLeido[0]), excLeido[1],
+                    excLeido[2], excLeido[3], int.Parse(excLeido[4]));
+                excursionistas.Add(excursionista);
+            }
+            ruta.Excursionistas = excursionistas;
+        }
+
         public int Insertar(Ruta ruta)
         {
             if (ruta.Guia != null)
