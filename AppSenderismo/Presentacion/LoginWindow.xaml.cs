@@ -115,5 +115,11 @@ namespace AppSenderismo.Presentacion
         {
             Application.Current.Shutdown();
         }
+
+        private void BtnAyuda_Click(object sender, RoutedEventArgs e)
+        {
+            Window ayudaWindow = new AyudaWindow();
+            ayudaWindow.Show();
+        }
     }
 }

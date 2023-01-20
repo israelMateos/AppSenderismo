@@ -1474,5 +1474,35 @@ namespace AppSenderismo.Presentacion
                 LstBoxExcRuta.Items.Add(nombreExc);
             }
         }
+
+        private void BtnAyudaDatosUsuario_Click(object sender, RoutedEventArgs e)
+        {
+            Window ayudawindow = new AyudaWindow();
+            ayudawindow.Show();
+        }
+
+        private void BtnAyudaRutas_Click(object sender, RoutedEventArgs e)
+        {
+            Window ayudawindow = new AyudaWindow();
+            ayudawindow.Show();
+        }
+
+        private void BtnAyudaGuias_Click(object sender, RoutedEventArgs e)
+        {
+            Window ayudawindow = new AyudaWindow();
+            ayudawindow.Show();
+        }
+
+        private void BtnAyudaExc_Click(object sender, RoutedEventArgs e)
+        {
+            Window ayudawindow = new AyudaWindow();
+            ayudawindow.Show();
+        }
+
+        private void BtnAyudaPromo_Click(object sender, RoutedEventArgs e)
+        {
+            Window ayudaWindow = new AyudaWindow();
+            ayudaWindow.Show();
+        }
     }
 }

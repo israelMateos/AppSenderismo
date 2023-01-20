@@ -7,7 +7,10 @@
         mc:Ignorable="d"
         Title="AppSenderismo" WindowState="Maximized">
 
-    <Grid Background="#FF2E2B2B">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Imagenes/background.png"/>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="56*"/>
             <RowDefinition Height="325*"/>
@@ -18,8 +21,7 @@
             <ColumnDefinition Width="10*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <Viewbox Grid.Column="1" Grid.Row="1" Stretch="UniformToFill">
-            <ScrollViewer Background="White" Width="450">
+            <ScrollViewer Background="White" CanContentScroll="True" Grid.Column="1" Grid.Row="1">
                 <StackPanel Margin="10">
                     <DockPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0">
                         <Image Height="16" Source="/Imagenes/icon_introduccion.png" VerticalAlignment="Center" HorizontalAlignment="Left"/>
@@ -48,6 +50,5 @@
                     <TextBlock TextWrapping="Wrap" FontFamily="Microsoft JhengHei UI Light" Text="Si aún sigue experimentando problemas o continúa teniendo dudas acerca de nuestra apliación puede contactar con nosotros con una llamada telefónica al teléfono 648 478 183" Margin="0"/>
                 </StackPanel>
             </ScrollViewer>
-        </Viewbox>
     </Grid>
 </Window>
