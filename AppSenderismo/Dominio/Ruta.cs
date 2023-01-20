@@ -31,6 +31,12 @@ namespace AppSenderismo.Dominio
             Dao = new RutaDAO();
         }
 
+        public Ruta(int id)
+        {
+            Id = id;
+            Dao = new RutaDAO();
+        }
+
         public Ruta(string nombre, string provincias, DateTime fecha,
             string origen, string destino, string dificultad, int duracionEstimada,
             string formaAcceso, string formaSalida, string materialNecesario,
@@ -80,6 +86,11 @@ namespace AppSenderismo.Dominio
         public void Leer()
         {
             Dao.Leer(this);
+        }
+
+        public void LeerPorId()
+        {
+            Dao.LeerPorId(this);
         }
 
         public int Insertar()

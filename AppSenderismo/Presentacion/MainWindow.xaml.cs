@@ -48,6 +48,8 @@ namespace AppSenderismo.Presentacion
             {
                 if (tabRutas.IsSelected)
                 {
+                    ViewboxRuta.Visibility = Visibility.Visible;
+                    ViewboxPdi.Visibility = Visibility.Collapsed;
                     BtnLimpiarRuta_Click(sender, e);
                     LstBoxRutas.Items.Clear();
                     LstBoxProvincias.Items.Clear();
@@ -199,6 +201,7 @@ namespace AppSenderismo.Presentacion
             BtnAnadirRuta.IsEnabled = true;
             BtnModificarRuta.IsEnabled = false;
             BtnEliminarRuta.IsEnabled = false;
+            BtnSigPdi.IsEnabled = false;
             TxtNombreRuta.IsEnabled = true;
         }
 
@@ -242,6 +245,11 @@ namespace AppSenderismo.Presentacion
                 TxtMaterialRuta.Text = ruta.MaterialNecesario;
                 CheckComerRuta.IsChecked = ruta.ComidaEnRuta;
                 TxtNombreRuta.IsEnabled = false;
+                if (ViewboxRuta.Visibility == Visibility.Collapsed)
+                {
+                    BtnAntRutaPdi_Click(sender, e);
+                }
+                BtnSigPdi.IsEnabled = true;
             }
         }
 
@@ -1348,6 +1356,73 @@ namespace AppSenderismo.Presentacion
                 File.Delete(rutaFichero);
                 LstBoxAdjuntos.Items.Remove(LstBoxAdjuntos.SelectedItem);
             }
+        }
+
+        private List<string> ObtenerNombresPdis()
+        {
+            PuntoDeInteres punto = new PuntoDeInteres();
+            Ruta ruta = new Ruta(LstBoxRutas.SelectedItem.ToString());
+            try
+            {
+                punto.LeerTodos();
+                ruta.Leer();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            List<string> nombresPdis = new List<string>();
+            foreach (PuntoDeInteres p in punto.Dao.PuntosDeInteres)
+            {
+                if (p.Ruta != null && p.Ruta.Id == ruta.Id)
+                {
+                    nombresPdis.Add(p.Nombre);
+                }
+            }
+            return nombresPdis;
+        }
+
+        private void RellenarLstBoxPdi()
+        {
+            List<string> nombresPdis = ObtenerNombresPdis();
+            if (nombresPdis.Count != 0)
+            {
+                TxtTipologiaPdi.IsEnabled = true;
+                TxtDescripcionPdi.IsEnabled = true;
+                BtnAntImgPdi.IsEnabled = true;
+                BtnSigImgPdi.IsEnabled = true;
+
+                foreach (string nombrePdi in nombresPdis)
+                {
+                    LstBoxPdi.Items.Add(nombrePdi);
+                }
+            }
+            else
+            {
+                TxtTipologiaPdi.IsEnabled = false;
+                TxtDescripcionPdi.IsEnabled = false;
+                BtnAntImgPdi.IsEnabled = false;
+                BtnSigImgPdi.IsEnabled = false;
+            }
+        }
+
+        private void BtnSigPdi_Click(object sender, RoutedEventArgs e)
+        {
+            ViewboxRuta.Visibility = Visibility.Collapsed;
+            ViewboxPdi.Visibility = Visibility.Visible;
+            LstBoxPdi.Items.Clear();
+            RellenarLstBoxPdi();
+        }
+
+        private void BtnAntRutaPdi_Click(object sender, RoutedEventArgs e)
+        {
+            ViewboxRuta.Visibility = Visibility.Visible;
+            ViewboxPdi.Visibility = Visibility.Collapsed;
+        }
+
+        private void LstBoxPdi_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

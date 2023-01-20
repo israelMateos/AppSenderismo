@@ -61,6 +61,34 @@ namespace AppSenderismo.Persistencia
             }
         }
 
+        public void LeerPorId(Ruta ruta)
+        {
+            List<List<string>> rutasLeidas =
+                Agente.Instancia.Leer("SELECT * FROM `route` WHERE id = '" + ruta.Id + "'");
+            foreach (List<string> rutaLeida in rutasLeidas)
+            {
+                ruta.Id = int.Parse(rutaLeida[0]);
+                ruta.Nombre = rutaLeida[1];
+                ruta.Provincias = rutaLeida[2];
+                ruta.Fecha = DateTime.Parse(rutaLeida[3]);
+                ruta.Origen = rutaLeida[4];
+                ruta.Destino = rutaLeida[5];
+                ruta.Dificultad = rutaLeida[6];
+                ruta.DuracionEstimada = int.Parse(rutaLeida[7]);
+                ruta.FormaAcceso = rutaLeida[8];
+                ruta.FormaSalida = rutaLeida[9];
+                ruta.MaterialNecesario = rutaLeida[10];
+                ruta.ComidaEnRuta = bool.Parse(rutaLeida[11]);
+                Guia guia = null;
+                if (!(string.IsNullOrEmpty(rutaLeida[12]) || rutaLeida[12] == "NULL"))
+                {
+                    guia = new Guia(int.Parse(rutaLeida[12]));
+                    guia.LeerPorId();
+                }
+                ruta.Guia = guia;
+            }
+        }
+
         public int Insertar(Ruta ruta)
         {
             if (ruta.Guia != null)
