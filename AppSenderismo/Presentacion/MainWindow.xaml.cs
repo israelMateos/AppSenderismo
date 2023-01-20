@@ -12,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Microsoft.Win32;
+using System.IO;
 using AppSenderismo.Dominio;
 
 namespace AppSenderismo.Presentacion
@@ -46,6 +48,8 @@ namespace AppSenderismo.Presentacion
             {
                 if (tabRutas.IsSelected)
                 {
+                    ViewboxRuta.Visibility = Visibility.Visible;
+                    ViewboxPdi.Visibility = Visibility.Collapsed;
                     BtnLimpiarRuta_Click(sender, e);
                     LstBoxRutas.Items.Clear();
                     LstBoxProvincias.Items.Clear();
@@ -75,6 +79,7 @@ namespace AppSenderismo.Presentacion
                     BtnLimpiarPromo_Click(sender, e);
                     LstBoxPromo.Items.Clear();
                     RellenarLstBoxPromos();
+                    LstBoxAdjuntos.Items.Clear();
                 }
             }
         }
@@ -196,6 +201,7 @@ namespace AppSenderismo.Presentacion
             BtnAnadirRuta.IsEnabled = true;
             BtnModificarRuta.IsEnabled = false;
             BtnEliminarRuta.IsEnabled = false;
+            BtnSigPdi.IsEnabled = false;
             TxtNombreRuta.IsEnabled = true;
         }
 
@@ -239,6 +245,11 @@ namespace AppSenderismo.Presentacion
                 TxtMaterialRuta.Text = ruta.MaterialNecesario;
                 CheckComerRuta.IsChecked = ruta.ComidaEnRuta;
                 TxtNombreRuta.IsEnabled = false;
+                if (ViewboxRuta.Visibility == Visibility.Collapsed)
+                {
+                    BtnAntRutaPdi_Click(sender, e);
+                }
+                BtnSigPdi.IsEnabled = true;
             }
         }
 
@@ -1111,6 +1122,7 @@ namespace AppSenderismo.Presentacion
                 TxtNombrePromo.Text = promo.Nombre;
                 TxtDescripcionPromo.Text = promo.Descripcion;
                 ComboTipoPromo.SelectedValue = promo.Tipo;
+                RellenarLstBoxAdjuntos();
             }
         }
 
@@ -1252,6 +1264,215 @@ namespace AppSenderismo.Presentacion
         private void BtnSalirPromo_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void BtnCambiarImagenGuias_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) "
+                + "| *.jpg; *.jpeg; *.jpe; *.jfif; *.png"
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                imgGuia.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+            }
+        }
+
+        private void BtnCambiarImagenExc_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) "
+                + "| *.jpg; *.jpeg; *.jpe; *.jfif; *.png"
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                imgExcursionista.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+            }
+        }
+
+        private void RellenarLstBoxAdjuntos()
+        {
+            LstBoxAdjuntos.Items.Clear();
+            string rutaCarpeta = "AdjuntosPromos";
+            if (Directory.Exists(rutaCarpeta))
+            {
+                string[] ficheros = Directory.GetFiles(rutaCarpeta);
+                string prefijo = TxtNombrePromo.Text + "_";
+                foreach (string fichero in ficheros)
+                {
+                    if (System.IO.Path.GetFileName(fichero).StartsWith(prefijo))
+                    {
+                        LstBoxAdjuntos.Items.Add(System.IO.Path.GetFileName(fichero)
+                            .Replace(prefijo, ""));
+                    }
+                }
+            }
+        }
+
+        private void BtnAdjuntarArchivosPromo_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Multiselect = true
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                // Create the "AdjuntosPromos" folder if it doesn't exist
+                string rutaCarpeta = "AdjuntosPromos";
+                if (!Directory.Exists(rutaCarpeta))
+                {
+                    Directory.CreateDirectory(rutaCarpeta);
+                }
+
+                // Copy the selected files to the "AdjuntosPromos" folder
+                // with a prefix consisting of the contents of the TxtNombrePromo TextBox
+                string prefijo = TxtNombrePromo.Text + "_";
+                foreach (string rutaFichero in openFileDialog.FileNames)
+                {
+                    FileInfo fichero = new FileInfo(rutaFichero);
+                    string nuevoNombreFichero = prefijo + fichero.Name;
+                    fichero.CopyTo(System.IO.Path.Combine(rutaCarpeta, nuevoNombreFichero), true);
+                }
+
+                // Clear the ListBox and add the files that match the prefix
+                RellenarLstBoxAdjuntos();
+            }
+        }
+
+        private void LstBoxAdjuntos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                string fichero = LstBoxAdjuntos.SelectedItem.ToString();
+                string rutaCarpeta = "AdjuntosPromos";
+                string rutaFichero = System.IO.Path.Combine(rutaCarpeta,
+                    TxtNombrePromo.Text + "_" + fichero);
+
+                File.Delete(rutaFichero);
+                LstBoxAdjuntos.Items.Remove(LstBoxAdjuntos.SelectedItem);
+            }
+        }
+
+        private List<string> ObtenerNombresPdis()
+        {
+            PuntoDeInteres punto = new PuntoDeInteres();
+            Ruta ruta = new Ruta(LstBoxRutas.SelectedItem.ToString());
+            try
+            {
+                punto.LeerTodos();
+                ruta.Leer();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            List<string> nombresPdis = new List<string>();
+            foreach (PuntoDeInteres p in punto.Dao.PuntosDeInteres)
+            {
+                if (p.Ruta != null && p.Ruta.Id == ruta.Id)
+                {
+                    nombresPdis.Add(p.Nombre);
+                }
+            }
+            return nombresPdis;
+        }
+
+        private void RellenarLstBoxPdi()
+        {
+            List<string> nombresPdis = ObtenerNombresPdis();
+            if (nombresPdis.Count != 0)
+            {
+                TxtTipologiaPdi.IsEnabled = true;
+                TxtDescripcionPdi.IsEnabled = true;
+                BtnAntImgPdi.IsEnabled = true;
+                BtnSigImgPdi.IsEnabled = true;
+
+                foreach (string nombrePdi in nombresPdis)
+                {
+                    LstBoxPdi.Items.Add(nombrePdi);
+                }
+            }
+            else
+            {
+                TxtTipologiaPdi.IsEnabled = false;
+                TxtDescripcionPdi.IsEnabled = false;
+                BtnAntImgPdi.IsEnabled = false;
+                BtnSigImgPdi.IsEnabled = false;
+            }
+        }
+
+        private void BtnSigPdi_Click(object sender, RoutedEventArgs e)
+        {
+            ViewboxRuta.Visibility = Visibility.Collapsed;
+            ViewboxPdi.Visibility = Visibility.Visible;
+            LstBoxPdi.Items.Clear();
+            RellenarLstBoxPdi();
+            LstBoxExcRuta.Items.Clear();
+            RellenarLstBoxExcRuta();
+        }
+
+        private void BtnAntRutaPdi_Click(object sender, RoutedEventArgs e)
+        {
+            ViewboxRuta.Visibility = Visibility.Visible;
+            ViewboxPdi.Visibility = Visibility.Collapsed;
+            ImgPdi.Visibility = Visibility.Hidden;
+        }
+
+        private void LstBoxPdi_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (LstBoxPdi.SelectedItem != null)
+            {
+                PuntoDeInteres punto =
+                    new PuntoDeInteres(LstBoxPdi.SelectedItem.ToString());
+                try
+                {
+                    punto.Leer();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                TxtNombrePdi.Text = punto.Nombre;
+                TxtTipologiaPdi.Text = punto.Tipologia;
+                TxtDescripcionPdi.Text = punto.Descripcion;
+                ImgPdi.Visibility = Visibility.Visible;
+                BtnAntImgPdi.IsEnabled = true;
+                BtnSigImgPdi.IsEnabled = true;
+            }
+        }
+
+        private List<string> ObtenerItemsLstBoxExcRuta()
+        {
+            Ruta ruta = new Ruta(LstBoxRutas.SelectedItem.ToString());
+            try
+            {
+                ruta.Leer();
+                ruta.LeerExcursionistas();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            List<string> nombreApellidosExcursionistas = new List<string>();
+            foreach (Excursionista e in ruta.Excursionistas)
+            {
+                nombreApellidosExcursionistas.Add(e.Nombre + " " + e.Apellidos
+                    + " (" + e.Telefono + ")");
+            }
+            return nombreApellidosExcursionistas;
+        }
+
+        private void RellenarLstBoxExcRuta()
+        {
+            foreach (string nombreExc in ObtenerItemsLstBoxExcRuta())
+            {
+                LstBoxExcRuta.Items.Add(nombreExc);
+            }
         }
     }
 }

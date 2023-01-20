@@ -74,12 +74,14 @@
     <Compile Include="Dominio\Excursionista.cs" />
     <Compile Include="Dominio\Guia.cs" />
     <Compile Include="Dominio\PromocionRuta.cs" />
+    <Compile Include="Dominio\PuntoDeInteres.cs" />
     <Compile Include="Dominio\Ruta.cs" />
     <Compile Include="Dominio\Usuario.cs" />
     <Compile Include="Persistencia\Agente.cs" />
     <Compile Include="Persistencia\ExcursionistaDAO.cs" />
     <Compile Include="Persistencia\GuiaDAO.cs" />
     <Compile Include="Persistencia\PromocionRutaDAO.cs" />
+    <Compile Include="Persistencia\PuntoDeInteresDAO.cs" />
     <Compile Include="Persistencia\RutaDAO.cs" />
     <Compile Include="Persistencia\UsuarioDAO.cs" />
     <Compile Include="Presentacion\AyudaWindow.xaml.cs">
@@ -139,6 +141,9 @@
     <Resource Include="Imagenes\icon_llave.png" />
     <Resource Include="Imagenes\icon_personalizar.png" />
     <Resource Include="Imagenes\icon_telefono.png" />
+    <Resource Include="Imagenes\background.png" />
+    <Resource Include="Imagenes\icon_back.png" />
+    <Resource Include="Imagenes\icon_forward.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
